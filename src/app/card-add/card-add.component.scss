@@ -1,0 +1,45 @@
+
+  mat-form-field{
+    width: 100%;
+
+  }
+
+.container-button{
+      display:flex;
+      justify-content: center;
+      
+   
+  }
+
+  .add-form{
+    margin-top: 15px;
+  }
+  
+.but-orange{
+    color:white;
+    background-color: orange;
+    margin-top: 15px;
+    padding: 10px;
+    font-size: large;
+    margin:10px;
+}
+
+.but-orange:hover{
+    color:white;
+    background-color: orangered;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: orangered !important;
+   }
+  
+  //  ::ng-deep.mat-form-field-underline {
+  //   /*change color of underline*/
+  //   // background-color: green !important;
+  // } 
+  
+  ::ng-deep.mat-form-field-ripple {
+   /*change color of underline when focused*/
+   background-color: orangered !important;;
+  }

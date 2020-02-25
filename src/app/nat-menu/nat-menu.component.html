@@ -1,0 +1,104 @@
+<mat-sidenav-container>
+
+    <mat-sidenav 
+        #sidenav
+        mode="over" 
+        hasBackdrop = "False"
+        fixedInViewport = "fixe"
+        fixedTopGap = 80
+        fixedBottomGap = 70
+        [(opened)]="opened" 
+        (opened)="events.push('open!')"
+        (closed)="events.push('close!')">
+        
+        <div>
+            <button
+                mat-icon-button 
+                id="menu-button"
+                class="menu-button"
+                (click)="sidenav.toggle()"
+                tooltip-position="below"
+                matTooltipShowDelay="500"
+                matTooltip="Fermer menu">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </div>
+        
+        <mat-nav-list>
+        <mat-list-item (click)="onClicBackHome();sidenav.toggle()">
+            <mat-icon matListIcon>home</mat-icon>
+            Retour accueil
+        </mat-list-item>
+    </mat-nav-list>
+
+        <mat-nav-list>
+            <h1 matSubheader> Authentification </h1>
+            <mat-list-item (click) = "onClicLogin();sidenav.toggle()">
+                <mat-icon  matListIcon>account_box</mat-icon>
+                Login
+            </mat-list-item>
+
+        </mat-nav-list>
+
+        <mat-nav-list>
+            <h1 matSubheader> 
+                Banque photos test
+            </h1>
+            <mat-list-item (click)="onClicKitchen();sidenav.toggle()">
+                <mat-icon matListIcon>kitchen</mat-icon>
+                Cuisine
+            </mat-list-item>
+        </mat-nav-list>
+
+        <mat-nav-list>
+            <mat-list-item (click)="onClicBathtub();sidenav.toggle()">
+                <mat-icon matListIcon>bathtub</mat-icon>
+                    Salle de bain
+                </mat-list-item>
+            </mat-nav-list>
+        
+        <mat-nav-list>
+            <mat-list-item (click)="onClicAddImg();sidenav.toggle()">
+                <mat-icon matListIcon>add_photo_alternate</mat-icon>
+                <!-- <mat-icon matListIcon>perm_media</mat-icon> -->
+                    Ajouter des photos trouvées sur internet
+                </mat-list-item>
+        </mat-nav-list>
+
+    
+    </mat-sidenav>
+  
+    <!-- contenue menu ouvert -->
+    <mat-sidenav-content>
+        <button
+            mat-icon-button
+            id="menu-button"
+            class="menu-button"
+            (click)="sidenav.toggle()"
+            matTooltip="Ouvrir menu">
+
+            <mat-icon>menu</mat-icon>
+            Menu
+        </button>
+
+        <app-accueil *ngIf="accueilIsOn"></app-accueil>
+
+        <!-- Bonne list de card en fonction de la list cuisine, salle bain, perso, etc -->
+        <app-card-container 
+            [listCard]="listCard" 
+            [avatar]="avatar"
+            [cardType] = "cardType"
+            *ngIf="cardIsOn"
+            >
+        </app-card-container>
+
+        <app-login *ngIf="loginIsOn"></app-login>
+     
+      <!-- <p><button mat-button (click)="sidenav.toggle()">sidenav.toggle()</button></p>
+      <p>Events:</p>
+      <div class="example-events">
+        <div *ngFor="let e of events">{{e}}</div>
+      </div> -->
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  

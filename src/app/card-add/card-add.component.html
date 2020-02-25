@@ -1,0 +1,48 @@
+
+
+<h1>Ajouter des images trouvées sur internet</h1>
+
+<h4>Lorsque vous trouver une image sur internet, simplement ouvrir le menu contextuel(clic droit) sur cet image et faire "copier l'adresse de l'image"
+    <mat-icon (click)="OnClickHelp()" matListIcon>help</mat-icon>
+</h4>
+
+<div >
+
+  <img *ngIf="expand_more"  class='copier_adresse' 
+    src= 'assets/copier_adresse.png'
+    width="400"
+    alt="copier adresse image"
+  >
+</div>
+<form class="add-form">
+    <mat-form-field>
+      <mat-label>Coller une adresse image</mat-label>
+      <input matInput 
+        id="pathImg"
+        placeholder="Ex. https://adncuisines.ca/wp-content/uploads/2018/07/adncuisines-IMG_4781.jpg"
+        [(ngModel)]="path"
+        type="url"
+        name="pathNewImg"
+        >
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Saisir un titre</mat-label>
+        <input matInput 
+          id="title"
+          placeholder="Ex. Des armoires avec de magnifiques pentures "
+          [(ngModel)]="title"
+          type="texte"
+          name="titleNewImg"
+          >
+    </mat-form-field>
+    
+    <div class="container-button">
+        <button type="submit" class='but-orange' mat-raised-button (click)="saveNewCard()">  Ajouter</button>
+        <button type="reset" class='but-orange' mat-raised-button (click)="clearNewCard()">  Effacer</button>
+    </div>
+
+  </form>
+<!--   
+  <div class="container-button">
+    <button class='but-orange' mat-raised-button (click)="saveNewCard()">  Sauvegarde</button>
+</div> -->

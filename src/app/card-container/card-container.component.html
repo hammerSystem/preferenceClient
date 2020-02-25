@@ -1,0 +1,24 @@
+
+<!-- <div *ngIf="cardLoad | async"> -->
+<!-- visible seulement si le type de card est a ajouter -->
+<div *ngIf="cardType ==='custom' ">
+    <app-card-add></app-card-add>
+</div>
+
+<div *ngIf="listCard.length>0" class="div-card-container">
+    <app-nat-card *ngFor="let maCard of listCard; let i = index"
+        [index]="i"
+        [path]="maCard.path" 
+        [desc]= "maCard.desc" 
+        [title]="maCard.title"
+        [avatar]= "avatar"
+        [cardType] = "cardType"
+        [like] = "maCard.like"
+        [comment] = "maCard.comment">
+
+    </app-nat-card>
+    <div class="container-button">
+        <button class='but-orange' mat-raised-button (click)="saveListCard()">  Sauvegarde</button>
+    </div>
+</div>
+<!-- </div> -->

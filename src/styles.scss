@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+// JM
+.but-orange{
+    color:white;
+    background-color: orange;
+    margin-top: 15px !important;
+    padding: 10px;
+    font-size: large;
+  }
+  
+  .but-orange:hover{
+    color:white;
+    background-color: orangered;
+  }
+
+
+
+// JM fin 
+  
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

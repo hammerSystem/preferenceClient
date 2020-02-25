@@ -1,0 +1,48 @@
+
+<mat-card>
+    <mat-card-header>
+        <!-- <div mat-card-avatar class="avatar-img"></div> -->
+        <mat-icon mat-card-avatar>{{avatar}}</mat-icon>
+        <!-- {{index}} -->
+
+       <mat-card-title>{{title}}</mat-card-title>
+       <!-- <mat-card-subtitle> sous-titre</mat-card-subtitle> -->
+    </mat-card-header>
+    <img mat-card-image src= "{{path}}" alt = "photo armoire">
+    <mat-card-content>
+       <p>
+            {{desc}}
+       </p>
+    </mat-card-content>
+    <div class="mdc-card__actions">
+        <div class="mdc-card__action-icons">
+
+          <button class="but-like" aria-pressed="false"  title="like" (click)="onClickLike()" >
+          <!-- <button class="but-like" aria-pressed="false"  title="like" (click)="onClickLike()"  [(ngModel)]="like"> -->
+              <mat-icon [ngClass]="{'color_like_but': like=== true, 
+                                    'color_not_like_but' : like===false }" 
+                  class="but-like" matSuffix>favorite
+              </mat-icon>
+          </button>
+
+          <form >
+            <mat-form-field class="form-field" >
+              <mat-label class="monLabel">Saisir un commentaire</mat-label>
+              <!-- <input class="input-commentaire" matInput placeholder="Saisir un commentaire" value="commentaires"></input> -->
+              <input matInput 
+                placeholder="Ex. J'adore le comptoir sur cette phtoto"
+                [(ngModel)]="comment"
+                type="texte"
+                name="titleNewImg"
+                (focusout)="saveACard()"
+              >
+              <!--  <textarea class="text-commentaire" matInput placeholder="Ex. J'adore le comptoir sur cette phtoto"  [(ngModel)]="comment"></textarea> --> 
+              <mat-icon matSuffix>mode_edit</mat-icon>
+            </mat-form-field>
+          </form>
+
+          <button class='but-save' mat-raised-button (click)="saveACard()">  sauvegarde </button>
+
+        </div>
+      </div>
+ </mat-card>
