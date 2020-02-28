@@ -4,6 +4,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {NatCard} from  '../NatCard'
 import { CardService } from '../services/card-service';
 import { EventEmitter } from 'protractor';
+import { Observable } from "rxjs"
 
 @Component({
 	selector: 'app-nat-menu',
@@ -28,50 +29,11 @@ export class NatMenuComponent implements OnInit {
 
 	constructor(private cardService:CardService) { }
 		
-	ngOnInit() {}
+	ngOnInit() {
+		this.cardService.getAllListCardFromServer();
+		// this.cardService.setCardTest()
 
-	// listCardKitchen = [
-		// {
-		// path: './assets/photo/cuisine1.jpg',
-		// title: 'titre photo 1',
-		// desc: 'une petite description de la photo 1'
-		// }, 
-		// {
-		// path: './assets/photo/cuisine2.jpg',
-		// title: 'titre photo 2',
-		// desc: 'une petite description de la photo 2'
-		// },
-		// {
-		// path: './assets/photo/cuisine3.jpg',
-		// title: 'titre photo 3',
-		// desc: 'une petite description de la photo 3'
-		// }
-	// ];
-	
-	// listCardBathtub = [
-	// 	{
-	// 		path: './assets/photo/salle_bain1.jpg',
-	// 		title: 'titre photo 1',
-	// 		desc: 'une petite description de la photo 1'
-	// 	}, 
-	// 	{
-	// 		path: './assets/photo/salle_bain2.jpg',
-	// 		title: 'titre photo 2',
-	// 		desc: 'une petite description de la photo 2'
-	// 	},
-	// 	{
-	// 		path: './assets/photo/salle_bain3.jpg',
-	// 		title: 'titre photo 3',
-	// 		desc: 'une petite description de la photo 3'
-	// 	}
-	// ];
-	// listCardAddImg =[];
-	// 	{
-	// 		path: ' ',
-	// 		title: '',
-	// 		desc: ''
-	// 	}
-	// ]
+	}
 
 
 	onClicBackHome(){
@@ -87,20 +49,8 @@ export class NatMenuComponent implements OnInit {
 		this.accueilIsOn = false;
 		this.cardIsOn = true;
 		this.listCard = this.cardService.getListFromType(this.cardType);
-		// this.eventChangementLitCard.emit(null);
 		this.avatar = 'kitchen'
 		this.loginIsOn = false;
-
-			
-	// 	debugger;
-	// 	this.cardService.getListCardsFromServer(this.cardType).subscribe(data => {
-	// 	debugger;
-	// 	if (data[0])
-	// 		// this.article=data[0];
-	// 		debugger;
-	// 		this.listCard = this.cardService.getListFromType(this.cardType);
-	// 		debugger;
-	// })
 
 	}
 
@@ -113,6 +63,7 @@ export class NatMenuComponent implements OnInit {
 		this.avatar = 'bathtub'
 		this.loginIsOn = false;
 		this.cardType = 'bathtub';
+		// debugger;
 		this.listCard = this.cardService.getListFromType(this.cardType);
 	}
 

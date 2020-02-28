@@ -38,7 +38,7 @@ export class NatCardComponent implements OnInit {
 // }
 
 onClickLike(){
-  debugger;
+  // debugger;
 	console.log('like');
 	if (!this.like){
 		this.like = true;
@@ -50,9 +50,13 @@ onClickLike(){
   
 saveACard(){
     console.log("saveComment");
-    debugger;
+    // debugger;
     this.cardService.saveACard(this.cardType, this.index, this.like, this.comment);
 
+  }
+
+  deleteACard(){
+    this.cardService.deleteACard(this.cardType, this.index);
   }
 
 

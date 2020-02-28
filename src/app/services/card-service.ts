@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,63 +14,75 @@ export class CardService{
 	user = 'test'
 	  
 	listCardKitchen = [];
-	// 	{
-	// 		path: './assets/photo/cuisine1.jpg',
-	// 		title: 'titre photo 1',
-	// 		desc: 'une petite description de la photo 1',
-	// 		like:true,
-	// 		comment:''
-	// 	}, 
-	// 	{
-	// 		path: './assets/photo/cuisine2.jpg',
-	// 		title: 'titre photo 2',
-	// 		desc: 'une petite description de la photo 2',
-	// 		like:true,
-	// 		comment:''
-	// 	},
-	// 	{
-	// 		path: './assets/photo/cuisine3.jpg',
-	// 		title: 'titre photo 3',
-	// 		desc: 'une petite description de la photo 3',
-	// 		like:false,
-	// 		comment:''
-	// 	},
-
-	// 	{
-	// 		path: '//maisonetdemeure.com/wp-content/uploads/imported/galleries/md-shot-5_SUP_HH_AU09.jpg',
-	// 		title: 'la cuisine de Ricardo :)',
-	// 		desc: 'Nice cuisine!!',
-	// 		like:false,
-	// 		comment:''
-	// 		}
-	// ];
-	
 	listCardBathtub = [];
-	// 	{
-	// 		path: './assets/photo/salle_bain1.jpg',
-	// 		title: 'titre photo 1',
-	// 		desc: 'une petite description de la photo 1',
-	// 		like:false,
-	// 		comment:''
-	// 	}, 
-	// 	{
-	// 		path: './assets/photo/salle_bain2.jpg',
-	// 		title: 'titre photo 2',
-	// 		desc: 'une petite description de la photo 2',
-	// 		like:false,
-	// 		comment:''
-	// 	},
-	// 	{
-	// 		path: './assets/photo/salle_bain3.jpg',
-	// 		title: 'titre photo 3',
-	// 		desc: 'une petite description de la photo 3',
-	// 		like:false,
-	// 		comment:''
-	// 	}
-	//   ];
-	  listCardCustomImg =[];
+	listCardCustomImg =[];
+
+	// listCardKitchenEmptyOnServer:boolean = false;
+	// listCardBathtubEmptyOnServer:boolean =false;
+	// listCardCustomImgEmptyOnServer:boolean =false;
+
+	public listKitchen$: Observable<[]> = this.getObservableListCardsFromServer('kitchen')
+	public listBathTub$: Observable<[]> = this.getObservableListCardsFromServer('bathtub')
+	public listCustom$: Observable<[]> =this.getObservableListCardsFromServer('custom')
+
+	setCardTest(){
+		this.listCardKitchen = [
+			{
+				path: './assets/photo/cuisine1.jpg',
+				title: 'titre photo 1',
+				desc: 'une petite description de la photo 1',
+				like:true,
+				comment:''
+			}, 
+			{
+				path: './assets/photo/cuisine2.jpg',
+				title: 'titre photo 2',
+				desc: 'une petite description de la photo 2',
+				like:true,
+				comment:''
+			},
+			{
+				path: './assets/photo/cuisine3.jpg',
+				title: 'titre photo 3',
+				desc: 'une petite description de la photo 3',
+				like:false,
+				comment:''
+			},
 	
-	// listCardIsLoad:Promise<boolean>
+			{
+				path: '//maisonetdemeure.com/wp-content/uploads/imported/galleries/md-shot-5_SUP_HH_AU09.jpg',
+				title: 'la cuisine de Ricardo :)',
+				desc: 'Nice cuisine!!',
+				like:false,
+				comment:''
+				}
+		];
+		
+		this.listCardBathtub = [
+			{
+				path: './assets/photo/salle_bain1.jpg',
+				title: 'titre photo 1',
+				desc: 'une petite description de la photo 1',
+				like:false,
+				comment:''
+			}, 
+			{
+				path: './assets/photo/salle_bain2.jpg',
+				title: 'titre photo 2',
+				desc: 'une petite description de la photo 2',
+				like:false,
+				comment:''
+			},
+			{
+				path: './assets/photo/salle_bain3.jpg',
+				title: 'titre photo 3',
+				desc: 'une petite description de la photo 3',
+				like:false,
+				comment:''
+			}
+		  ];
+	}
+
 
 	getUrlBdWithUserAndType(cardType) {
 		let urlBdSaveList = this.urlBd;
@@ -87,16 +100,45 @@ export class CardService{
 		return urlBdSaveList;
 	}
 
+	// getIsListEmptyOnServer(cardType){
+
+	// 	// debugger;
+	// 	if (cardType === 'kitchen'){
+	// 		return this.listCardKitchenEmptyOnServer;
+	// 	}
+	// 	else if(cardType === 'bathtub'){
+	// 		return this.listCardBathtubEmptyOnServer;
+	// 	}
+	// 	else if(cardType === 'custom'){
+	// 		return this.listCardCustomImgEmptyOnServer
+	// 	}
+	// }
+	// setIsEmpty(cardType, value){
+	// 	if (cardType === 'kitchen'){
+	// 		this.listCardKitchenEmptyOnServer = value;
+	// 	}
+	// 	else if(cardType === 'bathtub'){
+	// 		this.listCardBathtubEmptyOnServer = value;
+	// 	}
+	// 	else if(cardType === 'custom'){
+	// 		this.listCardCustomImgEmptyOnServer = value;
+	// 	}
+	// }
+	
 	saveListCardToServer(cardType) {
 
+		debugger;
 		let urlBdSaveList = this.getUrlBdWithUserAndType(cardType)
-		
-		this.httpClient
-		  .post(urlBdSaveList, this.listCardKitchen)
-		//   .post('https://preferenceclient.firebaseio.com/listCardKitchen.json', this.listCardKitchen)
+		let goodList = this.getListFromType(cardType);
+		let requeteHttp:any;
+
+			requeteHttp = this.httpClient.put(urlBdSaveList, goodList)
+			console.log('PUT!!');
+
+		requeteHttp
 		  .subscribe(
 			() => {
-			  console.log('Enregistrement cuisine terminé !');
+			  console.log('Enregistrement server terminé !');
 			},
 			(error) => {
 			  console.log('Erreur ! : ' + error);
@@ -109,8 +151,16 @@ export class CardService{
 
 	}
 
-	getListCardsFromServer(cardType): any {
-		debugger;
+
+	getObservableListCardsFromServer(cardType): any {
+		// debugger;
+		let urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
+		return this.httpClient.get<any[]>(urlBdSaveList);
+	}
+
+
+	getListCardsFromServerOld(cardType): any {
+		// debugger;
 		let urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
 		return this.httpClient
 		  .get<any[]>(urlBdSaveList)
@@ -119,20 +169,83 @@ export class CardService{
 				console.log('reponse');
 				console.log(Object.values(response));
 				this.setListFromType(cardType, Object.values(response)[0])
-				// cardLoad = Promise.resolve(true)
-			//   this.appareils = response;
-			//   this.emitAppareilSubject();
 			},
 			(error) => {
 			  console.log('Erreur dans le getList server ! : ' + error);
 			}
-			
 		  );
+	}
+	getAllListCardFromServer(){
+		// this.listBathTub$= this.getListCardsFromServer('bathtub');
+		// this.listCustom$ = this.getListCardsFromServer('custom');
+
+		console.log('get all from server');
+		debugger;
+		
+		this.listKitchen$.subscribe((listCard: any[]) => {
+			if (listCard){
+				this.setListFromType('kitchen', listCard)
+			}else{
+				console.log('list kitchen vide...)');
+				// this.listCardKitchenEmptyOnServer = true;
+			}
+		})
+
+		this.listBathTub$.subscribe((listCard: any[]) => {
+			if (listCard){
+				this.setListFromType('bathtub', listCard)
+			}else{
+				console.log('list bath vide...)');
+				// this.listCardBathtubEmptyOnServer = true;
+			}
+		})
+
+		this.listCustom$.subscribe((listCard: any[]) => {
+			if (listCard){
+				this.setListFromType('custom', listCard);
+			}else{
+				console.log('list custom vide...)');
+				// this.listCardCustomImgEmptyOnServer = true;
+			}
+		})
+
+
+		// this.listCardKitchen = this.getListCardsFromServer('kitchen');
+		// if (Object.getOwnPropertyNames(listCardKitchen).length >0){
+		// 	this.listCardKitchen = listCardKitchen;
+		// 	this.listCardKitchenEmptyOnServer = false;
+		// }else{
+		// 	this.listCardKitchenEmptyOnServer = true;
+		// 	this.listCardKitchen =[];
+		// }
+
+		// this.listCardBathtub = this.getListCardsFromServer('bathtub');
+
+		// let listCardBathtub = this.getListCardsFromServer('bathtub');
+		// if (listCardBathtub.lenght()>0){
+		// 	this.listCardBathtub = listCardBathtub;
+		// 	this.listCardBathtubEmptyOnServer = false;
+		// }else{
+		// 	this.listCardBathtubEmptyOnServer = true;
+		// 	this.listCardBathtub = []
+		// }
+		
+		// this.listCardCustomImg = this.getListCardsFromServer('custom');
+
+		// let listCardCustom = this.getListCardsFromServer('custom');
+		// debugger;
+		// if (listCardCustom.lenght()>0 ){
+		// 	this.listCardCustomImg = listCardCustom;
+		// 	this.listCardCustomImgEmptyOnServer = false;
+		// }else{
+		// 	this.listCardCustomImgEmptyOnServer = true;
+		// 	this.listCardCustomImg = [];
+		// }
 
 	}
   
     getListFromType(typeList:string){
-		debugger;
+		// debugger;
         if (typeList === 'kitchen'){
             return this.listCardKitchen;
 		}
@@ -145,7 +258,7 @@ export class CardService{
 	}
 
 	setListFromType(typeList:string, listCards:any[]){
-		debugger;
+		// debugger;
 		if (typeList === 'kitchen'){
             this.listCardKitchen = listCards;
 		}
@@ -168,7 +281,7 @@ export class CardService{
 
 		let goodList:any[];
 		goodList = this.getListFromType(typeList)
-
+		debugger;
 		goodList.push(
 			{
 				path: pathImg,
@@ -185,7 +298,11 @@ export class CardService{
 		let goodList = this.getListFromType(cardType);
 		goodList[cardIndex].like = like;
 		goodList[cardIndex].comment = comment;
+	}
 
+	deleteACard(cardType, index){
+		let goodList = this.getListFromType(cardType);
+		goodList.splice(index, 1)
 	}
 
 

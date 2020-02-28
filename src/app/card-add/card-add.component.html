@@ -2,21 +2,21 @@
 
 <h1>Ajouter des images trouvées sur internet</h1>
 
-<h4>Lorsque vous trouver une image sur internet, simplement ouvrir le menu contextuel(clic droit) sur cet image et faire "copier l'adresse de l'image"
+<h4>Lorsque vous trouvez une image sur internet, ouvrir le menu contextuel(clic droit) sur cette image et faire "copier l'adresse de l'image". Coller ensuite l'adresse dans la case à cet effet.
     <mat-icon (click)="OnClickHelp()" matListIcon>help</mat-icon>
 </h4>
 
 <div >
 
   <img *ngIf="expand_more"  class='copier_adresse' 
-    src= 'assets/copier_adresse.png'
+    src= 'assets/copier_adresse2.png'
     width="400"
     alt="copier adresse image"
   >
 </div>
 <form class="add-form">
     <mat-form-field>
-      <mat-label>Coller une adresse image</mat-label>
+      <mat-label>Coller l'adresse image</mat-label>
       <input matInput 
         id="pathImg"
         placeholder="Ex. https://adncuisines.ca/wp-content/uploads/2018/07/adncuisines-IMG_4781.jpg"

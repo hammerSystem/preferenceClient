@@ -41,7 +41,8 @@
             </mat-form-field>
           </form>
 
-          <button class='but-save' mat-raised-button (click)="saveACard()">  sauvegarde </button>
+          <!-- <button class='but-save' mat-raised-button (click)="saveACard()">  sauvegarde </button> -->
+          <button *ngIf="cardType==='custom'" class='but-save' mat-raised-button (click)="deleteACard()">  Supprimer </button>
 
         </div>
       </div>

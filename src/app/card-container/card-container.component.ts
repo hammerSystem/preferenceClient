@@ -11,7 +11,7 @@ import { CardService } from '../services/card-service';
 export class CardContainerComponent implements OnInit {
   
   @Input() avatar:string; 
-  @Input() listCard:any[]= [];
+  @Input() listCard:any[] = [];
   @Input() cardType:string;
   
   // cardLoad:Promise<boolean>;
@@ -19,19 +19,20 @@ export class CardContainerComponent implements OnInit {
 
   ngOnInit() {
     console.log('init');
+    debugger;
     // this.listCard = this.cardService.getListFromType(this.cardType)
     let typePhoto =  ['kitchen', 'bathtub', 'custom'];
 
-    debugger;
-    this.cardService.getListCardsFromServer(this.cardType).subscribe(data => {
-      debugger;
-      if (data[0])
-          // this.article=data[0];
-          this.listCard = this.cardService.getListFromType(this.cardType);
+    // debugger;
+    // this.cardService.getListCardsFromServer(this.cardType).subscribe(data => {
+    //   debugger;
+      // if (data[0])
+      //     // this.article=data[0];
+      //     this.listCard = this.cardService.getListFromType(this.cardType);
+    this.listCard = this.cardService.getListFromType(this.cardType);
+  };
 
-    })
 
-};
     // this.listCard = this.cardService.getListFromType(this.cardType);
   //   debugger;
   // }
