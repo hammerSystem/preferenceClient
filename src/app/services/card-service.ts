@@ -209,39 +209,6 @@ export class CardService{
 			}
 		})
 
-
-		// this.listCardKitchen = this.getListCardsFromServer('kitchen');
-		// if (Object.getOwnPropertyNames(listCardKitchen).length >0){
-		// 	this.listCardKitchen = listCardKitchen;
-		// 	this.listCardKitchenEmptyOnServer = false;
-		// }else{
-		// 	this.listCardKitchenEmptyOnServer = true;
-		// 	this.listCardKitchen =[];
-		// }
-
-		// this.listCardBathtub = this.getListCardsFromServer('bathtub');
-
-		// let listCardBathtub = this.getListCardsFromServer('bathtub');
-		// if (listCardBathtub.lenght()>0){
-		// 	this.listCardBathtub = listCardBathtub;
-		// 	this.listCardBathtubEmptyOnServer = false;
-		// }else{
-		// 	this.listCardBathtubEmptyOnServer = true;
-		// 	this.listCardBathtub = []
-		// }
-		
-		// this.listCardCustomImg = this.getListCardsFromServer('custom');
-
-		// let listCardCustom = this.getListCardsFromServer('custom');
-		// debugger;
-		// if (listCardCustom.lenght()>0 ){
-		// 	this.listCardCustomImg = listCardCustom;
-		// 	this.listCardCustomImgEmptyOnServer = false;
-		// }else{
-		// 	this.listCardCustomImgEmptyOnServer = true;
-		// 	this.listCardCustomImg = [];
-		// }
-
 	}
   
     getListFromType(typeList:string){
