@@ -58,7 +58,8 @@ import { LoginComponent } from './login/login.component';
 import { CardAddComponent } from './card-add/card-add.component';
 import { CardService} from '../app/services/card-service' 
 import { HttpClientModule } from '@angular/common/http';
-
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireStorageModule} from 'angularfire2/storage'
 
 
 @NgModule({
@@ -77,7 +78,15 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    
+    AngularFireModule.initializeApp({
+      apiKey: "<your-api-key>",
+      authDomain: "preferenceclient",
+      storageBucket: "preferenceclient.appspot.com",
+      projectId: "preferenceclient",
+    }),
+    AngularFireStorageModule,
+
+
     MatCardModule, 
     MatButtonModule,
     MatSidenavModule,

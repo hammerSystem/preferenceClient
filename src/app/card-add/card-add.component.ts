@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CardService } from '../services/card-service';
+import { __importDefault } from 'tslib';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 
 @Component({
@@ -11,13 +13,44 @@ export class CardAddComponent implements OnInit {
 
   @Input() title: string;
   @Input() path: string;
+  @Input() pathImageFileToUpload: string;
+
   expand_more=false;
   // @Input() description:string;
 
-  constructor(private cardService:CardService) { }
+  private basePath = '/images';
+  file: File;
+  url = '';
+
+  constructor(private cardService:CardService,  private afStorage: AngularFireStorage ) { }
+  
 
   ngOnInit() {
   }
+  handleFiles(event){
+    this.file = event.target.files[0];
+    this.uploadFile();
+  }
+
+   //method to upload file at firebase storage
+   async uploadFile() {
+    if (this.file) {
+      const filePath = `${this.basePath}/${this.file.name}`;    //path at which image will be stored in the firebase storage
+      const snap = await this.afStorage.upload(filePath, this.file);    //upload task
+      this.getUrl(snap);
+    } else {alert('Please select an image'); }
+  }
+
+  //method to retrieve download url
+  private async getUrl(snap: firebase.storage.UploadTaskSnapshot) {
+    const url = await snap.ref.getDownloadURL();
+    this.url = url;  //store the URL
+    console.log(this.url);
+    this.cardService.addCardToList('custom', this.url, 'titre test', '')
+  }
+
+    
+    
 
   OnClickHelp(){
     console.log('help');
@@ -40,5 +73,9 @@ export class CardAddComponent implements OnInit {
     this.title = '';
     this.path = '';
   }
+  // uploadImg(path){
+  //   debugger;
+  //   this.cardService.uploadImage(this.pathImageFileToUpload);
+  // }
 
 }

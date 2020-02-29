@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardService{
 
-  	constructor(private httpClient: HttpClient) { }
+  	constructor(private httpClient: HttpClient, private afStorage: AngularFireStorage) { }
 
 	valid:boolean;
 	urlBd = "https://preferenceclient.firebaseio.com"
@@ -24,6 +25,14 @@ export class CardService{
 	public listKitchen$: Observable<[]> = this.getObservableListCardsFromServer('kitchen')
 	public listBathTub$: Observable<[]> = this.getObservableListCardsFromServer('bathtub')
 	public listCustom$: Observable<[]> =this.getObservableListCardsFromServer('custom')
+
+
+	uploadImage(pathFile) {
+
+		this.afStorage.upload('https://preferenceclient.firebaseio.com/image',pathFile );  
+		// this.afStorage.upload('https://preferenceclient.firebaseio.com/image', event.target.files[0]);  
+	}
+	
 
 	setCardTest(){
 		this.listCardKitchen = [
@@ -127,7 +136,7 @@ export class CardService{
 	
 	saveListCardToServer(cardType) {
 
-		debugger;
+		// debugger;
 		let urlBdSaveList = this.getUrlBdWithUserAndType(cardType)
 		let goodList = this.getListFromType(cardType);
 		let requeteHttp:any;
@@ -180,7 +189,7 @@ export class CardService{
 		// this.listCustom$ = this.getListCardsFromServer('custom');
 
 		console.log('get all from server');
-		debugger;
+		// debugger;
 		
 		this.listKitchen$.subscribe((listCard: any[]) => {
 			if (listCard){

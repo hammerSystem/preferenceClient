@@ -19,23 +19,12 @@ export class CardContainerComponent implements OnInit {
 
   ngOnInit() {
     console.log('init');
-    debugger;
+    // debugger;
     // this.listCard = this.cardService.getListFromType(this.cardType)
     let typePhoto =  ['kitchen', 'bathtub', 'custom'];
-
-    // debugger;
-    // this.cardService.getListCardsFromServer(this.cardType).subscribe(data => {
-    //   debugger;
-      // if (data[0])
-      //     // this.article=data[0];
-      //     this.listCard = this.cardService.getListFromType(this.cardType);
     this.listCard = this.cardService.getListFromType(this.cardType);
   };
 
-
-    // this.listCard = this.cardService.getListFromType(this.cardType);
-  //   debugger;
-  // }
 
 
   ngOnDestroy(){

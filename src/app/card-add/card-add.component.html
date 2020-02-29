@@ -1,6 +1,6 @@
 
 
-<h1>Ajouter des images trouvées sur internet</h1>
+<h2>Ajouter des images trouvées sur internet</h2>
 
 <h4>Lorsque vous trouvez une image sur internet, ouvrir le menu contextuel(clic droit) sur cette image et faire "copier l'adresse de l'image". Coller ensuite l'adresse dans la case à cet effet.
     <mat-icon (click)="OnClickHelp()" matListIcon>help</mat-icon>
@@ -35,14 +35,23 @@
           name="titleNewImg"
           >
     </mat-form-field>
-    
     <div class="container-button">
-        <button type="submit" class='but-orange' mat-raised-button (click)="saveNewCard()">  Ajouter</button>
-        <button type="reset" class='but-orange' mat-raised-button (click)="clearNewCard()">  Effacer</button>
-    </div>
-
+      <button type="submit" class='but-orange' mat-raised-button (click)="saveNewCard()">  Ajouter</button>
+      <button type="reset" class='but-orange' mat-raised-button (click)="clearNewCard()">  Effacer</button>
+  </div>
   </form>
+  <div>
+    <h2>Ajouter des images à partir de votre appareil</h2>
+
+    <!-- <input (change)="upload($event)"  id='monInput' type="file" [(ngModel)]="pathImageFileToUpload" accept=".png,.jpg" /> -->
+    <input  (change)="handleFiles($event)" type="file" class='but-gris' [(ngModel)]="pathImageFileToUpload"  mat-raised-button accept=".png,.jpg" />
+
+  </div>
+
+
+
+
 <!--   
   <div class="container-button">
-    <button class='but-orange' mat-raised-button (click)="saveNewCard()">  Sauvegarde</button>
+   <button class='but-orange' mat-raised-button (click)="saveNewCard()">  Sauvegarde</button>
 </div> -->
