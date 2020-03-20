@@ -1,6 +1,35 @@
 
 
 
+::ng-deep  .mat-form-field{
+    width: 100% !important;
+  }
+
+  .text-commentaire{
+    width: 100%;
+  }
+
+  // .but-like{
+  //   // color:orangered;
+  // }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: orangered !important;
+   }
+  
+  //  ::ng-deep.mat-form-field-underline {
+  //   /*change color of underline*/
+  //   // background-color: green !important;
+  // } 
+  
+  ::ng-deep.mat-form-field-ripple {
+   /*change color of underline when focused*/
+   background-color: orangered !important;;
+  }
+
+
+  // ************** JM
 
 :host {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";

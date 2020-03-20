@@ -16,30 +16,30 @@
   }
 
 
-  mat-form-field{
-    width: 100%;
+  // mat-form-field{
+  //   width: 100%;
 
-  }
-
-  .text-commentaire{
-    width: 100%;
-  }
-
-  // .but-like{
-  //   // color:orangered;
   // }
 
-  ::ng-deep .mat-focused .mat-form-field-label {
-    /*change color of label*/
-    color: orangered !important;
-   }
+  // .text-commentaire{
+  //   width: 100%;
+  // }
+
+  // // .but-like{
+  // //   // color:orangered;
+  // // }
+
+  // ::ng-deep .mat-focused .mat-form-field-label {
+  //   /*change color of label*/
+  //   color: orangered !important;
+  //  }
   
-  //  ::ng-deep.mat-form-field-underline {
-  //   /*change color of underline*/
-  //   // background-color: green !important;
-  // } 
+  // //  ::ng-deep.mat-form-field-underline {
+  // //   /*change color of underline*/
+  // //   // background-color: green !important;
+  // // } 
   
-  ::ng-deep.mat-form-field-ripple {
-   /*change color of underline when focused*/
-   background-color: orangered !important;;
-  }
+  // ::ng-deep.mat-form-field-ripple {
+  //  /*change color of underline when focused*/
+  //  background-color: orangered !important;;
+  // }

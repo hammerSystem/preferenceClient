@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NatCard} from '../natCard'
+import { NatCard} from '../natCard';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { CardService } from '../services/card-service';
 
@@ -17,18 +17,18 @@ export class NatCardComponent implements OnInit {
   //   desc:"une petite description de la photo"
   //   }
 
-    @Input() path:string;
-    @Input() index:number;
-    @Input() title:string;
-    @Input() desc:string;
-    @Input() avatar:string;
-    @Input() cardType:string;
-    @Input() like:boolean = false;
-		@Input() comment:string = '';
-    
+    @Input() path: string;
+    @Input() index: number;
+    @Input() title: string;
+    @Input() desc: string;
+    @Input() avatar: string;
+    @Input() cardType: string;
+    @Input() like = false;
+    @Input() comment = '';
+
     // color_like_but = "black";
 
-  constructor(private cardService:CardService) { }
+  constructor(private cardService: CardService) { }
 
 
   ngOnInit() {
@@ -37,25 +37,25 @@ export class NatCardComponent implements OnInit {
 //   console.log('save')
 // }
 
-onClickLike(){
+onClickLike() {
   // debugger;
-	console.log('like');
-	if (!this.like){
-		this.like = true;
-	}else{
-		this.like = false;
-  };
+  console.log('like');
+  if (!this.like) {
+    this.like = true;
+  } else {
+    this.like = false;
+  }
   this.saveACard();
 }
-  
-saveACard(){
-    console.log("saveComment");
+
+saveACard() {
+    console.log('saveComment');
     // debugger;
     this.cardService.saveACard(this.cardType, this.index, this.like, this.comment);
 
   }
 
-  deleteACard(){
+  deleteACard() {
     this.cardService.deleteACard(this.cardType, this.index);
   }
 

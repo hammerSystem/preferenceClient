@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-accueil',
@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccueilComponent implements OnInit {
 
+  @Input() loginMenuIsOn: boolean;
+
+  @Output() evClicLogin: EventEmitter<number> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
+  }
+  onClickLogin() {
+    this.loginMenuIsOn = true;
+    this.evClicLogin.emit();
+    console.log('clic login dans fen accueil');
   }
 
 }

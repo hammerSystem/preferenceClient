@@ -25,6 +25,7 @@
       true,
       "rxjs/Rx"
     ],
+    "indent": [true, "spaces", 2],
     "interface-name": false,
     "max-classes-per-file": false,
     "max-line-length": [
@@ -53,6 +54,7 @@
       "trace"
     ],
     "no-empty": false,
+    "no-debugger": false,
     "no-inferrable-types": [
       true,
       "ignore-params"
@@ -69,7 +71,8 @@
     "ordered-imports": false,
     "quotemark": [
       true,
-      "single"
+      "single",
+      "avoid-escape"
     ],
     "trailing-comma": false,
     "no-conflicting-lifecycle": true,

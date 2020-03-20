@@ -6,299 +6,298 @@ import { AngularFireStorage } from 'angularfire2/storage';
 @Injectable({
   providedIn: 'root'
 })
-export class CardService{
 
-  	constructor(private httpClient: HttpClient, private afStorage: AngularFireStorage) { }
+export class CardService {
 
-	valid:boolean;
-	urlBd = "https://preferenceclient.firebaseio.com"
-	user = 'test'
-	  
-	listCardKitchen = [];
-	listCardBathtub = [];
-	listCardCustomImg =[];
+  constructor(private httpClient: HttpClient, private afStorage: AngularFireStorage) { }
 
-	// listCardKitchenEmptyOnServer:boolean = false;
-	// listCardBathtubEmptyOnServer:boolean =false;
-	// listCardCustomImgEmptyOnServer:boolean =false;
+  valid: boolean;
+  urlBd = 'https://preferenceclient.firebaseio.com';
+  user = {name: ''};
 
-	public listKitchen$: Observable<[]> = this.getObservableListCardsFromServer('kitchen')
-	public listBathTub$: Observable<[]> = this.getObservableListCardsFromServer('bathtub')
-	public listCustom$: Observable<[]> =this.getObservableListCardsFromServer('custom')
+  listCardOwner = [];
+  // listCardBathtub = [];
+  listCardCustomImg = [];
 
+  // listCardKitchenEmptyOnServer:boolean = false;
+  // listCardBathtubEmptyOnServer:boolean =false;
+  // listCardCustomImgEmptyOnServer:boolean =false;
 
-	uploadImage(pathFile) {
+  public listOwner$: Observable<[]> = this.getObservableListCardsFromServer('owner');
+  // public listBathTub$: Observable<[]> = this.getObservableListCardsFromServer('bathtub');
+  public listCustom$: Observable<[]> = this.getObservableListCardsFromServer('custom');
 
-		this.afStorage.upload('https://preferenceclient.firebaseio.com/image',pathFile );  
-		// this.afStorage.upload('https://preferenceclient.firebaseio.com/image', event.target.files[0]);  
-	}
-	
+  setUser(user) {
+    this.user = user;
+  }
 
-	setCardTest(){
-		this.listCardKitchen = [
-			{
-				path: './assets/photo/cuisine1.jpg',
-				title: 'titre photo 1',
-				desc: 'une petite description de la photo 1',
-				like:true,
-				comment:''
-			}, 
-			{
-				path: './assets/photo/cuisine2.jpg',
-				title: 'titre photo 2',
-				desc: 'une petite description de la photo 2',
-				like:true,
-				comment:''
-			},
-			{
-				path: './assets/photo/cuisine3.jpg',
-				title: 'titre photo 3',
-				desc: 'une petite description de la photo 3',
-				like:false,
-				comment:''
-			},
-	
-			{
-				path: '//maisonetdemeure.com/wp-content/uploads/imported/galleries/md-shot-5_SUP_HH_AU09.jpg',
-				title: 'la cuisine de Ricardo :)',
-				desc: 'Nice cuisine!!',
-				like:false,
-				comment:''
-				}
-		];
-		
-		this.listCardBathtub = [
-			{
-				path: './assets/photo/salle_bain1.jpg',
-				title: 'titre photo 1',
-				desc: 'une petite description de la photo 1',
-				like:false,
-				comment:''
-			}, 
-			{
-				path: './assets/photo/salle_bain2.jpg',
-				title: 'titre photo 2',
-				desc: 'une petite description de la photo 2',
-				like:false,
-				comment:''
-			},
-			{
-				path: './assets/photo/salle_bain3.jpg',
-				title: 'titre photo 3',
-				desc: 'une petite description de la photo 3',
-				like:false,
-				comment:''
-			}
-		  ];
-	}
+  uploadImage(pathFile) {
+
+    this.afStorage.upload('https://preferenceclient.firebaseio.com/image', pathFile );
+    // this.afStorage.upload('https://preferenceclient.firebaseio.com/image', event.target.files[0]);
+  }
 
 
-	getUrlBdWithUserAndType(cardType) {
-		let urlBdSaveList = this.urlBd;
-		urlBdSaveList+= "/";
-		urlBdSaveList+= this.user;
+  setCardTest() {
+    this.listCardOwner = [
+      {
+        path: './assets/photo/cuisine1.jpg',
+        title: 'titre photo 1',
+        desc: 'une petite description de la photo 1',
+        like: true,
+        comment: ''
+      },
+      {
+        path: './assets/photo/cuisine2.jpg',
+        title: 'titre photo 2',
+        desc: 'une petite description de la photo 2',
+        like: true,
+        comment: ''
+      },
+      {
+        path: './assets/photo/cuisine3.jpg',
+        title: 'titre photo 3',
+        desc: 'une petite description de la photo 3',
+        like: false,
+        comment: ''
+      },
 
-		if (cardType === 'kitchen'){
-			urlBdSaveList+= '/listCardKitchen.json';
-		}else if (cardType === 'bathtub'){
-			urlBdSaveList+= '/listCardBathtub.json';
-		}else if (cardType === 'custom'){
-			urlBdSaveList+= '/listCardCustom.json';
-		}
+      {
+        path: '//maisonetdemeure.com/wp-content/uploads/imported/galleries/md-shot-5_SUP_HH_AU09.jpg',
+        title: 'la cuisine de Ricardo :)',
+        desc: 'Nice cuisine!!',
+        like: false,
+        comment: ''
+        }
+    ];
 
-		return urlBdSaveList;
-	}
+    // this.listCardBathtub = [
+    //   {
+    //     path: './assets/photo/salle_bain1.jpg',
+    //     title: 'titre photo 1',
+    //     desc: 'une petite description de la photo 1',
+    //     like: false,
+    //     comment: ''
+    //   },
+    //   {
+    //     path: './assets/photo/salle_bain2.jpg',
+    //     title: 'titre photo 2',
+    //     desc: 'une petite description de la photo 2',
+    //     like: false,
+    //     comment: ''
+    //   },
+    //   {
+    //     path: './assets/photo/salle_bain3.jpg',
+    //     title: 'titre photo 3',
+    //     desc: 'une petite description de la photo 3',
+    //     like: false,
+    //     comment: ''
+    //   }
+    //   ];
+  }
 
-	// getIsListEmptyOnServer(cardType){
+  getUrlBdWithUserAndType(cardType) {
+    let urlBdSaveList = this.urlBd;
+    urlBdSaveList += '/';
+    urlBdSaveList += this.user.name;
 
-	// 	// debugger;
-	// 	if (cardType === 'kitchen'){
-	// 		return this.listCardKitchenEmptyOnServer;
-	// 	}
-	// 	else if(cardType === 'bathtub'){
-	// 		return this.listCardBathtubEmptyOnServer;
-	// 	}
-	// 	else if(cardType === 'custom'){
-	// 		return this.listCardCustomImgEmptyOnServer
-	// 	}
-	// }
-	// setIsEmpty(cardType, value){
-	// 	if (cardType === 'kitchen'){
-	// 		this.listCardKitchenEmptyOnServer = value;
-	// 	}
-	// 	else if(cardType === 'bathtub'){
-	// 		this.listCardBathtubEmptyOnServer = value;
-	// 	}
-	// 	else if(cardType === 'custom'){
-	// 		this.listCardCustomImgEmptyOnServer = value;
-	// 	}
-	// }
-	
-	saveListCardToServer(cardType) {
+    if (cardType === 'owner') {
+      urlBdSaveList += '/listCardOwner.json';
+    // } else if (cardType === 'bathtub') {
+    //   urlBdSaveList += '/listCardBathtub.json';
+    } else if (cardType === 'custom') {
+      urlBdSaveList += '/listCardCustom.json';
+    }
 
-		// debugger;
-		let urlBdSaveList = this.getUrlBdWithUserAndType(cardType)
-		let goodList = this.getListFromType(cardType);
-		let requeteHttp:any;
+    return urlBdSaveList;
+  }
 
-			requeteHttp = this.httpClient.put(urlBdSaveList, goodList)
-			console.log('PUT!!');
+  // getIsListEmptyOnServer(cardType){
 
-		requeteHttp
-		  .subscribe(
-			() => {
-			  console.log('Enregistrement server terminé !');
-			},
-			(error) => {
-			  console.log('Erreur ! : ' + error);
-			}
-		  );
-	}
-  
-	checkIfUrlExistOnBd(url){
-		console.log('check bd')
+  // 	// debugger;
+  // 	if (cardType === 'kitchen'){
+  // 		return this.listCardKitchenEmptyOnServer;
+  // 	}
+  // 	else if(cardType === 'bathtub'){
+  // 		return this.listCardBathtubEmptyOnServer;
+  // 	}
+  // 	else if(cardType === 'custom'){
+  // 		return this.listCardCustomImgEmptyOnServer
+  // 	}
+  // }
+  // setIsEmpty(cardType, value){
+  // 	if (cardType === 'kitchen'){
+  // 		this.listCardKitchenEmptyOnServer = value;
+  // 	}
+  // 	else if(cardType === 'bathtub'){
+  // 		this.listCardBathtubEmptyOnServer = value;
+  // 	}
+  // 	else if(cardType === 'custom'){
+  // 		this.listCardCustomImgEmptyOnServer = value;
+  // 	}
+  // }
 
-	}
+  saveListCardToServer(cardType) {
 
+    debugger;
+    const urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
+    const goodList = this.getListFromType(cardType);
+    let requeteHttp: any;
 
-	getObservableListCardsFromServer(cardType): any {
-		// debugger;
-		let urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
-		return this.httpClient.get<any[]>(urlBdSaveList);
-	}
+    requeteHttp = this.httpClient.put(urlBdSaveList, goodList);
+    console.log('PUT!!');
 
+    requeteHttp
+      .subscribe(
+      () => {
+        console.log('Enregistrement server terminé !');
+      },
+      (error) => {
+        console.log('Erreur ! : ' + error);
+      }
+      );
+  }
 
-	getListCardsFromServerOld(cardType): any {
-		// debugger;
-		let urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
-		return this.httpClient
-		  .get<any[]>(urlBdSaveList)
-		  .subscribe(
-			(response) => {
-				console.log('reponse');
-				console.log(Object.values(response));
-				this.setListFromType(cardType, Object.values(response)[0])
-			},
-			(error) => {
-			  console.log('Erreur dans le getList server ! : ' + error);
-			}
-		  );
-	}
-	getAllListCardFromServer(){
-		// this.listBathTub$= this.getListCardsFromServer('bathtub');
-		// this.listCustom$ = this.getListCardsFromServer('custom');
+  checkIfUrlExistOnBd(url) {
+    console.log('check bd');
 
-		console.log('get all from server');
-		// debugger;
-		
-		this.listKitchen$.subscribe((listCard: any[]) => {
-			if (listCard){
-				this.setListFromType('kitchen', listCard)
-			}else{
-				console.log('list kitchen vide...)');
-				// this.listCardKitchenEmptyOnServer = true;
-			}
-		})
-
-		this.listBathTub$.subscribe((listCard: any[]) => {
-			if (listCard){
-				this.setListFromType('bathtub', listCard)
-			}else{
-				console.log('list bath vide...)');
-				// this.listCardBathtubEmptyOnServer = true;
-			}
-		})
-
-		this.listCustom$.subscribe((listCard: any[]) => {
-			if (listCard){
-				this.setListFromType('custom', listCard);
-			}else{
-				console.log('list custom vide...)');
-				// this.listCardCustomImgEmptyOnServer = true;
-			}
-		})
-
-	}
-  
-    getListFromType(typeList:string){
-		// debugger;
-        if (typeList === 'kitchen'){
-            return this.listCardKitchen;
-		}
-		else if(typeList === 'bathtub'){
-			return this.listCardBathtub
-		}
-		else if(typeList === 'custom'){
-			return this.listCardCustomImg
-		}
-	}
-
-	setListFromType(typeList:string, listCards:any[]){
-		// debugger;
-		if (typeList === 'kitchen'){
-            this.listCardKitchen = listCards;
-		}
-		else if(typeList === 'bathtub'){
-			this.listCardBathtub = listCards;
-		}
-		else if(typeList === 'custom'){
-			this.listCardCustomImg = listCards;
-		}
-	}
-
-	addCardToList(typeList:string, pathImg:string, title:string, description:string){
-		// this.checkImage(pathImg, this.success, this.fail);
-		// this.checkImage(pathImg, this.success, this.fail);
-		// if (!this.valid){
-		// 	console.log('valid??');
-		// 	console.log(this.valid);
-		// 	return
-		// }
-
-		let goodList:any[];
-		goodList = this.getListFromType(typeList)
-		debugger;
-		goodList.push(
-			{
-				path: pathImg,
-				title:  title,
-				desc: description,
-				like:false,
-				comment:''
-			}
-		)
-	}
-
-	saveACard(cardType, cardIndex, like, comment){
-		console.log('save card ',cardIndex, cardType);
-		let goodList = this.getListFromType(cardType);
-		goodList[cardIndex].like = like;
-		goodList[cardIndex].comment = comment;
-	}
-
-	deleteACard(cardType, index){
-		let goodList = this.getListFromType(cardType);
-		goodList.splice(index, 1)
-	}
+  }
 
 
-
-	// success(){
-	// 	console.log('success')
-	// 	this.valid = true;
-	// }
-	// fail(){
-	// 	console.log('fail')
-	// 	this.valid= false;
-	// }
-
-	// monCallBack(url, message){
-	// 	debugger;
-	// 	console.log(message);
-	// }
+  getObservableListCardsFromServer(cardType): any {
+    // debugger;
+    const urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
+    return this.httpClient.get<any[]>(urlBdSaveList);
+  }
 
 
-	 // Check the existence of an image file at `url` by creating a
+  getListCardsFromServerOld(cardType): any {
+    // debugger;
+    const urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
+    return this.httpClient
+      .get<any[]>(urlBdSaveList)
+      .subscribe(
+      (response) => {
+        console.log('reponse');
+        console.log(Object.values(response));
+        this.setListFromType(cardType, Object.values(response)[0]);
+      },
+      (error) => {
+        console.log('Erreur dans le getList server ! : ' + error);
+      }
+      );
+  }
+  getAllListCardFromServer() {
+    // this.listBathTub$= this.getListCardsFromServer('bathtub');
+    // this.listCustom$ = this.getListCardsFromServer('custom');
+
+    console.log('get all from server');
+    // debugger;
+
+    this.listOwner$.subscribe((listCard: any[]) => {
+      if (listCard) {
+        this.setListFromType('owner', listCard);
+      } else {
+        console.log('list owner vide...)');
+        // this.listCardKitchenEmptyOnServer = true;
+      }
+    });
+
+    // this.listBathTub$.subscribe((listCard: any[]) => {
+    //   if (listCard) {
+    //     this.setListFromType('bathtub', listCard);
+    //   } else {
+    //     console.log('list bath vide...)');
+    //     // this.listCardBathtubEmptyOnServer = true;
+    //   }
+    // });
+
+    this.listCustom$.subscribe((listCard: any[]) => {
+      if (listCard) {
+        this.setListFromType('custom', listCard);
+      } else {
+        console.log('list custom vide...)');
+        // this.listCardCustomImgEmptyOnServer = true;
+      }
+    });
+
+  }
+
+    getListFromType(typeList: string) {
+    // debugger;
+        if (typeList === 'owner') {
+            return this.listCardOwner;
+    // } else if (typeList === 'bathtub') {
+    //   return this.listCardBathtub;
+    } else if (typeList === 'custom') {
+      return this.listCardCustomImg;
+    }
+  }
+
+  setListFromType(typeList: string, listCards: any[]) {
+    // debugger;
+    if (typeList === 'owner') {
+            this.listCardOwner = listCards;
+    // } else if (typeList === 'bathtub') {
+    //   this.listCardBathtub = listCards;
+    } else if (typeList === 'custom') {
+      this.listCardCustomImg = listCards;
+    }
+  }
+
+  addCardToList(typeList: string, pathImg: string, title: string, description: string) {
+    // this.checkImage(pathImg, this.success, this.fail);
+    // this.checkImage(pathImg, this.success, this.fail);
+    // if (!this.valid){
+    // 	console.log('valid??');
+    // 	console.log(this.valid);
+    // 	return
+    // }
+
+    let goodList: any[];
+    goodList = this.getListFromType(typeList);
+    debugger;
+    goodList.push(
+      {
+        path: pathImg,
+        title,
+        desc: description,
+        like: false,
+        comment: ''
+      }
+    );
+  }
+
+  saveACard(cardType, cardIndex, like, comment) {
+    console.log('save card ', cardIndex, cardType);
+    const goodList = this.getListFromType(cardType);
+    goodList[cardIndex].like = like;
+    goodList[cardIndex].comment = comment;
+  }
+
+  deleteACard(cardType, index) {
+    const goodList = this.getListFromType(cardType);
+    goodList.splice(index, 1);
+  }
+
+
+
+  // success(){
+  // 	console.log('success')
+  // 	this.valid = true;
+  // }
+  // fail(){
+  // 	console.log('fail')
+  // 	this.valid= false;
+  // }
+
+  // monCallBack(url, message){
+  // 	debugger;
+  // 	console.log(message);
+  // }
+
+
+   // Check the existence of an image file at `url` by creating a
   // temporary Image element. The `success` callback is called
   // if the image loads correctly or the image is already complete.
   // The `failure` callback is called if the image fails to load
@@ -306,7 +305,7 @@ export class CardService{
 //   	checkImage(url, success, failure):boolean {
 // 		debugger;
 // 		let errors = {};
-// 		var img = new Image(),    // the 
+// 		var img = new Image(),    // the
 // 		loaded = false,
 // 		errored = false;
 
@@ -346,7 +345,7 @@ export class CardService{
 //       img.onerror.call(img);
 //       return;
 //     }
-    
+
 //     // Set the img src to trigger loading
 //     img.src = url;
 
@@ -356,5 +355,5 @@ export class CardService{
 //       img.onload.call(img);
 //     }
 //   };
-	
+
 }
