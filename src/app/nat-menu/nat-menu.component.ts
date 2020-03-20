@@ -38,7 +38,7 @@ export class NatMenuComponent implements OnInit {
 
   }
 
-  clicLoginHandler() {
+  clicLoginHandler(event) {
     console.log('menu comp: recu de fenetre accueil: login');
     this.loginMenuIsOn = true;
     this.accueilIsOn = false;
