@@ -8,7 +8,7 @@
 
 <div >
 
-  <img *ngIf="expand_more"  class='copier_adresse' 
+  <img *ngIf="expandMore"  class='copier_adresse'
     src= 'assets/copier_adresse2.png'
     width="400"
     alt="copier adresse image"
@@ -17,7 +17,7 @@
 <form class="add-form">
     <mat-form-field>
       <mat-label>Coller l'adresse image</mat-label>
-      <input matInput 
+      <input matInput
         id="pathImg"
         placeholder="Ex. https://adncuisines.ca/wp-content/uploads/2018/07/adncuisines-IMG_4781.jpg"
         [(ngModel)]="path"
@@ -27,7 +27,7 @@
     </mat-form-field>
     <mat-form-field>
         <mat-label>Saisir un titre</mat-label>
-        <input matInput 
+        <input matInput
           id="title"
           placeholder="Ex. Des armoires avec de magnifiques pentures "
           [(ngModel)]="title"
@@ -51,7 +51,7 @@
 
 
 
-<!--   
+<!--
   <div class="container-button">
    <button class='but-orange' mat-raised-button (click)="saveNewCard()">  Sauvegarde</button>
 </div> -->
