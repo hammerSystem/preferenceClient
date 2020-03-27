@@ -1,24 +1,45 @@
 
 <!-- <div *ngIf="cardLoad | async"> -->
 <!-- visible seulement si le type de card est a ajouter -->
-<div *ngIf="cardType ==='custom' ">
+<div *ngIf="cardType ==='addCard'">
     <app-card-add></app-card-add>
 </div>
 
-<div *ngIf="listCard.length>0" class="div-card-container">
-    <app-nat-card *ngFor="let maCard of listCard; let i = index"
-        [index]="i"
-        [path]="maCard.path" 
-        [desc]= "maCard.desc" 
-        [title]="maCard.title"
-        [avatar]= "avatar"
-        [cardType] = "cardType"
-        [like] = "maCard.like"
-        [comment] = "maCard.comment">
+<div *ngIf= "cardType !== 'addCard'">
+  <div *ngIf="listCard.length>0" class="div-card-container">
+      <app-nat-card *ngFor="let maCard of listCard; let i = index"
+          [index]="i"
+          [path]="maCard.path"
+          [desc]= "maCard.desc"
+          [title]="maCard.title"
+          [avatar]= "avatar"
+          [cardType] = "cardType"
+          [like] = "maCard.like"
+          [comment] = "maCard.comment">
 
-    </app-nat-card>
-    <div class="container-button">
-        <button class='but-orange' mat-raised-button (click)="saveListCard()">  Sauvegarde</button>
-    </div>
+      </app-nat-card>
+      <div class="container-button">
+          <button class='but-orange' mat-raised-button (click)="saveListCard()">  Sauvegarde</button>
+      </div>
+  </div>
+  <div *ngIf="listCard.length===0" >
+    <h1>Votre liste est vide</h1>
+    <h3>Ajouter des images à votre liste:</h3>
+    <ul>
+      <li>Ajouter à votre liste des images a partir de la banque de photos ADN & Cuisines
+        <p></p>
+        <button class='but-orange' mat-raised-button (click)="switchCardType('owner')">  Photos ADN & Cuisines</button>
+      </li>
+
+      <p></p>
+
+      <li>Ajouter à votre liste vos images. A partir de votre appareil ou trouvées sur internet
+        <p></p>
+        <button class='but-orange' mat-raised-button (click)="switchCardType('add')"> Autre photos</button>
+      </li>
+    </ul>
+
+
+  </div>
 </div>
 <!-- </div> -->

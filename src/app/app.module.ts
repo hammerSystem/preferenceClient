@@ -2,8 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
-
-
+import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -56,11 +55,22 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { CardContainerComponent } from './card-container/card-container.component';
 import { LoginComponent } from './login/login.component';
 import { CardAddComponent } from './card-add/card-add.component';
-import { CardService} from '../app/services/card-service' 
+import { CardService} from '../app/services/card-service'
 import { HttpClientModule } from '@angular/common/http';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireStorageModule} from 'angularfire2/storage'
 
+
+const config = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('2203659926599837')
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -79,15 +89,17 @@ import {AngularFireStorageModule} from 'angularfire2/storage'
     FormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp({
-      apiKey: "<your-api-key>",
-      authDomain: "preferenceclient",
-      storageBucket: "preferenceclient.appspot.com",
-      projectId: "preferenceclient",
+      apiKey: '<your-api-key>',
+      authDomain: 'preferenceclient',
+      storageBucket: 'preferenceclient.appspot.com',
+      projectId: 'preferenceclient',
     }),
     AngularFireStorageModule,
 
+    BrowserModule,
+    SocialLoginModule,
 
-    MatCardModule, 
+    MatCardModule,
     MatButtonModule,
     MatSidenavModule,
     MatToolbarModule,
@@ -134,9 +146,16 @@ import {AngularFireStorageModule} from 'angularfire2/storage'
     PortalModule,
     ScrollingModule,
   ],
-  
-  providers: [CardService],
+
+  providers: [
+    CardService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
 
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

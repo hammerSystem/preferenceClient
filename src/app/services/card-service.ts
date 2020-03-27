@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from 'angularfire2/storage';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { AngularFireStorage } from 'angularfire2/storage';
 
 export class CardService {
 
-  constructor(private httpClient: HttpClient, private afStorage: AngularFireStorage) { }
+  constructor(private httpClient: HttpClient, private afStorage: AngularFireStorage,  private snackBar: MatSnackBar) { }
 
   valid: boolean;
   urlBd = 'https://preferenceclient.firebaseio.com';
@@ -37,6 +38,18 @@ export class CardService {
     // this.afStorage.upload('https://preferenceclient.firebaseio.com/image', event.target.files[0]);
   }
 
+  snackMessage(title, message) {
+    this.openSnackBar(title, message);
+  }
+
+  openSnackBar(message: string, action: string) {
+    const config = new MatSnackBarConfig();
+    config.duration = 2000;
+    config.panelClass = ['custom-snackbar'];
+
+    this.snackBar.open(message, action, config);
+
+  }
 
   setCardTest() {
     this.listCardOwner = [
@@ -245,7 +258,7 @@ export class CardService {
     }
   }
 
-  addCardToList(typeList: string, pathImg: string, title: string, description: string) {
+  addCardToList(typeList: string, pathImg: string, title: string, like: boolean, comment: string,  description: string) {
     // this.checkImage(pathImg, this.success, this.fail);
     // this.checkImage(pathImg, this.success, this.fail);
     // if (!this.valid){
@@ -262,10 +275,11 @@ export class CardService {
         path: pathImg,
         title,
         desc: description,
-        like: false,
-        comment: ''
+        like,
+        comment
       }
     );
+    this.snackMessage('Ajout', 'Une photo a été ajoutée votre liste');
   }
 
   saveACard(cardType, cardIndex, like, comment) {
@@ -276,8 +290,10 @@ export class CardService {
   }
 
   deleteACard(cardType, index) {
+    debugger;
     const goodList = this.getListFromType(cardType);
     goodList.splice(index, 1);
+    this.snackMessage('Suppression', 'Une photo a été supprimée de votre liste');
   }
 
 

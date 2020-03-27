@@ -3,21 +3,23 @@
 
 // JM
 .but-orange{
-    color:white;
+    color:black;
     background-color: orange;
     margin-top: 15px !important;
     padding: 10px;
     font-size: large;
   }
-  
+
   .but-orange:hover{
     color:white;
     background-color: orangered;
   }
 
+.custom-snackbar{
+  color:orange;
+}
 
+// JM fin
 
-// JM fin 
-  
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

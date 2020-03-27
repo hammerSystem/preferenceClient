@@ -37,7 +37,7 @@ export class NatCardComponent implements OnInit {
 //   console.log('save')
 // }
 
-onClickLike() {
+  onClickLike() {
   // debugger;
   console.log('like');
   if (!this.like) {
@@ -48,7 +48,13 @@ onClickLike() {
   this.saveACard();
 }
 
-saveACard() {
+  AddCardToCustomList(){
+    console.log('add cvard to custom list');
+    this.cardService.addCardToList('custom', this.path, this.title, this.like, this.comment, this.desc);
+    this.cardService.deleteACard(this.cardType, this.index)
+  }
+
+  saveACard() {
     console.log('saveComment');
     // debugger;
     this.cardService.saveACard(this.cardType, this.index, this.like, this.comment);

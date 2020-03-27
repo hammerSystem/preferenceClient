@@ -1,17 +1,28 @@
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-  }
-  
-  .example-full-width {
-    width: 100%;
-  }
 
-  .espace{
-      padding:30px;
-  }
 
-  .but-save{
-background-color: orange;
-  }
+// div {
+//     min-width: 150px;
+//     max-width: 500px;
+//     width: 100%;
+//   }
+
+// .example-full-width {
+//   width: 100%;
+// }
+
+.espace{
+  padding:30px;
+}
+
+
+.fbsvg{
+  width:60px;
+  height: 60px;
+  margin-left: 30px;
+}
+
+.fbsvg:hover{
+    fill:#4267B2;
+}
+
+

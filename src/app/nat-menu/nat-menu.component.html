@@ -49,23 +49,23 @@
             </h1>
             <mat-list-item (click)="onClicOwnerCollection();sidenav.toggle()">
                 <mat-icon matListIcon>kitchen</mat-icon>
-                Nathalie photos
+                Ajouter photos ADN & cuisines à votre liste
             </mat-list-item>
         </mat-nav-list>
-
-        <!-- <mat-nav-list>
-            <mat-list-item (click)="onClicBathtub();sidenav.toggle()">
-                <mat-icon matListIcon>bathtub</mat-icon>
-                    Salle de bain
-                </mat-list-item>
-            </mat-nav-list> -->
 
         <mat-nav-list>
             <mat-list-item (click)="onClicAddImg();sidenav.toggle()">
                 <mat-icon matListIcon>add_photo_alternate</mat-icon>
                 <!-- <mat-icon matListIcon>perm_media</mat-icon> -->
-                    Ajouter des photos de votre appareil ou trouvées sur internet
+                    Ajouter vos photos à votre liste
                 </mat-list-item>
+        </mat-nav-list>
+
+        <mat-nav-list>
+          <mat-list-item (click)="onClicCustomList();sidenav.toggle()">
+              <mat-icon matListIcon>list</mat-icon>
+                  Ma liste d'images
+              </mat-list-item>
         </mat-nav-list>
 
     </mat-sidenav>
@@ -84,12 +84,13 @@
         </button>
 
         <app-accueil *ngIf="accueilIsOn"
-            (evClicLogin)="clicLoginHandler($event)"
+            (evClicLogin)="eventHandler($event)"
             [loginMenuIsOn]=loginMenuIsOn>
-        </app-accueil>>
+        </app-accueil>
 
         <!-- Bonne list de card en fonction de la list cuisine, salle bain, perso, etc -->
         <app-card-container
+            (evClicChangeList)="eventHandler($event)"
             [listCard]="listCard"
             [avatar]="avatar"
             [cardType] = "cardType"

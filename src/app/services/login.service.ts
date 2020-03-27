@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -53,9 +53,12 @@ export class LoginService {
   }
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 2000,
-    });
+    const config = new MatSnackBarConfig();
+    config.duration = 10000;
+    config.panelClass = ['custom-snackbar'];
+
+    this._snackBar.open(message, action, config);
+
   }
 
   // saveUserOnServer(user):boolean{

@@ -9,7 +9,7 @@ export class AccueilComponent implements OnInit {
 
   @Input() loginMenuIsOn: boolean;
 
-  @Output() evClicLogin: EventEmitter<number> = new EventEmitter();
+  @Output() evClicLogin: EventEmitter<string> = new EventEmitter();
 
   constructor() { }
 
@@ -17,7 +17,7 @@ export class AccueilComponent implements OnInit {
   }
   onClickLogin() {
     this.loginMenuIsOn = true;
-    this.evClicLogin.emit();
+    this.evClicLogin.emit('login');
     console.log('clic login dans fen accueil');
   }
 

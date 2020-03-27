@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
 import {MatButtonModule} from '@angular/material';
 import { CardService } from '../services/card-service';
 
@@ -14,18 +14,26 @@ export class CardContainerComponent implements OnInit {
   @Input() listCard: any[] = [];
   @Input() cardType: string;
 
+  @Output() evClicChangeList: EventEmitter<string> = new EventEmitter();
+
   // cardLoad:Promise<boolean>;
   constructor(private cardService: CardService) { }
 
   ngOnInit() {
     console.log('init');
-    // debugger;
+    debugger;
     // this.listCard = this.cardService.getListFromType(this.cardType)
-    const typePhoto =  ['owner', 'custom'];
+    const typePhoto =  ['owner', 'custom', 'addCard'];
     // const typePhoto =  ['owner', 'bathtub', 'custom'];
-    this.listCard = this.cardService.getListFromType(this.cardType);
+    if (this.cardType !== 'addCard') {
+      this.listCard = this.cardService.getListFromType(this.cardType);
+  }
   }
 
+    switchCardType(newCardType) {
+      this.cardType = newCardType;
+      this.evClicChangeList.emit(newCardType);
+    }
 
   ngOnDestroy() {
     // this.save()

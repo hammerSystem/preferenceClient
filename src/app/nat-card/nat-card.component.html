@@ -41,8 +41,8 @@
             </mat-form-field>
           </form>
 
-          <!-- <button class='but-save' mat-raised-button (click)="saveACard()">  sauvegarde </button> -->
-          <button *ngIf="cardType==='custom'" class='but-save' mat-raised-button (click)="deleteACard()">  Supprimer </button>
+          <button *ngIf="cardType!=='custom'" class='but-orange' mat-raised-button (click)="AddCardToCustomList()">Ajouter à ma liste </button>
+          <button *ngIf="cardType==='custom'" class='but-orange' mat-raised-button (click)="deleteACard()"> Supprimer de ma liste </button>
 
         </div>
       </div>

@@ -33,16 +33,25 @@ export class NatMenuComponent implements OnInit {
   constructor(private cardService: CardService, private loginService: LoginService) { }
 
   ngOnInit() {
-    // this.cardService.getAllListCardFromServer();
-    this.cardService.setCardTest();
+    this.cardService.getAllListCardFromServer();
+    // this.cardService.setCardTest();
 
   }
 
-  clicLoginHandler(event) {
-    console.log('menu comp: recu de fenetre accueil: login');
-    this.loginMenuIsOn = true;
-    this.accueilIsOn = false;
-    this.onClicMenuLogin();
+  eventHandler(event) {
+    debugger;
+    if (event === 'login') {
+      console.log('menu comp: recu de fenetre accueil: login');
+      this.loginMenuIsOn = true;
+      this.accueilIsOn = false;
+      this.onClicMenuLogin();
+    } else if (event === 'owner'){
+      console.log('menu comp: event = owner');
+      this.onClicOwnerCollection()
+    } else if (event === 'add'){
+      console.log('menu comp: event = add');
+      this.onClicAddImg() ;
+    }
   }
 
   onClicBackHome() {
@@ -54,11 +63,13 @@ export class NatMenuComponent implements OnInit {
 
   onClicOwnerCollection() {
     console.log('clic owner');
-    if (this.loginService.isLogin === false) {
-      alert('Vous êtes pas identifié, identifiez-vous');
-      this.onClicMenuLogin();
-      return;
-    }
+
+    // a remettre + tard
+    // if (this.loginService.isLogin === false) {
+    //   alert('Vous êtes pas identifié, identifiez-vous');
+    //   this.onClicMenuLogin();
+    //   return;
+    // }
     this.cardType = 'owner';
     this.accueilIsOn = false;
     this.cardIsOn = true;
@@ -68,18 +79,34 @@ export class NatMenuComponent implements OnInit {
 
   }
 
+  onClicAddImg() {
+    // a remettre + tard
 
-  // onClicBathtub() {
-  //   console.log('clic bath');
-  //   this.accueilIsOn = false;
-  //   this.cardIsOn = true;
-  //   // this.listCard = this.listCardBathtub;
-  //   this.avatar = 'bathtub';
-  //   this.loginIsOn = false;
-  //   this.cardType = 'bathtub';
-  //   // debugger;
-  //   this.listCard = this.cardService.getListFromType(this.cardType);
-  // }
+    // if (this.loginService.isLogin === false) {
+    //   alert('Vous n'êtes pas identifié, identifiez-vous');
+    //   this.onClicMenuLogin();
+    //   return;
+    // }
+    this.accueilIsOn = false;
+    this.cardIsOn = true;
+    this.loginMenuIsOn = false;
+    // this.listCard = this.listCardAddImg;
+    this.avatar = 'add_photo_alternate';
+    this.cardType = 'addCard';
+
+    // this.listCard = this.cardService.getListFromType(this.cardType);
+    // debugger;
+  }
+
+  onClicCustomList() {
+    console.log('clic list client');
+    this.accueilIsOn = false;
+    this.cardIsOn = true;
+    this.avatar = 'list';
+    this.loginMenuIsOn = false;
+    this.cardType = 'custom';
+    this.listCard = this.cardService.getListFromType(this.cardType);
+  }
 
   onClicMenuLogin() {
     this.accueilIsOn = false;
@@ -90,21 +117,6 @@ export class NatMenuComponent implements OnInit {
     this.cardType = '';
   }
 
-  onClicAddImg() {
-    if (this.loginService.isLogin === false) {
-      alert('Vous êtes pas identifié, identifiez-vous');
-      this.onClicMenuLogin();
-      return;
-    }
-    this.accueilIsOn = false;
-    this.cardIsOn = true;
-    this.loginMenuIsOn = false;
-    // this.listCard = this.listCardAddImg;
-    this.avatar = 'add_photo_alternate';
-    this.cardType = 'custom';
 
-    this.listCard = this.cardService.getListFromType(this.cardType);
-    // debugger;
-  }
 
 }
