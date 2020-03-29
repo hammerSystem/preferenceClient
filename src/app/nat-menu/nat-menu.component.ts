@@ -30,7 +30,7 @@ export class NatMenuComponent implements OnInit {
   // @Output() eventChangementLitCard:EventEmitter<any> = new EventEmitter();
 
 
-  constructor(private cardService: CardService, private loginService: LoginService) { }
+  constructor(private cardService: CardService, public loginService: LoginService) { }
 
   ngOnInit() {
     this.cardService.getAllListCardFromServer();
