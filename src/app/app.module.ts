@@ -64,7 +64,8 @@ import {AngularFireStorageModule} from 'angularfire2/storage'
 const config = new AuthServiceConfig([
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('2203659926599837')
+    provider: new FacebookLoginProvider('1034585276923099') // test
+    // provider: new FacebookLoginProvider('224516148907971')
   }
 ]);
 

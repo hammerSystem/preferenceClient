@@ -1,4 +1,15 @@
 
+@viewport {
+  width: device-width ;
+  zoom: 1.0 ;
+}
+@-ms-viewport {
+  width: device-width ;
+}
+
+@-webkit-viewport {
+  width: device-width ;
+}
 
 
 ::ng-deep  .mat-form-field{

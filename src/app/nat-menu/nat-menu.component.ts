@@ -39,18 +39,18 @@ export class NatMenuComponent implements OnInit {
   }
 
   eventHandler(event) {
-    debugger;
+    // debugger;
     if (event === 'login') {
-      console.log('menu comp: recu de fenetre accueil: login');
-      this.loginMenuIsOn = true;
-      this.accueilIsOn = false;
-      this.onClicMenuLogin();
-    } else if (event === 'owner'){
-      console.log('menu comp: event = owner');
-      this.onClicOwnerCollection()
-    } else if (event === 'add'){
-      console.log('menu comp: event = add');
-      this.onClicAddImg() ;
+        console.log('menu comp: recu de fenetre accueil: login');
+        this.loginMenuIsOn = true;
+        this.accueilIsOn = false;
+        this.onClicMenuLogin();
+    } else if (event === 'owner') {
+        console.log('menu comp: event = owner');
+        this.onClicOwnerCollection();
+    } else if (event === 'add') {
+        console.log('menu comp: event = add');
+        this.onClicAddImg() ;
     }
   }
 

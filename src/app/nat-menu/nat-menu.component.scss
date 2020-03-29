@@ -3,10 +3,23 @@ mat-sidenav{
 
     background-color: orange;
     width: 200px;
+    height: 100%;
 }
 
 mat-sidenav-container{
     margin:8px
+}
+
+.login-as{
+  display:flex;
+  justify-content: flex-end;
+}
+
+.menu-and-log{
+  display: flex;
+}
+.log{
+  justify-content:flex-end
 }
 
 

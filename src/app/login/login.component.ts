@@ -25,10 +25,15 @@ export class LoginComponent implements OnInit {
               // private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    // this.loginService.authStateSubscribe();
+
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
+      console.log("user a l'init:");
       console.log(this.user);
+      debugger;
+      this.loginService.setUser(this.user, this.loggedIn);
     });
   }
 
@@ -39,23 +44,23 @@ export class LoginComponent implements OnInit {
   signOut(): void {
     this.authService.signOut();
   }
-  onClickLogin() {
-    this.loginService.login(this.user2);
-  }
+  // onClickLogin() {
+  //   this.loginService.login(this.user2);
+  // }
 
-  onClicFaceBookIcon() {
-    console.log('FB auth');
-  }
+  // onClicFaceBookIcon() {
+  //   console.log('FB auth');
+  // }
 
-  onLogin() {
+  // onLogin() {
 
-    console.log('this.userName:');
-    console.log(this.user);
-    this.loginService.isLogin = this.loginService.saveUserOnServer(this.user);
-    console.log('is login:');
-    console.log(this.loginService.isLogin);
-    this.loginService.messageIsAuth();
-  }
+  //   console.log('this.userName:');
+  //   console.log(this.user);
+  //   this.loginService.isLogin = this.loginService.saveUserOnServer(this.user);
+  //   console.log('is login:');
+  //   console.log(this.loginService.isLogin);
+  //   this.loginService.messageIsAuth();
+  // }
   //   if (this.loginService.isLogin) {
   //     this.openSnackBar('Identification', `Identification réussi en tant que ${this.user.name}`);
   //     this.cardService.setUser(this.user);

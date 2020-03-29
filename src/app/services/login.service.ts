@@ -2,50 +2,87 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
+import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
+
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class LoginService {
 
-  urlBd = 'https://preferenceclient.firebaseio.com';
-  user = { name: '' };
-  isLogin = false;
-
+  // urlBd = 'https://preferenceclient.firebaseio.com';
+  // user = { name: '' };
+  // isLogin = false;
   // public userLogin$: Observable<{}>;
 
-    constructor(private httpClient: HttpClient, private _snackBar: MatSnackBar) { }
+  user: SocialUser;
+  loggedIn: boolean;
 
-  checkOnServerIfExiste(userName) {
-  }
 
-  login(user) {
-    if ( user.name === '') {
-      this.isLogin = false;
-      console.log('user est vide');
-      this.messageIsAuth();
-      return;
-    }
+  // constructor(private httpClient: HttpClient, private _snackBar: MatSnackBar) { }
+
+  // isLogin = false;
+  // user2 = {
+  //   name: ''
+  // };
+
+  constructor(private authService: AuthService,
+              private snackBar: MatSnackBar) { }
+
+  setUser(user, loggedIn) {
     this.user = user;
-    this.isLogin = true;
-    console.log('est loguer');
-    this.messageIsAuth();
+    this.loggedIn = loggedIn;
   }
 
+  // authStateSubscribe() {
+  //   this.authService.authState.subscribe((user) => {
+  //     this.user = user;
+  //     this.loggedIn = (user != null);
+  //     console.log("user a l'init:");
+  //     console.log(this.user);
+  //   });
+  // }
 
-  getUrlAccountBdWithUser() {
-    let urlBdSaveList = this.urlBd;
-    urlBdSaveList += '/account/';
-    urlBdSaveList += this.user.name;
-    urlBdSaveList += '.json';
-    debugger;
-    return urlBdSaveList;
-  }
+  // signInWithFB(): void {
+  //   this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  // }
+
+  // signOut(): void {
+  //   this.authService.signOut();
+  // }
+
+
+  // checkOnServerIfExiste(userName) {
+  // }
+
+  // login(user) {
+  //   if ( user.name === '') {
+  //     this.isLogin = false;
+  //     console.log('user est vide');
+  //     this.messageIsAuth();
+  //     return;
+  //   }
+  //   this.user = user;
+  //   this.isLogin = true;
+  //   console.log('est loguer');
+  //   this.messageIsAuth();
+  // }
+
+
+  // getUrlAccountBdWithUser() {
+  //   let urlBdSaveList = this.urlBd;
+  //   urlBdSaveList += '/account/';
+  //   urlBdSaveList += this.user.name;
+  //   urlBdSaveList += '.json';
+  //   debugger;
+  //   return urlBdSaveList;
+  // }
 
 
   messageIsAuth() {
 
-    if (this.isLogin) {
+    if (this.loggedIn) {
       this.openSnackBar('Identification', `Identification réussi en tant que ${this.user.name}`);
     } else {
       this.openSnackBar('Erreur d\'identification', 'Veuillez saisir un nom valide');
@@ -57,7 +94,7 @@ export class LoginService {
     config.duration = 10000;
     config.panelClass = ['custom-snackbar'];
 
-    this._snackBar.open(message, action, config);
+    this.snackBar.open(message, action, config);
 
   }
 
@@ -76,35 +113,35 @@ export class LoginService {
   // return this.isLogin;
   // }
 
-  saveUserOnServer(user): boolean {
-    debugger;
-    if ( user.name === '') {
-      this.isLogin = false;
-      console.log('user est vide');
-      return;
-    }
-    this.user = user;
-    const urlToSave = this.getUrlAccountBdWithUser();
+  // saveUserOnServer(user): boolean {
+  //   debugger;
+  //   if ( user.name === '') {
+  //     this.loggedIn = false;
+  //     console.log('user est vide');
+  //     return;
+  //   }
+  //   this.user = user;
+  //   const urlToSave = this.getUrlAccountBdWithUser();
 
-    let requeteHttp: any;
-    requeteHttp = this.httpClient.put(urlToSave, this.user);
-    debugger;
-    console.log('PUT user !!');
+  //   let requeteHttp: any;
+  //   requeteHttp = this.httpClient.put(urlToSave, this.user);
+  //   debugger;
+  //   console.log('PUT user !!');
 
-    requeteHttp.subscribe(
-      () => {
-        this.isLogin = true;
-        console.log('Enregistrement user server terminé !');
+  //   requeteHttp.subscribe(
+  //     () => {
+  //       this.isLogin = true;
+  //       console.log('Enregistrement user server terminé !');
 
-      },
-      (error) => {
-        console.log('Erreur put user! : ' + error);
-        this.isLogin = false;
-      }
-    );
-    return this.isLogin;
+  //     },
+  //     (error) => {
+  //       console.log('Erreur put user! : ' + error);
+  //       this.isLogin = false;
+  //     }
+  //   );
+  //   return this.isLogin;
 
-  }
+  // }
 
 
   // getObservableSaveAccountOnServer(user): any {
