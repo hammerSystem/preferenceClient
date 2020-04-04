@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
 import { LoginService} from '../services/login.service';
 // import { MatSnackBar } from '@angular/material/snack-bar';
 import { CardService } from '../services/card-service';
@@ -11,13 +11,15 @@ import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-
 })
 export class LoginComponent implements OnInit {
 
-  user: SocialUser;
-  loggedIn: boolean;
+  user: SocialUser = new SocialUser();
+  loggedIn = false;
+  @Output() evLogin: EventEmitter<string> = new EventEmitter();
+
 
   // isLogin = false;
-  user2 = {
-    name: ''
-  };
+  // user2 = {
+  //   name: ''
+  // };
 
   constructor(private authService: AuthService,
               private loginService: LoginService,
@@ -32,8 +34,15 @@ export class LoginComponent implements OnInit {
       this.loggedIn = (user != null);
       console.log("user a l'init:");
       console.log(this.user);
-      debugger;
-      this.loginService.setUser(this.user, this.loggedIn);
+      // debugger;
+      if (this.user !== null && typeof this.user.name !== 'undefined') {
+        this.loginService.setUser(this.user, this.loggedIn);
+        this.evLogin.emit('logOk');
+      }
+      // if (typeof this.loginService.user.name !== 'undefined') {
+      //   this.cardService.getObservableListCardsFromServer('custom');
+      // }
+
     });
   }
 

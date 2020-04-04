@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
@@ -16,8 +16,10 @@ export class LoginService {
   // isLogin = false;
   // public userLogin$: Observable<{}>;
 
-  user: SocialUser;
-  loggedIn: boolean;
+  // @Output() evLogin: EventEmitter<string> = new EventEmitter();
+
+  user: SocialUser = new SocialUser();
+  loggedIn = false;
 
 
   // constructor(private httpClient: HttpClient, private _snackBar: MatSnackBar) { }
@@ -33,6 +35,8 @@ export class LoginService {
   setUser(user, loggedIn) {
     this.user = user;
     this.loggedIn = loggedIn;
+    // debugger;
+    // this.evLogin.emit('logOk');
   }
 
   // authStateSubscribe() {

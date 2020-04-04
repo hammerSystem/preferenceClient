@@ -14,7 +14,7 @@ export class CardContainerComponent implements OnInit {
   @Input() listCard: any[] = [];
   @Input() cardType: string;
 
-  @Output() evClicChangeList: EventEmitter<string> = new EventEmitter();
+  @Output() evReloadList: EventEmitter<string> = new EventEmitter();
 
   // cardLoad:Promise<boolean>;
   constructor(private cardService: CardService) { }
@@ -32,7 +32,7 @@ export class CardContainerComponent implements OnInit {
 
     switchCardType(newCardType) {
       this.cardType = newCardType;
-      this.evClicChangeList.emit(newCardType);
+      this.evReloadList.emit('reloadCustomList');
     }
 
   ngOnDestroy() {

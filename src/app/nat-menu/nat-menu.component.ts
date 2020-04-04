@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatSidenavModule, MatToolbarModule, MatTooltipModule} from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 // import {NatCard} from  '../NatCard';
 import { CardService } from '../services/card-service';
-import { EventEmitter } from 'protractor';
+
 import { Observable } from 'rxjs';
 import { LoginService } from '../services/login.service';
 @Component({
@@ -13,7 +13,7 @@ import { LoginService } from '../services/login.service';
 })
 export class NatMenuComponent implements OnInit {
 
-  events: string[] = [];
+  events: string[] = [];  // event open, close on menu
   opened: boolean;
   accueilIsOn = true;
   cardIsOn = false;
@@ -39,7 +39,7 @@ export class NatMenuComponent implements OnInit {
   }
 
   eventHandler(event) {
-    // debugger;
+    debugger;
     if (event === 'login') {
         console.log('menu comp: recu de fenetre accueil: login');
         this.loginMenuIsOn = true;
@@ -51,8 +51,18 @@ export class NatMenuComponent implements OnInit {
     } else if (event === 'add') {
         console.log('menu comp: event = add');
         this.onClicAddImg() ;
+    } else if (event === 'logOk') {
+      console.log('menu comp: event = logOk');
+      this.onLoginOk();
     }
   }
+
+  onLoginOk() {
+    this.cardService.getListCustomFromServer();
+
+    // this.onClicCustomList() ;
+  }
+
 
   onClicBackHome() {
     this.accueilIsOn = true;
@@ -63,13 +73,12 @@ export class NatMenuComponent implements OnInit {
 
   onClicOwnerCollection() {
     console.log('clic owner');
-
-    // a remettre + tard
-    // if (this.loginService.isLogin === false) {
-    //   alert('Vous êtes pas identifié, identifiez-vous');
-    //   this.onClicMenuLogin();
-    //   return;
-    // }
+    debugger;
+    if (this.loginService.loggedIn === false) {
+      alert('Vous êtes pas identifié, identifiez-vous');
+      this.onClicMenuLogin();
+      return;
+    }
     this.cardType = 'owner';
     this.accueilIsOn = false;
     this.cardIsOn = true;
@@ -80,13 +89,12 @@ export class NatMenuComponent implements OnInit {
   }
 
   onClicAddImg() {
-    // a remettre + tard
 
-    // if (this.loginService.isLogin === false) {
-    //   alert('Vous n'êtes pas identifié, identifiez-vous');
-    //   this.onClicMenuLogin();
-    //   return;
-    // }
+    if (this.loginService.loggedIn === false) {
+      alert('Vous n\'êtes pas identifié, identifiez-vous');
+      this.onClicMenuLogin();
+      return;
+    }
     this.accueilIsOn = false;
     this.cardIsOn = true;
     this.loginMenuIsOn = false;
@@ -100,6 +108,11 @@ export class NatMenuComponent implements OnInit {
 
   onClicCustomList() {
     console.log('clic list client');
+    if (this.loginService.loggedIn === false) {
+      alert('Vous n\'êtes pas identifié, identifiez-vous');
+      this.onClicMenuLogin();
+      return;
+    }
     this.accueilIsOn = false;
     this.cardIsOn = true;
     this.avatar = 'list';

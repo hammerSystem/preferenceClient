@@ -9,7 +9,8 @@
         fixedBottomGap = 70
         [(opened)]="opened"
         (opened)="events.push('open!')"
-        (closed)="events.push('close!')">
+        (closed)="events.push('close!')"
+        >
 
       <!-- <div> -->
         <mat-nav-list>
@@ -95,7 +96,7 @@
 
         <!-- Bonne list de card en fonction de la list cuisine, salle bain, perso, etc -->
         <app-card-container
-            (evClicChangeList)="eventHandler($event)"
+            (reloadCustomList)="eventHandler($event)"
             [listCard]="listCard"
             [avatar]="avatar"
             [cardType] = "cardType"
@@ -103,8 +104,8 @@
             >
         </app-card-container>
 
-        <app-login *ngIf="loginMenuIsOn">
-
+        <app-login *ngIf="loginMenuIsOn"
+          (evLogin)="eventHandler($event)">
         </app-login>
 
       <!-- <p><button mat-button (click)="sidenav.toggle()">sidenav.toggle()</button></p>
