@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   @Input() passwordValue: string;
 
   constructor(private authService: AuthService,
-              private loginService: LoginService,
+              public loginService: LoginService,
               private cardService: CardService,
               private messageService: MessageService) { }
 
