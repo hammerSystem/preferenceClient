@@ -55,17 +55,17 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { CardContainerComponent } from './card-container/card-container.component';
 import { LoginComponent } from './login/login.component';
 import { CardAddComponent } from './card-add/card-add.component';
-import { CardService} from '../app/services/card-service'
+import { CardService} from '../app/services/card-service';
 import { HttpClientModule } from '@angular/common/http';
 import {AngularFireModule} from '@angular/fire';
-import {AngularFireStorageModule} from 'angularfire2/storage'
+import {AngularFireStorageModule} from 'angularfire2/storage';
 
 
 const config = new AuthServiceConfig([
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    // provider: new FacebookLoginProvider('1034585276923099') // test
-    provider: new FacebookLoginProvider('224516148907971')
+    provider: new FacebookLoginProvider('1034585276923099') // test
+    // provider: new FacebookLoginProvider('224516148907971')
   }
 ]);
 

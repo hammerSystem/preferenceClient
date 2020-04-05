@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   configApp = false;
   passIsActive = false;
-  logAsAdmin = false;
+  // logAsAdmin = false;
   @Input() passwordValue: string;
 
   constructor(private authService: AuthService,
@@ -48,11 +48,15 @@ export class LoginComponent implements OnInit {
   }
 
   signInWithFB(): void {
+    if (this.loginService.loggedAsAdmin){
+      this.onCheckLogOutAsAdmin();
+    }
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   signOut(): void {
     this.authService.signOut();
+    this.loginService.setUser('', false);
   }
 
   onCheckManageApp() {
@@ -66,7 +70,7 @@ export class LoginComponent implements OnInit {
 
   onCheckLogOutAsAdmin() {
     this.passIsActive = false;
-    this.logAsAdmin = false;
+    this.loginService.loggedAsAdmin = false;
     this.loginService.setUser('', false);
     this.messageService.snackMessage('Authentification', 'Vous n\'êtes plus connecter en tant qu\'administrateur');
   }
