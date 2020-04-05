@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NatCard} from '../natCard';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { CardService } from '../services/card-service';
+import { LoginService } from '../services/login.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class NatCardComponent implements OnInit {
 
     // color_like_but = "black";
 
-  constructor(private cardService: CardService) { }
+  constructor(private cardService: CardService, public loginService: LoginService) { }
 
 
   ngOnInit() {
@@ -48,7 +49,7 @@ export class NatCardComponent implements OnInit {
   this.saveACard();
 }
 
-  AddCardToCustomList(){
+  AddCardToCustomList() {
     console.log('add cvard to custom list');
     this.cardService.addCardToList('custom', this.path, this.title, this.like, this.comment, this.desc);
     this.cardService.deleteACard(this.cardType, this.index)

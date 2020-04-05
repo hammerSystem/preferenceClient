@@ -33,13 +33,13 @@ export class NatMenuComponent implements OnInit {
   constructor(private cardService: CardService, public loginService: LoginService) { }
 
   ngOnInit() {
-    this.cardService.getAllListCardFromServer();
+    // this.cardService.getAllListCardFromServer();
     // this.cardService.setCardTest();
 
   }
 
   eventHandler(event) {
-    debugger;
+    // debugger;
     if (event === 'login') {
         console.log('menu comp: recu de fenetre accueil: login');
         this.loginMenuIsOn = true;
@@ -54,13 +54,24 @@ export class NatMenuComponent implements OnInit {
     } else if (event === 'logOk') {
       console.log('menu comp: event = logOk');
       this.onLoginOk();
+    } else if (event === 'logAsAdmin') {
+      console.log('menu comp: event = logAsAdmin');
+      this.onLoginOkAsAdmin();
     }
+
   }
 
   onLoginOk() {
+    debugger;
+    this.cardService.getListOwnerFromServer();
     this.cardService.getListCustomFromServer();
 
-    // this.onClicCustomList() ;
+
+  }
+
+  onLoginOkAsAdmin() {
+    this.cardService.getListOwnerFromServer();
+    this.cardService.getListCustomFromServer();
   }
 
 

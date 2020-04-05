@@ -46,7 +46,7 @@
             </mat-list-item>
         </mat-nav-list>
 
-        <mat-nav-list>
+        <mat-nav-list *ngIf="!loginService.loggedAsAdmin">
             <h1 matSubheader>
                 Banque photos
             </h1>
@@ -85,7 +85,7 @@
             <mat-icon>menu</mat-icon>
             Menu
         </button>
-        <div  *ngIf="loginService.loggedIn" class="login-as">authentifié en tant que : {{loginService.user.firstName}}  {{loginService.user.lastName}}
+        <div  *ngIf="loginService.loggedIn" class="login-as">Authentifié en tant que : {{loginService.user.firstName}}  {{loginService.user.lastName}}
           <!-- <img class="img-fb-photo" mat-card-image [src]="loginService.user.photoUrl" alt="Facebook Photo"> -->
         </div>
 

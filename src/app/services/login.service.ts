@@ -20,6 +20,7 @@ export class LoginService {
 
   user: SocialUser = new SocialUser();
   loggedIn = false;
+  loggedAsAdmin = false;
 
 
   // constructor(private httpClient: HttpClient, private _snackBar: MatSnackBar) { }
@@ -35,8 +36,9 @@ export class LoginService {
   setUser(user, loggedIn) {
     this.user = user;
     this.loggedIn = loggedIn;
-    // debugger;
-    // this.evLogin.emit('logOk');
+    if (user.firstName === 'admin') {
+      this.loggedAsAdmin = true;
+    }
   }
 
   // authStateSubscribe() {

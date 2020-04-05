@@ -8,7 +8,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class AccueilComponent implements OnInit {
 
   @Input() loginMenuIsOn: boolean;
-
   @Output() evClicLogin: EventEmitter<string> = new EventEmitter();
 
   constructor() { }
@@ -20,5 +19,5 @@ export class AccueilComponent implements OnInit {
     this.evClicLogin.emit('login');
     console.log('clic login dans fen accueil');
   }
-
 }
+

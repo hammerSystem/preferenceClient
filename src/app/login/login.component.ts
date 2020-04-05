@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
 import { LoginService} from '../services/login.service';
-// import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CardService } from '../services/card-service';
 import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
 
@@ -13,18 +13,18 @@ export class LoginComponent implements OnInit {
 
   user: SocialUser = new SocialUser();
   loggedIn = false;
+
   @Output() evLogin: EventEmitter<string> = new EventEmitter();
 
-
-  // isLogin = false;
-  // user2 = {
-  //   name: ''
-  // };
+  configApp = false;
+  passIsActive = false;
+  logAsAdmin = false;
+  @Input() passwordValue: string;
 
   constructor(private authService: AuthService,
               private loginService: LoginService,
-              private cardService: CardService) {}
-              // private _snackBar: MatSnackBar) { }
+              private cardService: CardService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     // this.loginService.authStateSubscribe();
@@ -53,6 +53,42 @@ export class LoginComponent implements OnInit {
   signOut(): void {
     this.authService.signOut();
   }
+
+  onCheckManageApp() {
+    if (this.passIsActive) {
+      this.passIsActive = false;
+    } else {
+      this.passIsActive = true;
+    }
+    console.log('activate password');
+  }
+
+  onCheckLogOutAsAdmin() {
+    this.passIsActive = false;
+    this.logAsAdmin = false;
+    this.loginService.setUser('', false);
+  }
+
+
+  onClickValidatePass() {
+    console.log('validate pass');
+    console.log(this.passwordValue) ;
+    if (this.passwordValue === 'patate') {
+      console.log('ok pass bon');
+      const adminUser = {
+        name: 'admin owner',
+        firstName: 'admin',
+        lastName : 'owner'
+      };
+      this.loginService.setUser(adminUser, true);
+      this.evLogin.emit('logAsAdmin');
+    } else {
+      console.log('ajouter message mauvais mot de pass');
+    }
+  }
+
+
+}
   // onClickLogin() {
   //   this.loginService.login(this.user2);
   // }
@@ -84,4 +120,4 @@ export class LoginComponent implements OnInit {
   // }
 
 
-}
+

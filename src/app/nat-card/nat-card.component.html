@@ -14,8 +14,8 @@
             {{desc}}
        </p>
     </mat-card-content>
-    <div class="mdc-card__actions">
-        <div class="mdc-card__action-icons">
+    <div>
+        <div class="user-comment" *ngIf= "!loginService.loggedAsAdmin">
 
           <button class="but-like" aria-pressed="false"  title="like" (click)="onClickLike()" >
           <!-- <button class="but-like" aria-pressed="false"  title="like" (click)="onClickLike()"  [(ngModel)]="like"> -->
@@ -40,10 +40,11 @@
               <mat-icon matSuffix>mode_edit</mat-icon>
             </mat-form-field>
           </form>
-
-          <button *ngIf="cardType!=='custom'" class='but-orange' mat-raised-button (click)="AddCardToCustomList()">Ajouter à ma liste </button>
-          <button *ngIf="cardType==='custom'" class='but-orange' mat-raised-button (click)="deleteACard()"> Supprimer de ma liste </button>
-
         </div>
+
+        <button *ngIf="cardType!=='custom'" class='but-orange' mat-raised-button (click)="AddCardToCustomList()">Ajouter à ma liste </button>
+        <button *ngIf="cardType==='custom'" class='but-orange' mat-raised-button (click)="deleteACard()"> Supprimer de ma liste </button>
+
+
       </div>
  </mat-card>

@@ -29,7 +29,7 @@ export class CardService {
   // listCardBathtubEmptyOnServer:boolean =false;
   // listCardCustomImgEmptyOnServer:boolean =false;
 
-  public listOwner$: Observable<[]> = this.getObservableListCardsFromServer('owner');
+  public listOwner$: Observable<any[]> = this.getObservableListCardsFromServer('owner');
   // public listBathTub$: Observable<[]> = this.getObservableListCardsFromServer('bathtub');
   public listCustom$: Observable<any[]> = this.getObservableListCardsFromServer('custom');
 
@@ -117,45 +117,29 @@ export class CardService {
   getUrlBdWithUserAndType(cardType) {
     let urlBdSaveList = this.urlBd;
     urlBdSaveList += '/';
-    urlBdSaveList += this.loginService.user.firstName;
-    urlBdSaveList += '_';
-    urlBdSaveList += this.loginService.user.lastName;
 
     if (cardType === 'owner') {
-      urlBdSaveList += '/listCardOwner.json';
-    // } else if (cardType === 'bathtub') {
-    //   urlBdSaveList += '/listCardBathtub.json';
+      urlBdSaveList += 'admin';
+      urlBdSaveList += '_';
+      urlBdSaveList += 'owner';
     } else if (cardType === 'custom') {
-      urlBdSaveList += '/listCardCustom.json';
+      urlBdSaveList += this.loginService.user.firstName;
+      urlBdSaveList += '_';
+      urlBdSaveList += this.loginService.user.lastName;
     }
+
+    urlBdSaveList += '/listCardCustom.json'; // on va chercher custom meme si owner_admin, c'est custom
+
+    // if (cardType === 'owner') {
+    //   urlBdSaveList += '/listCardOwner.json';
+    // // } else if (cardType === 'bathtub') {
+    // //   urlBdSaveList += '/listCardBathtub.json';
+    // } else if (cardType === 'custom') {
+    //   urlBdSaveList += '/listCardCustom.json';
+    // }
 
     return urlBdSaveList;
   }
-
-  // getIsListEmptyOnServer(cardType){
-
-  // 	// debugger;
-  // 	if (cardType === 'kitchen'){
-  // 		return this.listCardKitchenEmptyOnServer;
-  // 	}
-  // 	else if(cardType === 'bathtub'){
-  // 		return this.listCardBathtubEmptyOnServer;
-  // 	}
-  // 	else if(cardType === 'custom'){
-  // 		return this.listCardCustomImgEmptyOnServer
-  // 	}
-  // }
-  // setIsEmpty(cardType, value){
-  // 	if (cardType === 'kitchen'){
-  // 		this.listCardKitchenEmptyOnServer = value;
-  // 	}
-  // 	else if(cardType === 'bathtub'){
-  // 		this.listCardBathtubEmptyOnServer = value;
-  // 	}
-  // 	else if(cardType === 'custom'){
-  // 		this.listCardCustomImgEmptyOnServer = value;
-  // 	}
-  // }
 
   saveListCardToServer(cardType) {
 
@@ -188,7 +172,7 @@ export class CardService {
 
     // this.listCustom$: Observable<[]> = this.getObservableListCardsFromServer('custom');
 
-    debugger;
+    // debugger;
     const urlBdSaveList = this.getUrlBdWithUserAndType('custom');
     this.listCustom$ = this.httpClient.get<any[]>(urlBdSaveList);
     this.listCustom$.subscribe((listCard: any[]) => {
@@ -196,6 +180,23 @@ export class CardService {
         this.setListFromType('custom', listCard);
       } else {
         console.log('list custom vide...)');
+        // this.listCardCustomImgEmptyOnServer = true;
+      }
+    });
+  }
+
+  getListOwnerFromServer(): any {
+
+    // this.listCustom$: Observable<[]> = this.getObservableListCardsFromServer('custom');
+
+    // debugger;
+    const urlBdSaveList = this.getUrlBdWithUserAndType('owner');
+    this.listOwner$ = this.httpClient.get<any[]>(urlBdSaveList);
+    this.listOwner$.subscribe((listCard: any[]) => {
+      if (listCard) {
+        this.setListFromType('owner', listCard);
+      } else {
+        console.log('list Owner vide...)');
         // this.listCardCustomImgEmptyOnServer = true;
       }
     });
