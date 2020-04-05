@@ -52,7 +52,7 @@ export class NatCardComponent implements OnInit {
   AddCardToCustomList() {
     console.log('add cvard to custom list');
     this.cardService.addCardToList('custom', this.path, this.title, this.like, this.comment, this.desc);
-    this.cardService.deleteACard(this.cardType, this.index)
+    this.cardService.deleteACard(this.cardType, this.index, false);
   }
 
   saveACard() {
@@ -63,7 +63,7 @@ export class NatCardComponent implements OnInit {
   }
 
   deleteACard() {
-    this.cardService.deleteACard(this.cardType, this.index);
+    this.cardService.deleteACard(this.cardType, this.index, true);
   }
 
 

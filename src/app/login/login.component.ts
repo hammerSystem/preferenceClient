@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
 import { LoginService} from '../services/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CardService } from '../services/card-service';
+import { MessageService } from '../services/message.service';
 import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
 
 @Component({
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService,
               private loginService: LoginService,
               private cardService: CardService,
-              private snackBar: MatSnackBar) { }
+              private messageService: MessageService) { }
 
   ngOnInit() {
     // this.loginService.authStateSubscribe();
@@ -67,6 +68,7 @@ export class LoginComponent implements OnInit {
     this.passIsActive = false;
     this.logAsAdmin = false;
     this.loginService.setUser('', false);
+    this.messageService.snackMessage('Authentification', 'Vous n\'êtes plus connecter en tant qu\'administrateur');
   }
 
 
@@ -83,7 +85,7 @@ export class LoginComponent implements OnInit {
       this.loginService.setUser(adminUser, true);
       this.evLogin.emit('logAsAdmin');
     } else {
-      console.log('ajouter message mauvais mot de pass');
+      this.messageService.snackMessage('Authentification', 'Le mot de passe est incorrect!');
     }
   }
 

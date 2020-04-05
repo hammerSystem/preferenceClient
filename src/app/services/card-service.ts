@@ -2,8 +2,9 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from 'angularfire2/storage';
-import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
+// import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import { LoginService } from '../services/login.service';
+import { MessageService } from '../services/message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,9 @@ export class CardService {
 
   constructor(private httpClient: HttpClient,
               private afStorage: AngularFireStorage,
-              private snackBar: MatSnackBar,
-              private loginService: LoginService) { }
+              // private snackBar: MatSnackBar,
+              private loginService: LoginService,
+              private messageService: MessageService) { }
 
   valid: boolean;
   urlBd = 'https://preferenceclient.firebaseio.com';
@@ -43,18 +45,18 @@ export class CardService {
     // this.afStorage.upload('https://preferenceclient.firebaseio.com/image', event.target.files[0]);
   }
 
-  snackMessage(title, message) {
-    this.openSnackBar(title, message);
-  }
+  // snackMessage(title, message) {
+  //   this.openSnackBar(title, message);
+  // }
 
-  openSnackBar(message: string, action: string) {
-    const config = new MatSnackBarConfig();
-    config.duration = 2000;
-    config.panelClass = ['custom-snackbar'];
+  // openSnackBar(message: string, action: string) {
+  //   const config = new MatSnackBarConfig();
+  //   config.duration = 2000;
+  //   config.panelClass = ['custom-snackbar'];
 
-    this.snackBar.open(message, action, config);
+  //   this.snackBar.open(message, action, config);
 
-  }
+  // }
 
   setCardTest() {
     this.listCardOwner = [
@@ -263,26 +265,26 @@ export class CardService {
     });
   }
 
-  test(typeList) {
-  if (typeList === 'custom' && this.listCardCustomImg.length === 0 && this.loginService.user.name !== 'undefinine') {
-    const monObservable = this.getObservableListCardsFromServer('custom');
-    console.log('ici');
+//   test(typeList) {
+//   if (typeList === 'custom' && this.listCardCustomImg.length === 0 && this.loginService.user.name !== 'undefinine') {
+//     const monObservable = this.getObservableListCardsFromServer('custom');
+//     console.log('ici');
 
-    monObservable.subscribe((listCard: any[]) => {
-      if (listCard) {
-        this.setListFromType('custom', listCard);
-        // this.evReloadCustomList.emit('reloadCustomList');
-      } else {
-        console.log('list custom vide...)');
+//     monObservable.subscribe((listCard: any[]) => {
+//       if (listCard) {
+//         this.setListFromType('custom', listCard);
+//         // this.evReloadCustomList.emit('reloadCustomList');
+//       } else {
+//         console.log('list custom vide...)');
 
-        // this.listCardCustomImgEmptyOnServer = true;
-      }
-    });
-  }
-}
+//         // this.listCardCustomImgEmptyOnServer = true;
+//       }
+//     });
+//   }
+// }
 
     getListFromType(typeList: string) {
-    debugger;
+    // debugger;
     if (typeList === 'owner') {
         return this.listCardOwner;
     // } else if (typeList === 'bathtub') {
@@ -314,7 +316,6 @@ export class CardService {
 
     let goodList: any[];
     goodList = this.getListFromType(typeList);
-    debugger;
     goodList.push(
       {
         path: pathImg,
@@ -324,7 +325,7 @@ export class CardService {
         comment
       }
     );
-    this.snackMessage('Ajout', 'Une photo a été ajoutée votre liste');
+    this.messageService.snackMessage('Modification à ma liste', 'Une photo a été ajoutée votre liste');
   }
 
   saveACard(cardType, cardIndex, like, comment) {
@@ -334,11 +335,14 @@ export class CardService {
     goodList[cardIndex].comment = comment;
   }
 
-  deleteACard(cardType, index) {
+  deleteACard(cardType, index, message) {
     debugger;
     const goodList = this.getListFromType(cardType);
     goodList.splice(index, 1);
-    this.snackMessage('Suppression', 'Une photo a été supprimée de votre liste');
+    if (message){
+      this.messageService.snackMessage('Modification <br>à ma liste', 'Une photo a été supprimée de votre liste');
+    }
+
   }
 
 
