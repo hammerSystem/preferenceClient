@@ -81,7 +81,9 @@ export class LoginComponent implements OnInit {
     console.log(this.passwordValue) ;
     if (this.passwordValue === 'patate') {
       console.log('ok pass bon');
-      this.signOut();
+      if (this.loginService.loggedIn){
+        this.signOut();
+      }
       const adminUser = {
         name: 'admin owner',
         firstName: 'admin',

@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostListener  } from '@angular/core';
 import {MatButtonModule} from '@angular/material';
 import { CardService } from '../services/card-service';
+// import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-card-container',
@@ -31,15 +32,23 @@ export class CardContainerComponent implements OnInit {
   }
 
     switchCardType(newCardType) {
+      // debugger;
       this.cardType = newCardType;
-      this.evReloadList.emit('reloadCustomList');
+
+      this.evReloadList.emit(newCardType);
+
     }
 
-  ngOnDestroy() {
-    // this.save()
-  }
+  // ngOnDestroy() {
+  //   debugger;
+  //   this.saveListCard();
+  //   // this.save()
+  // }
+
+
 
   saveListCard() {
+    // debugger;
     console.log('save on server');
     this.cardService.saveListCardToServer(this.cardType);
   }

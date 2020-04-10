@@ -40,7 +40,7 @@ export class NatMenuComponent implements OnInit {
   }
 
   eventHandler(event) {
-    // debugger;
+    debugger;
     if (event === 'login') {
         console.log('menu comp: recu de fenetre accueil: login');
         this.loginMenuIsOn = true;

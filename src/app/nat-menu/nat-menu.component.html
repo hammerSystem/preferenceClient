@@ -85,7 +85,8 @@
             <mat-icon>menu</mat-icon>
             Menu
         </button>
-        <div  *ngIf="loginService.loggedIn" class="login-as">Authentifié en tant que : {{loginService.user.firstName}}  {{loginService.user.lastName}}
+        <div  *ngIf="loginService.loggedIn" class="login-as">
+          <div>Authentifié:<br>{{loginService.user.firstName}}  {{loginService.user.lastName}}</div>
           <!-- <img class="img-fb-photo" mat-card-image [src]="loginService.user.photoUrl" alt="Facebook Photo"> -->
         </div>
 
@@ -96,7 +97,7 @@
 
         <!-- Bonne list de card en fonction de la list cuisine, salle bain, perso, etc -->
         <app-card-container
-            (reloadCustomList)="eventHandler($event)"
+            (evReloadList)="eventHandler($event)"
             [listCard]="listCard"
             [avatar]="avatar"
             [cardType] = "cardType"

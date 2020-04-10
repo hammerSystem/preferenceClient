@@ -16,16 +16,15 @@
     </mat-card-content>
     <div>
         <div class="user-comment" *ngIf= "!loginService.loggedAsAdmin">
-
+<!--
           <button class="but-like" aria-pressed="false"  title="like" (click)="onClickLike()" >
-          <!-- <button class="but-like" aria-pressed="false"  title="like" (click)="onClickLike()"  [(ngModel)]="like"> -->
               <mat-icon [ngClass]="{'color_like_but': like=== true,
                                     'color_not_like_but' : like===false }"
                   matSuffix>favorite
               </mat-icon>
-          </button>
+          </button> -->
 
-          <form >
+          <form *ngIf="cardType==='custom'" >
             <mat-form-field class="form-field" >
               <mat-label class="monLabel">Saisir un commentaire</mat-label>
               <!-- <input class="input-commentaire" matInput placeholder="Saisir un commentaire" value="commentaires"></input> -->

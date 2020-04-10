@@ -18,7 +18,7 @@
           [comment] = "maCard.comment">
 
       </app-nat-card>
-      <div class="container-button">
+      <div class="container-button" *ngIf= "cardType==='custom'">
           <button class='but-orange' mat-raised-button (click)="saveListCard()">  Sauvegarde</button>
       </div>
   </div>
