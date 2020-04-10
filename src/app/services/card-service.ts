@@ -145,7 +145,7 @@ export class CardService {
 
   saveListCardToServer(cardType) {
 
-    debugger;
+    // debugger;
     const urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
     const goodList = this.getListFromType(cardType);
     let requeteHttp: any;
@@ -209,7 +209,7 @@ export class CardService {
     if (typeof this.loginService.user.name === 'undefined') {
       return;
     }
-    debugger;
+    // debugger;
     const urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
     return this.httpClient.get<any[]>(urlBdSaveList);
   }
@@ -325,7 +325,7 @@ export class CardService {
         comment
       }
     );
-    this.messageService.snackMessage('Modification à ma liste', 'Une photo a été ajoutée votre liste');
+    this.messageService.snackMessageSansTitre('Une photo a été ajoutée votre liste');
   }
 
   saveACard(cardType, cardIndex, like, comment) {
@@ -336,11 +336,11 @@ export class CardService {
   }
 
   deleteACard(cardType, index, message) {
-    debugger;
+    // debugger;
     const goodList = this.getListFromType(cardType);
     goodList.splice(index, 1);
-    if (message){
-      this.messageService.snackMessage('Modification <br>à ma liste', 'Une photo a été supprimée de votre liste');
+    if (message) {
+      this.messageService.snackMessageSansTitre('Une photo a été supprimée de votre liste');
     }
 
   }

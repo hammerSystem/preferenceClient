@@ -3,6 +3,7 @@ import { MatSidenavModule, MatToolbarModule, MatTooltipModule} from '@angular/ma
 import {MatCheckboxModule} from '@angular/material/checkbox';
 // import {NatCard} from  '../NatCard';
 import { CardService } from '../services/card-service';
+import { MessageService } from '../services/message.service';
 
 import { Observable } from 'rxjs';
 import { LoginService } from '../services/login.service';
@@ -30,7 +31,7 @@ export class NatMenuComponent implements OnInit {
   // @Output() eventChangementLitCard:EventEmitter<any> = new EventEmitter();
 
 
-  constructor(private cardService: CardService, public loginService: LoginService) { }
+  constructor(private cardService: CardService, public loginService: LoginService, private messageService: MessageService) { }
 
   ngOnInit() {
     // this.cardService.getAllListCardFromServer();
@@ -71,6 +72,9 @@ export class NatMenuComponent implements OnInit {
   onLoginOkAsAdmin() {
     this.cardService.getListOwnerFromServer();
     this.cardService.getListCustomFromServer();
+    if (this.loginService.loggedIn){
+      this.messageService.snackMessageSansTitre('Identification réussi en tant administrateur');
+    }
   }
 
 
@@ -83,9 +87,9 @@ export class NatMenuComponent implements OnInit {
 
   onClicOwnerCollection() {
     console.log('clic owner');
-    debugger;
+
     if (this.loginService.loggedIn === false) {
-      alert('Vous êtes pas identifié, identifiez-vous');
+      this.messageService.snackMessageSansTitre('Identifiez-vous d\'abord');
       this.onClicMenuLogin();
       return;
     }
@@ -101,7 +105,9 @@ export class NatMenuComponent implements OnInit {
   onClicAddImg() {
 
     if (this.loginService.loggedIn === false) {
-      alert('Vous n\'êtes pas identifié, identifiez-vous');
+      this.messageService.snackMessageSansTitre('Identifiez-vous d\'abord');
+      // this.messageService.snackMessage('Identification', 'Vous êtes pas identifié.\nIdentifiez-vous');
+      // alert('Vous n\'êtes pas identifié, identifiez-vous');
       this.onClicMenuLogin();
       return;
     }
@@ -119,7 +125,8 @@ export class NatMenuComponent implements OnInit {
   onClicCustomList() {
     console.log('clic list client');
     if (this.loginService.loggedIn === false) {
-      alert('Vous n\'êtes pas identifié, identifiez-vous');
+      this.messageService.snackMessageSansTitre('Identifiez-vous d\'abord');
+      // alert('Vous n\'êtes pas identifié, identifiez-vous');
       this.onClicMenuLogin();
       return;
     }

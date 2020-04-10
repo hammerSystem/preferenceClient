@@ -1,7 +1,7 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
+// import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
 
 
@@ -30,8 +30,8 @@ export class LoginService {
   //   name: ''
   // };
 
-  constructor(private authService: AuthService,
-              private snackBar: MatSnackBar) { }
+  constructor(private authService: AuthService){}
+              // private snackBar: MatSnackBar) { }
 
   setUser(user, loggedIn) {
     this.user = user;
@@ -86,23 +86,23 @@ export class LoginService {
   // }
 
 
-  messageIsAuth() {
+  // messageIsAuth() {
 
-    if (this.loggedIn) {
-      this.openSnackBar('Identification', `Identification réussi en tant que ${this.user.name}`);
-    } else {
-      this.openSnackBar('Erreur d\'identification', 'Veuillez saisir un nom valide');
-    }
-  }
+  //   if (this.loggedIn) {
+  //     this.openSnackBar('Identification', `Identification réussi en tant que ${this.user.name}`);
+  //   } else {
+  //     this.openSnackBar('Erreur d\'identification', 'Veuillez saisir un nom valide');
+  //   }
+  // }
 
-  openSnackBar(message: string, action: string) {
-    const config = new MatSnackBarConfig();
-    config.duration = 10000;
-    config.panelClass = ['custom-snackbar'];
+  // openSnackBar(message: string, action: string) {
+  //   const config = new MatSnackBarConfig();
+  //   config.duration = 10000;
+  //   config.panelClass = ['custom-snackbar'];
 
-    this.snackBar.open(message, action, config);
+  //   this.snackBar.open(message, action, config);
 
-  }
+  // }
 
   // saveUserOnServer(user):boolean{
   // 	this.userLogin$ =this.getObservableSaveAccountOnServer(this.user);

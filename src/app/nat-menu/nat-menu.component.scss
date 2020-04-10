@@ -4,10 +4,12 @@ mat-sidenav{
     background-color: orange;
     width: 200px;
     height: 100%;
+
 }
 
 mat-sidenav-container{
-    margin:8px
+    margin:8px;
+    position: inherit;
 }
 
 .login-as{

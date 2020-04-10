@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
     this.passIsActive = false;
     this.loginService.loggedAsAdmin = false;
     this.loginService.setUser('', false);
-    this.messageService.snackMessage('Authentification', 'Vous n\'êtes plus connecter en tant qu\'administrateur');
+    this.messageService.snackMessageSansTitre('Vous êtes déconnecté en tant qu\'administrateur');
   }
 
 
@@ -81,6 +81,7 @@ export class LoginComponent implements OnInit {
     console.log(this.passwordValue) ;
     if (this.passwordValue === 'patate') {
       console.log('ok pass bon');
+      this.signOut();
       const adminUser = {
         name: 'admin owner',
         firstName: 'admin',
@@ -89,7 +90,7 @@ export class LoginComponent implements OnInit {
       this.loginService.setUser(adminUser, true);
       this.evLogin.emit('logAsAdmin');
     } else {
-      this.messageService.snackMessage('Authentification', 'Le mot de passe est incorrect!');
+      this.messageService.snackMessageSansTitre('Le mot de passe est incorrect!');
     }
   }
 

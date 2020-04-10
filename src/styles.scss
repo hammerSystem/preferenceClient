@@ -17,6 +17,13 @@
 
 .custom-snackbar{
   color:orange;
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+  margin: 24px;
+  justify-content: center;
+  display:flex !important;
+
 }
 
 // JM fin

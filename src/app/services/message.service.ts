@@ -13,6 +13,10 @@ export class MessageService {
     this.openSnackBar(title, message);
   }
 
+  snackMessageSansTitre(message) {
+    this.openSnackBar('', message);
+  }
+
   openSnackBar(message: string, action: string) {
     const config = new MatSnackBarConfig();
     config.duration = 2000;

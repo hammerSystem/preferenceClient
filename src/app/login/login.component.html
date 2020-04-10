@@ -30,7 +30,7 @@
 <div class="container">
   <mat-card class="example-card">
     <mat-card-header>
-      <mat-card-title><h2><span *ngIf="loggedIn===false">Authentifiez-vous!</span> <span *ngIf="loggedIn===true">Bienvenue {{user.firstName}} {{user.lastName}}, </span> </h2></mat-card-title>
+      <mat-card-title><h3><span *ngIf="loggedIn===false">Authentifiez-vous!</span> <span *ngIf="loggedIn===true">Bienvenue {{user.firstName}} {{user.lastName}}, </span> </h3></mat-card-title>
       <mat-card-subtitle>
         <button type="button" (click)="signInWithFB()" *ngIf="loggedIn===false" mat-flat-button color="primary">Authentifiez vous avec Facebook</button>
         <button type="button" (click)="signOut()" *ngIf="loggedIn===true" mat-flat-button color="primary">Déconnexion Facebook</button>
@@ -39,7 +39,7 @@
   </mat-card>
   <mat-card class="example-card" *ngIf="loggedIn===true">
     <mat-card-header>
-      <mat-card-title><h2>Votre Profile Facebook :</h2></mat-card-title>
+      <mat-card-title><h4 class='h4-spacer'>Votre profile Facebook :</h4></mat-card-title>
       <mat-card-subtitle>Nom complet: {{user.firstName}} {{user.lastName}}</mat-card-subtitle>
     </mat-card-header>
     <img class="img-fb-photo" mat-card-image [src]="user.photoUrl" alt="Facebook Photo">
@@ -53,6 +53,7 @@
 
 <mat-checkbox *ngIf= "!loginService.loggedAsAdmin" (click)="onCheckManageApp()">S'authentifier en tant qu'administrateur</mat-checkbox>
 <mat-checkbox  *ngIf= "loginService.loggedAsAdmin" (click)="onCheckLogOutAsAdmin()">Se deconnecter en tant qu'administrateur</mat-checkbox>
+
 <div></div>
 <div class='password' *ngIf="passIsActive">
   Saisir le mot de passe
