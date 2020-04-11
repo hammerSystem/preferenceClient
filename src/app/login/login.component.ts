@@ -30,7 +30,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     // this.loginService.authStateSubscribe();
 
-    this.authService.authState.subscribe((user) => {
+    this.authService.authState.subscribe(
+      (user) => {
       this.user = user;
       this.loggedIn = (user != null);
       console.log("user a l'init:");
@@ -40,18 +41,22 @@ export class LoginComponent implements OnInit {
         this.loginService.setUser(this.user, this.loggedIn);
         this.evLogin.emit('logOk');
       }
-      // if (typeof this.loginService.user.name !== 'undefined') {
-      //   this.cardService.getObservableListCardsFromServer('custom');
-      // }
+    },
+    err => console.log('erreur!!', err));
 
-    });
   }
 
   signInWithFB(): void {
-    if (this.loginService.loggedAsAdmin){
+    if (this.loginService.loggedAsAdmin) {
       this.onCheckLogOutAsAdmin();
     }
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    debugger;
+    try {
+      this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    }catch (err) {
+      debugger;
+        alert(err.message);
+      }
   }
 
   signOut(): void {
