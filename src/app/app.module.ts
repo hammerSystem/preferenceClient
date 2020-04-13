@@ -59,13 +59,14 @@ import { CardService} from '../app/services/card-service';
 import { HttpClientModule } from '@angular/common/http';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireStorageModule} from 'angularfire2/storage';
+import { SearchClientListImgComponent } from './search-client-list-img/search-client-list-img.component';
 
 
 const config = new AuthServiceConfig([
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    // provider: new FacebookLoginProvider('1034585276923099') // test
-    provider: new FacebookLoginProvider('224516148907971')
+    provider: new FacebookLoginProvider('1034585276923099') // test
+    // provider: new FacebookLoginProvider('224516148907971')
   }
 ]);
 
@@ -81,7 +82,8 @@ export function provideConfig() {
     AccueilComponent,
     CardContainerComponent,
     LoginComponent,
-    CardAddComponent
+    CardAddComponent,
+    SearchClientListImgComponent
   ],
   imports: [
     BrowserModule,

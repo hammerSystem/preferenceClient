@@ -52,7 +52,14 @@
 <p></p>
 
 <mat-checkbox *ngIf= "!loginService.loggedAsAdmin" (click)="onCheckManageApp()">S'authentifier en tant qu'administrateur</mat-checkbox>
-<mat-checkbox  *ngIf= "loginService.loggedAsAdmin" (click)="onCheckLogOutAsAdmin()">Se deconnecter en tant qu'administrateur</mat-checkbox>
+<button
+  *ngIf= "loginService.loggedAsAdmin"
+  class='but-orange'
+  mat-raised-button
+  (click)="onCheckLogOutAsAdmin()">
+  Administrateur déconnexion
+</button>
+<!-- <mat-checkbox  *ngIf= "loginService.loggedAsAdmin" (click)="onCheckLogOutAsAdmin()">Se deconnecter en tant qu'administrateur</mat-checkbox> -->
 
 <div></div>
 <div class='password' *ngIf="passIsActive">

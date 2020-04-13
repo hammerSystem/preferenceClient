@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
     console.log(this.passwordValue) ;
     if (this.passwordValue === 'patate') {
       console.log('ok pass bon');
-      if (this.loginService.loggedIn){
+      if (this.loginService.loggedIn) {
         this.signOut();
       }
       const adminUser = {
@@ -95,6 +95,7 @@ export class LoginComponent implements OnInit {
         lastName : 'owner'
       };
       this.loginService.setUser(adminUser, true);
+      this.passIsActive = false;
       this.evLogin.emit('logAsAdmin');
     } else {
       this.messageService.snackMessageSansTitre('Le mot de passe est incorrect!');

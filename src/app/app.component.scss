@@ -11,6 +11,45 @@
   width: device-width ;
 }
 
+.spacer {
+  flex: 1;
+}
+
+.toolbar {
+  display:flex;
+  justify-content: space-between;
+  height: 60px;
+  margin: 8px;
+  display: flex;
+  align-items: center;
+  background-color:rgb(246, 117, 3);
+  color: white;
+  font-weight: 500;
+}
+
+.toolbar span{
+  font-weight: 500;
+}
+
+.toolbar img {
+  margin: 0 16px;
+ }
+
+.toolbar svg{
+  width:40px;
+  height: 40px;
+   margin-right: 20px;
+ }
+
+ .toolbar svg:hover{
+  fill:#4267B2;
+  background-color: white;
+ }
+
+
+a{
+  width: 60px;
+}
 
 ::ng-deep  .mat-form-field{
     width: 100% !important;
@@ -30,7 +69,7 @@
    }
 
 
-::ng-deep .mat-simple-snackbar-action { color: orange; }
+::ng-deep .mat-simple-snackbar-action { color: rgb(246, 117, 3); }
 
 
   //  ::ng-deep.mat-form-field-underline {
@@ -73,39 +112,6 @@
 // a{
 //   margin: 10px;
 // }
-.spacer {
-  flex: 1;
-}
-
-.toolbar {
-  height: 60px;
-  margin: 8px;
-  display: flex;
-  align-items: center;
-  background-color:orange;
-  color: white;
-  font-weight: 500;
-}
-
-.toolbar span{
-  font-weight: 500;
-}
-
-.toolbar img {
-  margin: 0 16px;
- }
-
-.toolbar svg{
-  width:40px;
-  height: 40px;
-   margin-right: 20px;
- }
-
- .toolbar svg:hover{
-  fill:#4267B2;
-  background-color: white;
- }
-
 
 
 // // .toolbar #twitter-logo {
