@@ -19,7 +19,8 @@ export class NatMenuComponent implements OnInit {
   accueilIsOn = true;
   cardIsOn = false;
   loginMenuIsOn = false;
-
+  menuSearchClientIsOn = false;
+  showImageClientMenu = false;
   // isLogin = false;
 
   cardType;
@@ -34,7 +35,7 @@ export class NatMenuComponent implements OnInit {
   constructor(private cardService: CardService, public loginService: LoginService, private messageService: MessageService) { }
 
   ngOnInit() {
-    // this.cardService.getAllListCardFromServer();
+    // this.cardService.getListListCardFromServer();
     // this.cardService.setCardTest();
 
   }
@@ -49,6 +50,9 @@ export class NatMenuComponent implements OnInit {
     } else if (event === 'owner') {
         console.log('menu comp: event = owner');
         this.onClicOwnerCollection();
+    } else if (event === 'custom') {
+        console.log('menu comp: event = custom');
+        this.onClientSelect();
     } else if (event === 'add') {
         console.log('menu comp: event = add');
         this.onClicAddImg() ;
@@ -62,17 +66,30 @@ export class NatMenuComponent implements OnInit {
 
   }
 
-  onLoginOk() {
+  onClientSelect() {
+    debugger;
+    this.cardService.getListCustomFromServer();
+    debugger;
+    this.onClicCustomList();
+    debugger;
 
+  }
+
+  onLoginOk() {
+    debugger;
     this.cardService.getListOwnerFromServer();
     this.cardService.getListCustomFromServer();
+    this.cardService.getListClientFromServer();
+
 
   }
 
   onLoginOkAsAdmin() {
     this.cardService.getListOwnerFromServer();
     this.cardService.getListCustomFromServer();
-    if (this.loginService.loggedIn){
+    this.cardService.getListClientFromServer();
+    this.showImageClientMenu = true;
+    if (this.loginService.loggedIn) {
       this.messageService.snackMessageSansTitre('Identification réussi en tant administrateur');
     }
   }
@@ -83,6 +100,7 @@ export class NatMenuComponent implements OnInit {
     this.cardIsOn = false;
     this.loginMenuIsOn = false;
     this.cardType = '';
+    this.menuSearchClientIsOn = false;
   }
 
   onClicOwnerCollection() {
@@ -99,6 +117,7 @@ export class NatMenuComponent implements OnInit {
     this.listCard = this.cardService.getListFromType(this.cardType);
     this.avatar = 'kitchen';
     this.loginMenuIsOn = false;
+    this.menuSearchClientIsOn = false;
 
   }
 
@@ -136,6 +155,7 @@ export class NatMenuComponent implements OnInit {
     this.loginMenuIsOn = false;
     this.cardType = 'custom';
     this.listCard = this.cardService.getListFromType(this.cardType);
+    this.menuSearchClientIsOn = false;
   }
 
   onClicMenuLogin() {
@@ -145,7 +165,19 @@ export class NatMenuComponent implements OnInit {
     this.listCard = [];
     this.avatar = 'account_box';
     this.cardType = '';
+    this.menuSearchClientIsOn = false;
   }
+
+  onClicMenuSearchClient() {
+    this.accueilIsOn = false;
+    this.cardIsOn = false;
+    this.loginMenuIsOn = false;
+    this.menuSearchClientIsOn = true;
+    this.listCard = [];
+    this.avatar = 'account_box';
+    this.cardType = '';
+  }
+
 
 
 

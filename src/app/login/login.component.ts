@@ -102,6 +102,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  onClicktestAuthAsChose() {
+    const choseUser = {
+      name: 'Chose Bine',
+      firstName: 'chose',
+      lastName : 'bine'
+    };
+    this.loginService.setUser(choseUser, true);
+    this.evLogin.emit('logOk');
+  }
 
 }
   // onClickLogin() {

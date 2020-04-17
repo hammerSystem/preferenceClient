@@ -22,11 +22,11 @@ export class CardContainerComponent implements OnInit {
 
   ngOnInit() {
     console.log('init');
-    // debugger;
+    debugger;
     // this.listCard = this.cardService.getListFromType(this.cardType)
     const typePhoto =  ['owner', 'custom', 'addCard'];
     // const typePhoto =  ['owner', 'bathtub', 'custom'];
-    if (this.cardType !== 'addCard') {
+    if (this.cardType != null || this.cardType !== 'addCard' ) {
       this.listCard = this.cardService.getListFromType(this.cardType);
   }
   }
@@ -51,6 +51,8 @@ export class CardContainerComponent implements OnInit {
     // debugger;
     console.log('save on server');
     this.cardService.saveListCardToServer(this.cardType);
+
+    // tests
   }
 
 

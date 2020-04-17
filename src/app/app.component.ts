@@ -27,9 +27,9 @@ export class AppComponent {
       //     $event.returnValue =true;
       // }
       // debugger;
-      console.log('Save list card on server!!!');
-      this.cardService.saveListCardToServer('custom');
       if (this.loginService.loggedIn) {
+        console.log('Save list card on server!!!');
+        this.cardService.saveListCardToServer('custom');
         this.authService.signOut();
       }
       // debugger;

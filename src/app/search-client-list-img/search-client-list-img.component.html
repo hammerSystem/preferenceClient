@@ -1,1 +1,22 @@
-<p>search-client-list-img works!</p>
+
+
+<div>
+  <h2>Sélectionner un client pour afficher sa liste d'image</h2>
+  <mat-divider></mat-divider>
+  <mat-list *ngFor="let client of listClient; let i = index" >
+    <mat-list-item (click)="onClickClient(i)"> {{client.name}} </mat-list-item>
+  </mat-list>
+  <mat-divider></mat-divider>
+
+  <p></p>
+
+  <h3>Client sélectionné: {{clientSelect.name}}</h3>
+  <button
+  *ngIf="clientSelect.name !== 'Aucun'"
+    class='but-orange'
+    mat-raised-button
+    (click)="OnClickSeeListClient()">
+    voir liste du client
+  </button>
+
+</div>

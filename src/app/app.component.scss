@@ -22,7 +22,7 @@
   margin: 8px;
   display: flex;
   align-items: center;
-  background-color:rgb(246, 117, 3);
+  background-color:rgb(255, 110, 0);
   color: white;
   font-weight: 500;
 }
@@ -69,7 +69,7 @@ a{
    }
 
 
-::ng-deep .mat-simple-snackbar-action { color: rgb(246, 117, 3); }
+::ng-deep .mat-simple-snackbar-action { color: rgb(255, 110, 0) }
 
 
   //  ::ng-deep.mat-form-field-underline {

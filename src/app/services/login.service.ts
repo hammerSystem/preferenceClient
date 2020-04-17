@@ -30,14 +30,26 @@ export class LoginService {
   //   name: ''
   // };
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService) {}
               // private snackBar: MatSnackBar) { }
 
+
+  // getUserFromName(userName) {
+  //   const idx = userName.indexOf('_');
+  //   const firstName = userName.substring(0, idx);
+  //   const lastName =  userName.substring(idx + 1);
+  //   const name = `${firstName} ${lastName}`;
+  //   return {name, firstName, lastName};
+  // }
+
   setUser(user, loggedIn) {
+
     this.user = user;
     this.loggedIn = loggedIn;
     if (user.firstName === 'admin') {
       this.loggedAsAdmin = true;
+    } else {
+      this.loggedAsAdmin = false;
     }
   }
 

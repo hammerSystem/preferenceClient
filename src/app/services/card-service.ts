@@ -25,6 +25,8 @@ export class CardService {
   listCardOwner = [];
   // listCardBathtub = [];
   listCardCustomImg = [];
+  listClient = [];
+
   @Output() evReloadCustomList: EventEmitter<string> = new EventEmitter();
 
   // listCardKitchenEmptyOnServer:boolean = false;
@@ -34,6 +36,11 @@ export class CardService {
   public listOwner$: Observable<any[]> = this.getObservableListCardsFromServer('owner');
   // public listBathTub$: Observable<[]> = this.getObservableListCardsFromServer('bathtub');
   public listCustom$: Observable<any[]> = this.getObservableListCardsFromServer('custom');
+  public listAllClient$: Observable<any[]> = this.getObservableAllClientFromServer();
+
+  getListClient() {
+    return this.listClient;
+  }
 
   // setUser(user) {
   //   this.user = user;
@@ -58,63 +65,40 @@ export class CardService {
 
   // }
 
-  setCardTest() {
-    this.listCardOwner = [
-      {
-        path: './assets/photo/cuisine1.jpg',
-        title: 'titre photo 1',
-        desc: 'une petite description de la photo 1',
-        like: true,
-        comment: ''
-      },
-      {
-        path: './assets/photo/cuisine2.jpg',
-        title: 'titre photo 2',
-        desc: 'une petite description de la photo 2',
-        like: true,
-        comment: ''
-      },
-      {
-        path: './assets/photo/cuisine3.jpg',
-        title: 'titre photo 3',
-        desc: 'une petite description de la photo 3',
-        like: false,
-        comment: ''
-      },
+  // setCardTest() {
+  //   this.listCardOwner = [
+  //     {
+  //       path: './assets/photo/cuisine1.jpg',
+  //       title: 'titre photo 1',
+  //       desc: 'une petite description de la photo 1',
+  //       like: true,
+  //       comment: ''
+  //     },
+  //     {
+  //       path: './assets/photo/cuisine2.jpg',
+  //       title: 'titre photo 2',
+  //       desc: 'une petite description de la photo 2',
+  //       like: true,
+  //       comment: ''
+  //     },
+  //     {
+  //       path: './assets/photo/cuisine3.jpg',
+  //       title: 'titre photo 3',
+  //       desc: 'une petite description de la photo 3',
+  //       like: false,
+  //       comment: ''
+  //     },
 
-      {
-        path: '//maisonetdemeure.com/wp-content/uploads/imported/galleries/md-shot-5_SUP_HH_AU09.jpg',
-        title: 'la cuisine de Ricardo :)',
-        desc: 'Nice cuisine!!',
-        like: false,
-        comment: ''
-        }
-    ];
+  //     {
+  //       path: '//maisonetdemeure.com/wp-content/uploads/imported/galleries/md-shot-5_SUP_HH_AU09.jpg',
+  //       title: 'la cuisine de Ricardo :)',
+  //       desc: 'Nice cuisine!!',
+  //       like: false,
+  //       comment: ''
+  //       }
+  //   ];
 
-    // this.listCardBathtub = [
-    //   {
-    //     path: './assets/photo/salle_bain1.jpg',
-    //     title: 'titre photo 1',
-    //     desc: 'une petite description de la photo 1',
-    //     like: false,
-    //     comment: ''
-    //   },
-    //   {
-    //     path: './assets/photo/salle_bain2.jpg',
-    //     title: 'titre photo 2',
-    //     desc: 'une petite description de la photo 2',
-    //     like: false,
-    //     comment: ''
-    //   },
-    //   {
-    //     path: './assets/photo/salle_bain3.jpg',
-    //     title: 'titre photo 3',
-    //     desc: 'une petite description de la photo 3',
-    //     like: false,
-    //     comment: ''
-    //   }
-    //   ];
-  }
+  // }
 
   getUrlBdWithUserAndType(cardType) {
     let urlBdSaveList = this.urlBd;
@@ -146,8 +130,21 @@ export class CardService {
   saveListCardToServer(cardType) {
 
     // debugger;
+    // const adminUser = {
+    //   name: 'admin owner',
+    //   firstName: 'admin',
+    //   lastName : 'owner'
+    // };
+    // this.loginService.setUser(adminUser, true);
+
     const urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
     const goodList = this.getListFromType(cardType);
+    if (goodList == null || goodList.length === 0) {
+      console.log('attention liste est vide')
+      debugger;
+      return;
+    }
+
     let requeteHttp: any;
 
     requeteHttp = this.httpClient.put(urlBdSaveList, goodList);
@@ -155,20 +152,94 @@ export class CardService {
 
     requeteHttp
       .subscribe(
+        () => {
+          console.log('Enregistrement server terminé !');
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
+      this.saveListClientToServer();
+  }
+
+
+  saveListClientToServer() {
+
+    debugger;
+
+    console.log('save list client server');
+    // check si existe deja on sort
+    let clientIsInList = false;
+    for (let client of this.listClient){
+        if (client.name === this.loginService.user.name) {
+          clientIsInList = true;
+          return;
+        }
+    }
+    // check si aucun ou undefined on sort pas enregistrement
+    if (this.loginService.user.name == null || this.loginService.user.name === 'Aucun') {
+      return;
+    }
+
+    this.listClient.push(this.loginService.user);
+
+    let urlBdSaveList = this.urlBd;
+    urlBdSaveList += '/listClient.json';
+
+    let requeteHttp: any;
+
+    requeteHttp = this.httpClient.put(urlBdSaveList, this.listClient);
+    console.log('PUT!!');
+
+    requeteHttp
+      .subscribe(
       () => {
-        console.log('Enregistrement server terminé !');
+        console.log('Enregistrement list client server terminé !');
       },
       (error) => {
-        console.log('Erreur ! : ' + error);
+        console.log('Erreur save list client ! : ' + error);
       }
       );
   }
 
   checkIfUrlExistOnBd(url) {
     console.log('check bd');
-
   }
 
+  getObservableAllClientFromServer():any{
+    // A REMETTRE
+    // if (typeof this.loginService.user.name === 'undefined') {
+    //   return;
+    // }
+
+    // debugger;
+    const urlBdSaveList = 'https://preferenceclient.firebaseio.com/listClient.json';
+    return this.httpClient.get<any[]>(urlBdSaveList);
+  }
+
+  getListClientFromServer(): any {
+
+    // this.listCustom$: Observable<[]> = this.getObservableListCardsFromServer('custom');
+
+    debugger;
+    const urlBdSaveList = 'https://preferenceclient.firebaseio.com/listClient.json';
+    this.listAllClient$ = this.httpClient.get<any[]>(urlBdSaveList);
+    this.listAllClient$.subscribe((listClient: any[]) => {
+      // let listNoNull = [];
+      if (listClient) {
+      //   for (let cli of listClient) {
+      //     if (cli != null){
+      //       listNoNull.push(cli);
+      //     }
+      //   }
+        // this.listClient = listNoNull;
+        this.listClient = listClient;
+      } else {
+        console.log('list client est vide...)');
+        // this.listCardCustomImgEmptyOnServer = true;
+      }
+    });
+  }
 
   getListCustomFromServer(): any {
 
@@ -182,6 +253,7 @@ export class CardService {
         this.setListFromType('custom', listCard);
       } else {
         console.log('list custom vide...)');
+        this.setListFromType('custom', []);
         // this.listCardCustomImgEmptyOnServer = true;
       }
     });
@@ -204,6 +276,7 @@ export class CardService {
     });
   }
 
+
   getObservableListCardsFromServer(cardType): any {
 
     if (typeof this.loginService.user.name === 'undefined') {
@@ -215,55 +288,44 @@ export class CardService {
   }
 
 
-  getListCardsFromServerOld(cardType): any {
-    // debugger;
-    const urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
-    return this.httpClient
-      .get<any[]>(urlBdSaveList)
-      .subscribe(
-      (response) => {
-        console.log('reponse');
-        console.log(Object.values(response));
-        this.setListFromType(cardType, Object.values(response)[0]);
-      },
-      (error) => {
-        console.log('Erreur dans le getList server ! : ' + error);
-      }
-      );
-  }
-  getAllListCardFromServer() {
-    // this.listBathTub$= this.getListCardsFromServer('bathtub');
-    // this.listCustom$ = this.getListCardsFromServer('custom');
+  // getListCardsFromServerOld(cardType): any {
+  //   // debugger;
+  //   const urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
+  //   return this.httpClient
+  //     .get<any[]>(urlBdSaveList)
+  //     .subscribe(
+  //     (response) => {
+  //       console.log('reponse');
+  //       console.log(Object.values(response));
+  //       this.setListFromType(cardType, Object.values(response)[0]);
+  //     },
+  //     (error) => {
+  //       console.log('Erreur dans le getList server ! : ' + error);
+  //     }
+  //     );
+  // }
 
-    console.log('get all from server');
+  // getAllListCardFromServer() {
 
-    this.listOwner$.subscribe((listCard: any[]) => {
-      if (listCard) {
-        this.setListFromType('owner', listCard);
-      } else {
-        console.log('list owner vide...)');
-        // this.listCardKitchenEmptyOnServer = true;
-      }
-    });
+  //   console.log('get all from server');
 
-    // this.listBathTub$.subscribe((listCard: any[]) => {
-    //   if (listCard) {
-    //     this.setListFromType('bathtub', listCard);
-    //   } else {
-    //     console.log('list bath vide...)');
-    //     // this.listCardBathtubEmptyOnServer = true;
-    //   }
-    // });
+  //   this.listOwner$.subscribe((listCard: any[]) => {
+  //     if (listCard) {
+  //       this.setListFromType('owner', listCard);
+  //     } else {
+  //       console.log('list owner vide...)');
+  //       // this.listCardKitchenEmptyOnServer = true;
+  //     }
+  //   });
 
-    this.listCustom$.subscribe((listCard: any[]) => {
-      if (listCard) {
-        this.setListFromType('custom', listCard);
-      } else {
-        console.log('list custom vide...)');
-        // this.listCardCustomImgEmptyOnServer = true;
-      }
-    });
-  }
+  //   this.listCustom$.subscribe((listCard: any[]) => {
+  //     if (listCard) {
+  //       this.setListFromType('custom', listCard);
+  //     } else {
+  //       console.log('list custom vide...)');
+  //     }
+  //   });
+  // }
 
 //   test(typeList) {
 //   if (typeList === 'custom' && this.listCardCustomImg.length === 0 && this.loginService.user.name !== 'undefinine') {
@@ -283,7 +345,7 @@ export class CardService {
 //   }
 // }
 
-    getListFromType(typeList: string) {
+  getListFromType(typeList: string) {
     // debugger;
     if (typeList === 'owner') {
         return this.listCardOwner;

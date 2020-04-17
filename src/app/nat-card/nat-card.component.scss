@@ -1,6 +1,6 @@
 
 // .avatar-img{
-    
+
     // background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     // background-image: url(https://adncuisines.ca/wp-content/themes/dessau/assets/img/logo_white.png);
     // background-size: cover;
@@ -8,7 +8,7 @@
     // height: 10px;
   // }
   .color_like_but{
-    color:orange;
+    color:rgb(255, 110, 0)
   }
 
   .color_not_like_but{
@@ -33,12 +33,12 @@
   //   /*change color of label*/
   //   color: orangered !important;
   //  }
-  
+
   // //  ::ng-deep.mat-form-field-underline {
   // //   /*change color of underline*/
   // //   // background-color: green !important;
-  // // } 
-  
+  // // }
+
   // ::ng-deep.mat-form-field-ripple {
   //  /*change color of underline when focused*/
   //  background-color: orangered !important;;
