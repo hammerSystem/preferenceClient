@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
       (user) => {
       this.user = user;
       this.loggedIn = (user != null);
-      console.log("user a l'init:");
-      console.log(this.user);
+      // console.log("user a l'init:");
+      // console.log(this.user);
       // debugger;
       if (this.user !== null && typeof this.user.name !== 'undefined') {
         this.loginService.setUser(this.user, this.loggedIn);
@@ -60,11 +60,14 @@ export class LoginComponent implements OnInit {
   }
 
   signOut(): void {
+    debugger;
+    this.cardService.saveListCardToServer('custom');
     if (this.loginService.logFb) {
       this.authService.signOut();
       this.loginService.setLogFb(false);
     }
     this.loginService.setUser('', false);
+    this.cardService.listCardCustomImg = [];
   }
 
   onCheckManageApp() {
@@ -85,10 +88,9 @@ export class LoginComponent implements OnInit {
 
 
   onClickValidatePass() {
-    console.log('validate pass');
-    console.log(this.passwordValue) ;
+    // console.log('validate pass');
+    // console.log(this.passwordValue) ;
     if (this.passwordValue === 'patate') {
-      console.log('ok pass bon');
       if (this.loginService.loggedIn) {
         this.signOut();
       }
@@ -106,12 +108,14 @@ export class LoginComponent implements OnInit {
   }
 
   onClicktestAuthAsChose() {
+    this.signOut();
     const choseUser = {
       name: 'Chose Bine',
       firstName: 'chose',
       lastName : 'bine'
     };
     this.loginService.setUser(choseUser, true);
+
     this.evLogin.emit('logOk');
   }
 

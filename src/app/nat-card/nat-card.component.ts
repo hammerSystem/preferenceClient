@@ -35,29 +35,27 @@ export class NatCardComponent implements OnInit {
 
   ngOnInit() {
   }
-// saveComment(){
-//   console.log('save')
+
+
+//   onClickLike() {
+//   // debugger;
+
+//   if (!this.like) {
+//     this.like = true;
+//   } else {
+//     this.like = false;
+//   }
+//   this.saveACard();
 // }
 
-  onClickLike() {
-  // debugger;
-  console.log('like');
-  if (!this.like) {
-    this.like = true;
-  } else {
-    this.like = false;
-  }
-  this.saveACard();
-}
-
   AddCardToCustomList() {
-    console.log('add cvard to custom list');
+    // console.log('add cvard to custom list');
     this.cardService.addCardToList('custom', this.path, this.title, this.like, this.comment, this.desc, this.fileType);
     this.cardService.deleteACard(this.cardType, this.index, false);
   }
 
   saveACard() {
-    console.log('saveComment');
+    // console.log('saveComment');
     // debugger;
     this.cardService.saveACard(this.cardType, this.index, this.like, this.comment);
 

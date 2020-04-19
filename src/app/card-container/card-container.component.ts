@@ -21,7 +21,6 @@ export class CardContainerComponent implements OnInit {
   constructor(private cardService: CardService) { }
 
   ngOnInit() {
-    console.log('init');
     // const typePhoto =  ['owner', 'custom', 'addCard'];
     if (this.cardType != null || this.cardType !== 'addCard' ) {
       this.listCard = this.cardService.getListFromType(this.cardType);
@@ -45,8 +44,9 @@ export class CardContainerComponent implements OnInit {
 
 
   saveListCard() {
-    // debugger;
-    console.log('save on server');
+    debugger;
+    console.log('container: call Cardservice save on server. typeCard');
+    console.log(this.cardType);
     this.cardService.saveListCardToServer(this.cardType);
 
     // tests

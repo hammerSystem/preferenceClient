@@ -140,15 +140,17 @@ export class CardService {
     const urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
     const goodList = this.getListFromType(cardType);
     if (goodList == null || goodList.length === 0) {
-      console.log('attention liste est vide')
+      console.log('attention liste est vide');
       debugger;
       return;
     }
-
+    debugger;
+    console.log('enregistrement server listCard, type = ')
+    console.log(cardType);
     let requeteHttp: any;
 
     requeteHttp = this.httpClient.put(urlBdSaveList, goodList);
-    console.log('PUT!!');
+    // console.log('PUT!!');
 
     requeteHttp
       .subscribe(
@@ -203,7 +205,7 @@ export class CardService {
   }
 
   checkIfUrlExistOnBd(url) {
-    console.log('check bd');
+    // console.log('check bd');
   }
 
   getObservableAllClientFromServer(): any {
@@ -222,7 +224,6 @@ export class CardService {
     // this.listCustom$: Observable<[]> = this.getObservableListCardsFromServer('custom');
 
     debugger;
-    debugger;
     const urlBdSaveList = 'https://preferenceclient.firebaseio.com/listClient.json';
     this.listAllClient$ = this.httpClient.get<any[]>(urlBdSaveList);
     this.listAllClient$.subscribe((listClient: any[]) => {
@@ -238,7 +239,7 @@ export class CardService {
         this.listClient = listClient;
 
       } else {
-        console.log('list client est vide...)');
+        // console.log('list client est vide...)');
         // this.listCardCustomImgEmptyOnServer = true;
       }
     });
@@ -246,7 +247,7 @@ export class CardService {
 
   getListNoNull(list) {
     const listNoNull = [];
-    debugger;
+    // debugger;
     for (const i of list) {
       if (i !== null) {
         listNoNull.push(i);
@@ -266,7 +267,7 @@ export class CardService {
       if (listCard) {
         this.setListFromType('custom', listCard);
       } else {
-        console.log('list custom vide...)');
+        // console.log('list custom vide...)');
         this.setListFromType('custom', []);
         // this.listCardCustomImgEmptyOnServer = true;
       }
@@ -284,7 +285,7 @@ export class CardService {
       if (listCard) {
         this.setListFromType('owner', listCard);
       } else {
-        console.log('list Owner vide...)');
+        console.log('****** AHHHHH list Owner vide...)');
         // this.listCardCustomImgEmptyOnServer = true;
       }
     });

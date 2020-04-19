@@ -52,6 +52,7 @@ export class LoginService {
     this.loggedIn = loggedIn;
     if (user.firstName === 'admin') {
       this.loggedAsAdmin = true;
+      this.logFb = false;
     } else {
       this.loggedAsAdmin = false;
     }

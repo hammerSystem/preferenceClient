@@ -16,8 +16,8 @@ export class AppComponent {
 
 
   ngOnDestroy() {
-    debugger;
-    console.log('destroy finale');
+
+    // console.log('destroy finale');
     // this.save()
   }
 
@@ -28,7 +28,7 @@ export class AppComponent {
       // }
       debugger;
       if (this.loginService.loggedIn) {
-        console.log('Save list card on server!!!');
+        // console.log('Save list card on server!!!');
         this.cardService.saveListCardToServer('custom');
         if (this.loginService.logFb) {
           this.authService.signOut();

@@ -17,7 +17,7 @@ export class AccueilComponent implements OnInit {
   onClickLogin() {
     this.loginMenuIsOn = true;
     this.evClicLogin.emit('login');
-    console.log('clic login dans fen accueil');
+    // console.log('clic login dans fen accueil');
   }
 }
 

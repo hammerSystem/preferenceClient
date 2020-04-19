@@ -43,24 +43,24 @@ export class NatMenuComponent implements OnInit {
   eventHandler(event) {
     // debugger;
     if (event === 'login') {
-        console.log('menu comp: recu de fenetre accueil: login');
+        // console.log('menu comp: recu de fenetre accueil: login');
         this.loginMenuIsOn = true;
         this.accueilIsOn = false;
         this.onClicMenuLogin();
     } else if (event === 'owner') {
-        console.log('menu comp: event = owner');
+        // console.log('menu comp: event = owner');
         this.onClicOwnerCollection();
     } else if (event === 'custom') {
-        console.log('menu comp: event = custom');
+        // console.log('menu comp: event = custom');
         this.onClientSelect();
     } else if (event === 'add') {
-        console.log('menu comp: event = add');
+        // console.log('menu comp: event = add');
         this.onClicAddImg() ;
     } else if (event === 'logOk') {
-      console.log('menu comp: event = logOk');
+      // console.log('menu comp: event = logOk');
       this.onLoginOk();
     } else if (event === 'logAsAdmin') {
-      console.log('menu comp: event = logAsAdmin');
+      // console.log('menu comp: event = logAsAdmin');
       this.onLoginOkAsAdmin();
     }
 
@@ -103,7 +103,7 @@ export class NatMenuComponent implements OnInit {
   }
 
   onClicOwnerCollection() {
-    console.log('clic owner');
+    // console.log('clic owner');
 
     if (this.loginService.loggedIn === false) {
       this.messageService.snackMessageSansTitre('Identifiez-vous d\'abord');
@@ -141,7 +141,7 @@ export class NatMenuComponent implements OnInit {
   }
 
   onClicCustomList() {
-    console.log('clic list client');
+    // console.log('clic list client');
     if (this.loginService.loggedIn === false) {
       this.messageService.snackMessageSansTitre('Identifiez-vous d\'abord');
       // alert('Vous n\'êtes pas identifié, identifiez-vous');

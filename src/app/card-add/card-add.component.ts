@@ -49,7 +49,7 @@ export class CardAddComponent implements OnInit {
   private async getUrl(snap: firebase.storage.UploadTaskSnapshot) {
     const url = await snap.ref.getDownloadURL();
     this.url = url;  // store the URL
-    console.log(this.url);
+    // console.log(this.url);
     debugger;
     const fileType = this.getTypeFile(this.url);
     this.cardService.addCardToList('custom', this.url, this.title2, false, '', '', fileType);
@@ -83,7 +83,7 @@ export class CardAddComponent implements OnInit {
 
 
   OnClickHelp() {
-    console.log('help');
+    // console.log('help');
     if (this.expandMore === false) {
       this.expandMore = true;
     } else {
@@ -92,7 +92,7 @@ export class CardAddComponent implements OnInit {
   }
 
   saveNewCard() {
-    console.log('on save ajout');
+    // console.log('on save ajout');
     let fileType = this.getTypeFile(this.path);
     debugger;
     this.cardService.addCardToList('custom', this.path, this.title, false, '', '', fileType);
