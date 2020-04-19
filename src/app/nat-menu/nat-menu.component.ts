@@ -75,7 +75,7 @@ export class NatMenuComponent implements OnInit {
   }
 
   onLoginOk() {
-
+    debugger;
     this.cardService.getListOwnerFromServer();
     this.cardService.getListCustomFromServer();
     this.cardService.getListClientFromServer();

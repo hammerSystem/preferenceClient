@@ -206,7 +206,7 @@ export class CardService {
     console.log('check bd');
   }
 
-  getObservableAllClientFromServer():any{
+  getObservableAllClientFromServer(): any {
     // A REMETTRE
     // if (typeof this.loginService.user.name === 'undefined') {
     //   return;
@@ -222,6 +222,7 @@ export class CardService {
     // this.listCustom$: Observable<[]> = this.getObservableListCardsFromServer('custom');
 
     debugger;
+    debugger;
     const urlBdSaveList = 'https://preferenceclient.firebaseio.com/listClient.json';
     this.listAllClient$ = this.httpClient.get<any[]>(urlBdSaveList);
     this.listAllClient$.subscribe((listClient: any[]) => {
@@ -233,12 +234,25 @@ export class CardService {
       //     }
       //   }
         // this.listClient = listNoNull;
+        let listNoNull = this.getListNoNull(listClient);
         this.listClient = listClient;
+
       } else {
         console.log('list client est vide...)');
         // this.listCardCustomImgEmptyOnServer = true;
       }
     });
+  }
+
+  getListNoNull(list) {
+    const listNoNull = [];
+    debugger;
+    for (const i of list) {
+      if (i !== null) {
+        listNoNull.push(i);
+      }
+    }
+    return listNoNull;
   }
 
   getListCustomFromServer(): any {

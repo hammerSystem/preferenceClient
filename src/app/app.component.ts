@@ -26,11 +26,14 @@ export class AppComponent {
       // if (this.hasUnsavedData()) {
       //     $event.returnValue =true;
       // }
-      // debugger;
+      debugger;
       if (this.loginService.loggedIn) {
         console.log('Save list card on server!!!');
         this.cardService.saveListCardToServer('custom');
-        this.authService.signOut();
+        if (this.loginService.logFb) {
+          this.authService.signOut();
+        }
+        this.loginService.setUser('', false);
       }
       // debugger;
   }

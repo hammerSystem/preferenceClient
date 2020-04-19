@@ -21,6 +21,7 @@ export class LoginService {
   user: SocialUser = new SocialUser();
   loggedIn = false;
   loggedAsAdmin = false;
+  logFb = false;
 
 
   // constructor(private httpClient: HttpClient, private _snackBar: MatSnackBar) { }
@@ -41,6 +42,9 @@ export class LoginService {
   //   const name = `${firstName} ${lastName}`;
   //   return {name, firstName, lastName};
   // }
+  setLogFb(value) {
+    this.logFb = value;
+  }
 
   setUser(user, loggedIn) {
 
