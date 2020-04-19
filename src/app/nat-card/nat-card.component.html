@@ -1,3 +1,6 @@
+<!-- <p>
+<a href="{{path}}" alt = "photo armoire" target="_blank">lien vers photo </a>
+</p> -->
 
 <mat-card>
     <mat-card-header>
@@ -8,7 +11,13 @@
        <mat-card-title>{{title}}</mat-card-title>
        <!-- <mat-card-subtitle> sous-titre</mat-card-subtitle> -->
     </mat-card-header>
-    <img mat-card-image src= "{{path}}" alt = "photo armoire">
+    <img mat-card-image *ngIf="fileType !== 'pdf'" src= "{{path}}" alt = "photo armoire">
+
+    <p *ngIf="fileType === 'pdf'">
+      <mat-icon>assignment</mat-icon>
+      <a href="{{path}}" alt = "photo armoire" target="_blank">  Cliquer pour ouvrir le document PDF</a>
+    </p>
+
     <mat-card-content>
        <p>
             {{desc}}

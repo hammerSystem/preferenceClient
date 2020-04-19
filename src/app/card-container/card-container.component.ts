@@ -22,12 +22,14 @@ export class CardContainerComponent implements OnInit {
 
   ngOnInit() {
     console.log('init');
-    debugger;
+
     // this.listCard = this.cardService.getListFromType(this.cardType)
     const typePhoto =  ['owner', 'custom', 'addCard'];
+    debugger;
     // const typePhoto =  ['owner', 'bathtub', 'custom'];
     if (this.cardType != null || this.cardType !== 'addCard' ) {
       this.listCard = this.cardService.getListFromType(this.cardType);
+      debugger;
   }
   }
 

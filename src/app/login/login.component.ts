@@ -50,11 +50,10 @@ export class LoginComponent implements OnInit {
     if (this.loginService.loggedAsAdmin) {
       this.onCheckLogOutAsAdmin();
     }
-    debugger;
+    // debugger;
     try {
       this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
     }catch (err) {
-      debugger;
         alert(err.message);
       }
   }

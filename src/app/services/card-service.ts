@@ -367,7 +367,7 @@ export class CardService {
     }
   }
 
-  addCardToList(typeList: string, pathImg: string, title: string, like: boolean, comment: string,  description: string) {
+  addCardToList(typeList: string, pathImg: string, title: string, like: boolean, comment: string,  description: string, fileType: string) {
     // this.checkImage(pathImg, this.success, this.fail);
     // this.checkImage(pathImg, this.success, this.fail);
     // if (!this.valid){
@@ -384,7 +384,8 @@ export class CardService {
         title,
         desc: description,
         like,
-        comment
+        comment,
+        fileType
       }
     );
     this.messageService.snackMessageSansTitre('Une photo a été ajoutée votre liste');

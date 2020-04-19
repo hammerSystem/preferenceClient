@@ -12,6 +12,7 @@ import { AngularFireStorage } from 'angularfire2/storage';
 export class CardAddComponent implements OnInit {
 
   @Input() title: string;
+  @Input() title2: string;
   @Input() path: string;
   @Input() pathImageFileToUpload: string;
 
@@ -27,12 +28,13 @@ export class CardAddComponent implements OnInit {
 
   ngOnInit() {
   }
-  handleFiles(event){
-    console.log('clic ajout file appareil');
+  handleFiles(event) {
+    debugger;
     this.file = event.target.files[0];
-    this.uploadFile();
+    // this.uploadFile();
 
   }
+
 
    // method to upload file at firebase storage
    async uploadFile() {
@@ -48,13 +50,25 @@ export class CardAddComponent implements OnInit {
     const url = await snap.ref.getDownloadURL();
     this.url = url;  // store the URL
     console.log(this.url);
-    this.cardService.addCardToList('custom', this.url, 'titre test', false, '', '')
+    debugger;
+    const fileType = this.getTypeFile(this.url);
+    this.cardService.addCardToList('custom', this.url, this.title2, false, '', '', fileType);
+  }
+
+  getTypeFile(url){
+    const urlLower = url.toLowerCase();
+    const idxOf = urlLower.search('pdf');
+    let type = 'img';
+    if (idxOf >= 0) {
+      type = 'pdf';
+    }
+    return type;
   }
 
 
-  OnClickHelp(){
+  OnClickHelp() {
     console.log('help');
-    if (this.expandMore === false){
+    if (this.expandMore === false) {
       this.expandMore = true;
     } else {
       this.expandMore = false;
@@ -63,15 +77,27 @@ export class CardAddComponent implements OnInit {
 
   saveNewCard() {
     console.log('on save ajout');
-
-    this.cardService.addCardToList('custom', this.path, this.title, false, '', '');
+    let fileType = this.getTypeFile(this.path);
+    debugger;
+    this.cardService.addCardToList('custom', this.path, this.title, false, '', '', fileType);
 
     this.clearNewCard();
   }
 
-  clearNewCard(){
+  clearNewCard() {
     this.title = '';
     this.path = '';
+  }
+
+  saveNewCard2() {
+    this.uploadFile();
+  }
+
+  clearNewCard2() {
+    debugger;
+    this.title2 = '';
+    this.path = '';
+    this.file = null;
   }
   // uploadImg(path){
   //   debugger;

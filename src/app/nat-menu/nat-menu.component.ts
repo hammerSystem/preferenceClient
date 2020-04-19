@@ -67,16 +67,15 @@ export class NatMenuComponent implements OnInit {
   }
 
   onClientSelect() {
-    debugger;
+    // debugger;
     this.cardService.getListCustomFromServer();
-    debugger;
     this.onClicCustomList();
-    debugger;
+
 
   }
 
   onLoginOk() {
-    debugger;
+
     this.cardService.getListOwnerFromServer();
     this.cardService.getListCustomFromServer();
     this.cardService.getListClientFromServer();

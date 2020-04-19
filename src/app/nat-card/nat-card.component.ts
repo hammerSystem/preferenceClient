@@ -26,6 +26,7 @@ export class NatCardComponent implements OnInit {
     @Input() cardType: string;
     @Input() like = false;
     @Input() comment = '';
+    @Input() fileType = '';
 
     // color_like_but = "black";
 
@@ -51,7 +52,7 @@ export class NatCardComponent implements OnInit {
 
   AddCardToCustomList() {
     console.log('add cvard to custom list');
-    this.cardService.addCardToList('custom', this.path, this.title, this.like, this.comment, this.desc);
+    this.cardService.addCardToList('custom', this.path, this.title, this.like, this.comment, this.desc, this.fileType);
     this.cardService.deleteACard(this.cardType, this.index, false);
   }
 

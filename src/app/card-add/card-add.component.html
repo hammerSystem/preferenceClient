@@ -14,6 +14,7 @@
     alt="copier adresse image"
   >
 </div>
+
 <form class="add-form">
     <mat-form-field>
       <mat-label>Coller l'adresse image</mat-label>
@@ -39,12 +40,31 @@
       <button type="submit" class='but-orange' mat-raised-button (click)="saveNewCard()">  Ajouter</button>
       <button type="reset" class='but-orange' mat-raised-button (click)="clearNewCard()">  Effacer</button>
   </div>
-  </form>
+</form>
+
   <div>
     <h2>Ajouter des images à partir de votre appareil</h2>
 
+    <input (change)="handleFiles($event)" type="file" class='but-gris' [(ngModel)]="pathImageFileToUpload"  mat-raised-button accept=".png,.jpg" />
+    <!-- <input  (change)="handleFiles($event)" type="file" class='but-gris' [(ngModel)]="pathImageFileToUpload"  mat-raised-button accept=".png,.jpg" /> -->
+
+    <mat-form-field>
+      <mat-label>Saisir un titre</mat-label>
+      <input matInput
+        id="title"
+        placeholder="Ex. Ma cuisine "
+        [(ngModel)]="title2"
+        type="texte">
+        <!-- name="titleNewImg" -->
+  </mat-form-field>
+
+  <div class="container-button">
+    <button type="submit" class='but-orange' mat-raised-button (click)="saveNewCard2()">  Ajouter</button>
+    <button type="reset" class='but-orange' mat-raised-button (click)="clearNewCard2()">  Effacer</button>
+  </div>
+
+
     <!-- <input (change)="upload($event)"  id='monInput' type="file" [(ngModel)]="pathImageFileToUpload" accept=".png,.jpg" /> -->
-    <input  (change)="handleFiles($event)" type="file" class='but-gris' [(ngModel)]="pathImageFileToUpload"  mat-raised-button accept=".png,.jpg" />
 
   </div>
 
