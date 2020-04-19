@@ -11,11 +11,11 @@
        <mat-card-title>{{title}}</mat-card-title>
        <!-- <mat-card-subtitle> sous-titre</mat-card-subtitle> -->
     </mat-card-header>
-    <img mat-card-image *ngIf="fileType !== 'pdf'" src= "{{path}}" alt = "photo armoire">
+    <img mat-card-image *ngIf="fileType === 'img' || fileType == null" src= "{{path}}" alt = "photos">
 
-    <p *ngIf="fileType === 'pdf'">
+    <p *ngIf="fileType === 'autre'">
       <mat-icon>assignment</mat-icon>
-      <a href="{{path}}" alt = "photo armoire" target="_blank">  Cliquer pour ouvrir le document PDF</a>
+      <a href="{{path}}" alt = "document autre" target="_blank">  Cliquer pour ouvrir le document</a>
     </p>
 
     <mat-card-content>

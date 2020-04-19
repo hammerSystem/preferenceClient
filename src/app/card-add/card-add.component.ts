@@ -55,12 +55,28 @@ export class CardAddComponent implements OnInit {
     this.cardService.addCardToList('custom', this.url, this.title2, false, '', '', fileType);
   }
 
-  getTypeFile(url){
+  // getTypeFile(url){
+  //   const urlLower = url.toLowerCase();
+  //   const idxOf = urlLower.search('pdf');
+  //   let type = 'img';
+  //   if (idxOf >= 0) {
+  //     type = 'pdf';
+  //   }
+  //   return type;
+  // }
+
+  getTypeFile(url) {
     const urlLower = url.toLowerCase();
-    const idxOf = urlLower.search('pdf');
-    let type = 'img';
-    if (idxOf >= 0) {
-      type = 'pdf';
+
+    let type = 'autre';
+    const imgType: string[] = [ '.png', '.jpg', '.jpeg', '.gif']
+    let idxOf: number;
+    for (const t of imgType) {
+      idxOf = urlLower.search(t);
+      if (idxOf >= 0) {
+        type = 'img';
+        break;
+      }
     }
     return type;
   }
