@@ -136,7 +136,6 @@ export class CardService {
     //   lastName : 'owner'
     // };
     // this.loginService.setUser(adminUser, true);
-
     const urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
     const goodList = this.getListFromType(cardType);
     if (goodList == null || goodList.length === 0) {

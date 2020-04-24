@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,  Output, EventEmitter } from '@angular/core';
 import { NatCard} from '../natCard';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { CardService } from '../services/card-service';
@@ -28,6 +28,9 @@ export class NatCardComponent implements OnInit {
     @Input() comment = '';
     @Input() fileType = '';
 
+    @Output() evToggleList: EventEmitter<string> = new EventEmitter();
+
+
     // color_like_but = "black";
 
   constructor(private cardService: CardService, public loginService: LoginService) { }
@@ -47,8 +50,12 @@ export class NatCardComponent implements OnInit {
 //   }
 //   this.saveACard();
 // }
+  toggleToCustomList() {
+    debugger;
+    this.evToggleList.emit('custom');
+  }
 
-  AddCardToCustomList() {
+  addCardToCustomList() {
     // console.log('add cvard to custom list');
     this.cardService.addCardToList('custom', this.path, this.title, this.like, this.comment, this.desc, this.fileType);
     this.cardService.deleteACard(this.cardType, this.index, false);

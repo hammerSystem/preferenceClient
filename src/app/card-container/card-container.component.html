@@ -6,6 +6,7 @@
 </div>
 
 <div *ngIf= "cardType !== 'addCard'">
+  <h2 class='title'> {{listActive}}</h2>
   <div *ngIf="listCard.length>0" class="div-card-container">
       <app-nat-card *ngFor="let maCard of listCard; let i = index"
           [index]="i"
@@ -16,7 +17,8 @@
           [cardType] = "cardType"
           [like] = "maCard.like"
           [comment] = "maCard.comment"
-          [fileType] = "maCard.fileType">
+          [fileType] = "maCard.fileType"
+          (evToggleList) = "eventHandler($event)">
 
       </app-nat-card>
       <div class="container-button" *ngIf= "cardType==='custom'">

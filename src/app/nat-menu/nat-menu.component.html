@@ -15,8 +15,8 @@
       <!-- <div> -->
         <mat-nav-list>
           <mat-list-item (click)="sidenav.toggle()">
-            <div>
-              <button
+            <!-- <!- <div> -->
+               <button
                     mat-icon-button
                     id="menu-button"
                     class="menu-button"
@@ -27,19 +27,24 @@
                     <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
                     Menu
                 </button>
-        </div>
+        <!-- </div> -->
+
           </mat-list-item>
         </mat-nav-list>
 
-        <mat-nav-list>
+        <!-- <mat-nav-list>
           <mat-list-item (click)="onClicBackHome();sidenav.toggle()">
               <mat-icon matListIcon>home</mat-icon>
               Retour accueil
           </mat-list-item>
-        </mat-nav-list>
+        </mat-nav-list> -->
 
         <mat-nav-list>
-            <h1 matSubheader> Authentification </h1>
+            <!-- <h1 matSubheader> Authentification </h1> -->
+            <mat-list-item (click)="onClicBackHome();sidenav.toggle()">
+              <mat-icon matListIcon>home</mat-icon>
+              Retour accueil
+          </mat-list-item>
             <mat-list-item (click) = "onClicMenuLogin();sidenav.toggle()">
                 <mat-icon  matListIcon>account_box</mat-icon>
                 Authentification
@@ -108,6 +113,7 @@
             [listCard]="listCard"
             [avatar]="avatar"
             [cardType] = "cardType"
+            [listActive] = "listActive"
             *ngIf="cardIsOn"
             >
         </app-card-container>

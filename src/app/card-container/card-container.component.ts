@@ -14,6 +14,7 @@ export class CardContainerComponent implements OnInit {
   @Input() avatar: string;
   @Input() listCard: any[] = [];
   @Input() cardType: string;
+  @Input() listActive = '';
 
   @Output() evReloadList: EventEmitter<string> = new EventEmitter();
 
@@ -27,10 +28,15 @@ export class CardContainerComponent implements OnInit {
     }
   }
 
+  eventHandler(ev) {
+    debugger;
+    console.log('ici');
+    this.switchCardType(ev);
+  }
+
     switchCardType(newCardType) {
       // debugger;
       this.cardType = newCardType;
-
       this.evReloadList.emit(newCardType);
 
     }

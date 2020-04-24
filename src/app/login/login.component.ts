@@ -47,6 +47,10 @@ export class LoginComponent implements OnInit {
 
   }
 
+  onClickToggleToCustomList() {
+    this.evLogin.emit('custom');
+  }
+
   signInWithFB(): void {
     if (this.loginService.loggedAsAdmin) {
       this.onCheckLogOutAsAdmin();

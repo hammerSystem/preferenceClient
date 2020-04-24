@@ -50,9 +50,11 @@
           </form>
         </div>
 
-        <button *ngIf="cardType!=='custom'" class='but-orange' mat-raised-button (click)="AddCardToCustomList()">Ajouter à la liste </button>
-        <button *ngIf="cardType==='custom'" class='but-orange' mat-raised-button (click)="deleteACard()"> Supprimer de la liste </button>
-
+        <div class="flex-container">
+          <button *ngIf="cardType!=='custom'" class='but-orange' mat-raised-button (click)="addCardToCustomList()">Ajouter à la liste </button>
+          <button *ngIf="cardType!=='custom'" class='but-orange' mat-raised-button (click)="toggleToCustomList()">Basculer vers ma liste </button>
+          <button *ngIf="cardType==='custom'" class='but-orange' mat-raised-button (click)="deleteACard()"> Supprimer de la liste </button>
+        </div>
 
       </div>
  </mat-card>
