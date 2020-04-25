@@ -6,8 +6,8 @@
 </div>
 
 <div *ngIf= "cardType !== 'addCard'">
-  <h2 class='title'> {{listActive}}</h2>
-  <div *ngIf="listCard.length>0" class="div-card-container">
+  <h2 class='title'> {{listActiveTitle}}</h2>
+  <div *ngIf="listCard !== null && listCard.length>0" class="div-card-container">
       <app-nat-card *ngFor="let maCard of listCard; let i = index"
           [index]="i"
           [path]="maCard.path"
@@ -22,10 +22,10 @@
 
       </app-nat-card>
       <div class="container-button" *ngIf= "cardType==='custom'">
-          <button class='but-orange' mat-raised-button (click)="saveListCard()">  Sauvegarde</button>
+          <button class='but-orange' mat-raised-button (click)="saveListCardType('custom')">  Sauvegarde</button>
       </div>
   </div>
-  <div *ngIf="listCard.length===0" >
+  <div *ngIf="listCard == null || listCard.length===0" >
     <h1>Votre liste est vide</h1>
     <h3>Ajouter des images à votre liste:</h3>
     <ul>

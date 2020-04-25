@@ -25,7 +25,7 @@ export class NatMenuComponent implements OnInit {
 
   cardType;
   listCard: any[] = [];
-  listActive;
+  listActiveTitle;
   avatar;
   // listCardKitchen:any[];
   // listCardAddImg =[];
@@ -51,8 +51,11 @@ export class NatMenuComponent implements OnInit {
     } else if (event === 'owner') {
         // console.log('menu comp: event = owner');
         this.onClicOwnerCollection();
+
     } else if (event === 'custom') {
-        // console.log('menu comp: event = custom');
+        this.onClicCustomList();
+
+    } else if (event === 'selectClient') {
         this.onClientSelect();
     } else if (event === 'add') {
         // console.log('menu comp: event = add');
@@ -118,7 +121,7 @@ export class NatMenuComponent implements OnInit {
     this.avatar = 'kitchen';
     this.loginMenuIsOn = false;
     this.menuSearchClientIsOn = false;
-    this.listActive = "ADN & Cuisine";
+    this.listActiveTitle = "ADN & Cuisines";
 
   }
 
@@ -157,7 +160,7 @@ export class NatMenuComponent implements OnInit {
     this.cardType = 'custom';
     this.listCard = this.cardService.getListFromType(this.cardType);
     this.menuSearchClientIsOn = false;
-    this.listActive = "Votre liste image";
+    this.listActiveTitle = 'Votre liste';
   }
 
   onClicMenuLogin() {

@@ -58,6 +58,7 @@ export class NatCardComponent implements OnInit {
   addCardToCustomList() {
     // console.log('add cvard to custom list');
     this.cardService.addCardToList('custom', this.path, this.title, this.like, this.comment, this.desc, this.fileType);
+    debugger;
     this.cardService.deleteACard(this.cardType, this.index, false);
   }
 
@@ -68,8 +69,10 @@ export class NatCardComponent implements OnInit {
 
   }
 
-  deleteACard() {
+  deleteACard(reload= true) {
+    debugger;
     this.cardService.deleteACard(this.cardType, this.index, true);
+    this.evToggleList.emit('custom');
   }
 
 

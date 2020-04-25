@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       // debugger;
       if (this.user !== null && typeof this.user.name !== 'undefined') {
         this.loginService.setUser(this.user, this.loggedIn);
-        this.loginService.setLogFb(true)
+        this.loginService.setLogFb(true);
         this.evLogin.emit('logOk');
       }
     },
@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
   }
 
   signOut(): void {
-    debugger;
+    // debugger;
     this.cardService.saveListCardToServer('custom');
     if (this.loginService.logFb) {
       this.authService.signOut();

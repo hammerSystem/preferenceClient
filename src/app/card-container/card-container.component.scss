@@ -14,6 +14,21 @@ li{
   color:'rgb(255,110,0)';
 }
 
+h2{
+  font-size: 48px;
+  text-shadow: -1px -1px #9df, 1px 1px rgb(240,66,0), -3px 0 4px #000;
+  font-family:"Segoe print", Arial, Helvetica, sans-serif;
+  color:rgb(244,110,0);
+  // padding:24px 32px 32px 32px;
+  font-weight:lighter;
+  // -moz-box-shadow: 2px 2px 6px #888;
+  // -webkit-box-shadow: 2px 2px 6px #888;
+  // box-shadow:2px 2px 6px #888;
+  text-align:center;
+  display:inline;
+  // line-height:150px;
+}
+
 // .mat-raised-button{
 //     color:white;
 //     background-color: orange;

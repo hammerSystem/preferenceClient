@@ -14,7 +14,7 @@ export class CardContainerComponent implements OnInit {
   @Input() avatar: string;
   @Input() listCard: any[] = [];
   @Input() cardType: string;
-  @Input() listActive = '';
+  @Input() listActiveTitle = '';
 
   @Output() evReloadList: EventEmitter<string> = new EventEmitter();
 
@@ -28,26 +28,39 @@ export class CardContainerComponent implements OnInit {
     }
   }
 
-  eventHandler(ev) {
+  eventHandler(cardType) {
     debugger;
-    console.log('ici');
-    this.switchCardType(ev);
+    this.switchCardType(cardType);
   }
 
     switchCardType(newCardType) {
-      // debugger;
+      debugger;
       this.cardType = newCardType;
+      this.switchListActiveTitle(newCardType);
+      this.listCard = this.cardService.getListFromType(newCardType);
       this.evReloadList.emit(newCardType);
-
+    }
+    switchListActiveTitle(cardType) {
+      if (cardType === 'custom') {
+        this.listActiveTitle = 'Votre liste';
+      } else if (cardType === 'owner') {
+        this.listActiveTitle = 'ADN & Cuisines';
+      }
     }
 
-  // ngOnDestroy() {
-  //   debugger;
-  //   this.saveListCard();
-  //   // this.save()
-  // }
+  ngOnDestroy() {
+    debugger;
+    alert('destryo container');
+    this.saveListCardType('custom');
+    // this.saveListCard();
+    // // this.save()
+  }
 
+  saveListCardType(cardType) {
+    this.cardService.saveListCardToServer(cardType);
 
+    // tests
+  }
 
   saveListCard() {
     debugger;

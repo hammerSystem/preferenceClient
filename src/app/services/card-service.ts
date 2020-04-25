@@ -27,7 +27,8 @@ export class CardService {
   listCardCustomImg = [];
   listClient = [];
 
-  @Output() evReloadCustomList: EventEmitter<string> = new EventEmitter();
+  // @Output() evReloadCustomList: EventEmitter<string> = new EventEmitter();
+  // @Output() evReloadCustomList: EventEmitter<string> = new EventEmitter();
 
   // listCardKitchenEmptyOnServer:boolean = false;
   // listCardBathtubEmptyOnServer:boolean =false;
@@ -259,7 +260,7 @@ export class CardService {
 
     // this.listCustom$: Observable<[]> = this.getObservableListCardsFromServer('custom');
 
-    // debugger;
+    debugger;
     const urlBdSaveList = this.getUrlBdWithUserAndType('custom');
     this.listCustom$ = this.httpClient.get<any[]>(urlBdSaveList);
     this.listCustom$.subscribe((listCard: any[]) => {
@@ -389,6 +390,9 @@ export class CardService {
     // 	console.log(this.valid);
     // 	return
     // }
+    // check that url:
+    // https://lh3.googleusercontent.com/proxy/gTdE3tyOWcAuosqQPsyP7qxmO5VFMGm2fp0sY4i4HZkMaLfBh-Wy0lKJuK-e6P_byZCG8CAwo1j5TDNfcjF0e0yuORc2Cxjs-XLYR8C8OkHQ7j8wVKdvYqKOJl9fzUmpcQmX2MipbpaYibdIxNlJqKV0WfFwMRCp
+
 
     let goodList: any[];
     goodList = this.getListFromType(typeList);

@@ -11,7 +11,7 @@
        <mat-card-title>{{title}}</mat-card-title>
        <!-- <mat-card-subtitle> sous-titre</mat-card-subtitle> -->
     </mat-card-header>
-    <img mat-card-image *ngIf="fileType === 'img' || fileType == null" src= "{{path}}" alt = "photos">
+    <img class='cardImg' mat-card-image *ngIf="fileType === 'img' || fileType == null" src= "{{path}}" alt = "photos">
 
     <p *ngIf="fileType === 'autre'">
       <mat-icon>assignment</mat-icon>

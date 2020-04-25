@@ -27,6 +27,18 @@
 //   font-feature-settings: 'liga';
 // }
 
+@media (min-width: 1025px) {
+  html{
+    width: 50%;
+  }
+
+//   .cardImg{
+//     width: 50%;
+// }
+}
+
+
+
 .but-orange{
     color:black;
     background-color: rgb(255, 110, 0);
