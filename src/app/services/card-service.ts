@@ -319,7 +319,7 @@ export class CardService {
     );
     this.messageService.snackMessageSansTitre('Une photo a été ajoutée votre liste');
     this.saveListCardToServer('custom');
-    alert('save server');
+    // alert('save server');
   }
 
   saveACard(cardType, cardIndex, like, comment) {
@@ -328,7 +328,7 @@ export class CardService {
     goodList[cardIndex].like = like;
     goodList[cardIndex].comment = comment;
     this.saveListCardToServer('custom');
-    alert('save server');
+    // alert('save server');
   }
 
   deleteACard(cardType, index, message) {
@@ -337,7 +337,7 @@ export class CardService {
     if (message) {
       this.messageService.snackMessageSansTitre('Une photo a été supprimée de votre liste');
       this.saveListCardToServer('custom');
-      alert('save server');
+      // alert('save server');
     }
 
 

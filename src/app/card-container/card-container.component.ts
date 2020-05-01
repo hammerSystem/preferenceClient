@@ -49,9 +49,9 @@ export class CardContainerComponent implements OnInit {
     }
 
   ngOnDestroy() {
-    debugger;
-    alert('save container server');
-    this.saveListCardType('custom');
+    // debugger;
+    // alert('save container server');
+    // this.saveListCardType('custom');
     // this.saveListCard();
     // // this.save()
   }

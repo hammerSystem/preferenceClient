@@ -21,22 +21,22 @@ export class AppComponent {
     // this.save()
   }
 
-  @HostListener('window:beforeunload', ['$event'])
-  SaveOnUnload($event: any) {
-    // alert('sauvegarde automatique');
-      // if (this.hasUnsavedData()) {
-      //     $event.returnValue =true;
-      // }
-    // debugger;
-    if (this.loginService.loggedIn) {
-      // console.log('Save list card on server!!!');
-      this.cardService.saveListCardToServer('custom');
-      if (this.loginService.logFb) {
-        this.authService.signOut();
-      }
-      this.loginService.setUser('', false);
-    }
+  // @HostListener('window:beforeunload', ['$event'])
+  // SaveOnUnload($event: any) {
+  //   // alert('sauvegarde automatique');
+  //     // if (this.hasUnsavedData()) {
+  //     //     $event.returnValue =true;
+  //     // }
+  //   // debugger;
+  //   if (this.loginService.loggedIn) {
+  //     // console.log('Save list card on server!!!');
+  //     this.cardService.saveListCardToServer('custom');
+  //     if (this.loginService.logFb) {
+  //       this.authService.signOut();
+  //     }
+  //     this.loginService.setUser('', false);
+  //   }
       // debugger;
-  }
+  // }
 
 }
