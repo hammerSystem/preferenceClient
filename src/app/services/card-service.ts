@@ -53,18 +53,6 @@ export class CardService {
     // this.afStorage.upload('https://preferenceclient.firebaseio.com/image', event.target.files[0]);
   }
 
-  // snackMessage(title, message) {
-  //   this.openSnackBar(title, message);
-  // }
-
-  // openSnackBar(message: string, action: string) {
-  //   const config = new MatSnackBarConfig();
-  //   config.duration = 2000;
-  //   config.panelClass = ['custom-snackbar'];
-
-  //   this.snackBar.open(message, action, config);
-
-  // }
 
   // setCardTest() {
   //   this.listCardOwner = [
@@ -130,13 +118,6 @@ export class CardService {
 
   saveListCardToServer(cardType) {
 
-    // debugger;
-    // const adminUser = {
-    //   name: 'admin owner',
-    //   firstName: 'admin',
-    //   lastName : 'owner'
-    // };
-    // this.loginService.setUser(adminUser, true);
     const urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
     const goodList = this.getListFromType(cardType);
     if (goodList == null || goodList.length === 0) {
@@ -172,7 +153,7 @@ export class CardService {
     console.log('save list client server');
     // check si existe deja on sort
     let clientIsInList = false;
-    for (let client of this.listClient){
+    for (let client of this.listClient) {
         if (client.name === this.loginService.user.name) {
           clientIsInList = true;
           return;
@@ -209,19 +190,16 @@ export class CardService {
   }
 
   getObservableAllClientFromServer(): any {
-    // A REMETTRE
-    // if (typeof this.loginService.user.name === 'undefined') {
-    //   return;
-    // }
 
-    // debugger;
+    if (typeof this.loginService.user.name === 'undefined') {
+      return;
+    }
+
     const urlBdSaveList = 'https://preferenceclient.firebaseio.com/listClient.json';
     return this.httpClient.get<any[]>(urlBdSaveList);
   }
 
   getListClientFromServer(): any {
-
-    // this.listCustom$: Observable<[]> = this.getObservableListCardsFromServer('custom');
 
     debugger;
     const urlBdSaveList = 'https://preferenceclient.firebaseio.com/listClient.json';
@@ -303,63 +281,6 @@ export class CardService {
   }
 
 
-  // getListCardsFromServerOld(cardType): any {
-  //   // debugger;
-  //   const urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
-  //   return this.httpClient
-  //     .get<any[]>(urlBdSaveList)
-  //     .subscribe(
-  //     (response) => {
-  //       console.log('reponse');
-  //       console.log(Object.values(response));
-  //       this.setListFromType(cardType, Object.values(response)[0]);
-  //     },
-  //     (error) => {
-  //       console.log('Erreur dans le getList server ! : ' + error);
-  //     }
-  //     );
-  // }
-
-  // getAllListCardFromServer() {
-
-  //   console.log('get all from server');
-
-  //   this.listOwner$.subscribe((listCard: any[]) => {
-  //     if (listCard) {
-  //       this.setListFromType('owner', listCard);
-  //     } else {
-  //       console.log('list owner vide...)');
-  //       // this.listCardKitchenEmptyOnServer = true;
-  //     }
-  //   });
-
-  //   this.listCustom$.subscribe((listCard: any[]) => {
-  //     if (listCard) {
-  //       this.setListFromType('custom', listCard);
-  //     } else {
-  //       console.log('list custom vide...)');
-  //     }
-  //   });
-  // }
-
-//   test(typeList) {
-//   if (typeList === 'custom' && this.listCardCustomImg.length === 0 && this.loginService.user.name !== 'undefinine') {
-//     const monObservable = this.getObservableListCardsFromServer('custom');
-//     console.log('ici');
-
-//     monObservable.subscribe((listCard: any[]) => {
-//       if (listCard) {
-//         this.setListFromType('custom', listCard);
-//         // this.evReloadCustomList.emit('reloadCustomList');
-//       } else {
-//         console.log('list custom vide...)');
-
-//         // this.listCardCustomImgEmptyOnServer = true;
-//       }
-//     });
-//   }
-// }
-
   getListFromType(typeList: string) {
     // debugger;
     if (typeList === 'owner') {
@@ -383,16 +304,6 @@ export class CardService {
   }
 
   addCardToList(typeList: string, pathImg: string, title: string, like: boolean, comment: string,  description: string, fileType: string) {
-    // this.checkImage(pathImg, this.success, this.fail);
-    // this.checkImage(pathImg, this.success, this.fail);
-    // if (!this.valid){
-    // 	console.log('valid??');
-    // 	console.log(this.valid);
-    // 	return
-    // }
-    // check that url:
-    // https://lh3.googleusercontent.com/proxy/gTdE3tyOWcAuosqQPsyP7qxmO5VFMGm2fp0sY4i4HZkMaLfBh-Wy0lKJuK-e6P_byZCG8CAwo1j5TDNfcjF0e0yuORc2Cxjs-XLYR8C8OkHQ7j8wVKdvYqKOJl9fzUmpcQmX2MipbpaYibdIxNlJqKV0WfFwMRCp
-
 
     let goodList: any[];
     goodList = this.getListFromType(typeList);
@@ -407,6 +318,8 @@ export class CardService {
       }
     );
     this.messageService.snackMessageSansTitre('Une photo a été ajoutée votre liste');
+    this.saveListCardToServer('custom');
+    alert('save server');
   }
 
   saveACard(cardType, cardIndex, like, comment) {
@@ -414,15 +327,19 @@ export class CardService {
     const goodList = this.getListFromType(cardType);
     goodList[cardIndex].like = like;
     goodList[cardIndex].comment = comment;
+    this.saveListCardToServer('custom');
+    alert('save server');
   }
 
   deleteACard(cardType, index, message) {
-    // debugger;
     const goodList = this.getListFromType(cardType);
     goodList.splice(index, 1);
     if (message) {
       this.messageService.snackMessageSansTitre('Une photo a été supprimée de votre liste');
+      this.saveListCardToServer('custom');
+      alert('save server');
     }
+
 
   }
 

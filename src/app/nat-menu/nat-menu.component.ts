@@ -42,7 +42,7 @@ export class NatMenuComponent implements OnInit {
   }
 
   eventHandler(event) {
-    debugger;
+    // debugger;
     if (event === 'login') {
         // console.log('menu comp: recu de fenetre accueil: login');
         this.loginMenuIsOn = true;
@@ -79,7 +79,7 @@ export class NatMenuComponent implements OnInit {
   }
 
   onLoginOk() {
-    debugger;
+    // debugger;
     this.cardService.getListOwnerFromServer();
     this.cardService.getListCustomFromServer();
     this.cardService.getListClientFromServer();
@@ -147,12 +147,14 @@ export class NatMenuComponent implements OnInit {
 
   onClicCustomList() {
     // console.log('clic list client');
+
     if (this.loginService.loggedIn === false) {
       this.messageService.snackMessageSansTitre('Identifiez-vous d\'abord');
       // alert('Vous n\'êtes pas identifié, identifiez-vous');
       this.onClicMenuLogin();
       return;
     }
+
     this.accueilIsOn = false;
     this.cardIsOn = true;
     this.avatar = 'list';

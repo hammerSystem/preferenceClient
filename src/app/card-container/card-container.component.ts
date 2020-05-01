@@ -29,12 +29,12 @@ export class CardContainerComponent implements OnInit {
   }
 
   eventHandler(cardType) {
-    debugger;
+    // alert('save server'); // non mauvaise palce
     this.switchCardType(cardType);
   }
 
     switchCardType(newCardType) {
-      debugger;
+      // debugger;
       this.cardType = newCardType;
       this.switchListActiveTitle(newCardType);
       this.listCard = this.cardService.getListFromType(newCardType);
@@ -50,7 +50,7 @@ export class CardContainerComponent implements OnInit {
 
   ngOnDestroy() {
     debugger;
-    alert('destryo container');
+    alert('save container server');
     this.saveListCardType('custom');
     // this.saveListCard();
     // // this.save()
