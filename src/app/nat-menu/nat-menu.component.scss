@@ -13,10 +13,24 @@ mat-sidenav-container{
 }
 
 .login-as{
-  display:flex;
-  justify-content: flex-end;
+  // display:flex;
+  // justify-content: flex-end;
   font-size: 12px;
+  padding-top:12px;
+  padding-right:8px
 }
+
+#menu-button{
+  margin-left: 10px;
+}
+
+.container-flex{
+  display: flex;
+  justify-content: space-between;
+}
+// .un{
+//   display: flex;
+// }
 
 .menu-and-log{
   display: flex;

@@ -12,10 +12,9 @@
         (closed)="events.push('close!')"
         >
 
-      <!-- <div> -->
-        <mat-nav-list>
+
+        <!-- <mat-nav-list>
           <mat-list-item (click)="sidenav.toggle()">
-            <!-- <!- <div> -->
                <button
                     mat-icon-button
                     id="menu-button"
@@ -27,8 +26,18 @@
                     <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
                     Menu
                 </button>
-        <!-- </div> -->
+          </mat-list-item>
+        </mat-nav-list> -->
 
+        <mat-nav-list>
+          <mat-list-item (click)="sidenav.toggle()"
+              id="menu-button"
+              class="menu-button"
+              tooltip-position="below"
+              matTooltipShowDelay="500"
+              matTooltip="Fermer menu">
+              <mat-icon matListIcon >menu</mat-icon>
+              Menu
           </mat-list-item>
         </mat-nav-list>
 
@@ -87,6 +96,8 @@
 
     <!-- contenue menu ouvert -->
     <mat-sidenav-content>
+      <div class='container-flex'>
+        <div class='un'>
         <button
             mat-icon-button
             id="menu-button"
@@ -97,10 +108,12 @@
             <mat-icon>menu</mat-icon>
             Menu
         </button>
+      </div>
         <div  *ngIf="loginService.loggedIn" class="login-as">
           <div>Authentifié:<br>{{loginService.user.firstName}}  {{loginService.user.lastName}}</div>
           <!-- <img class="img-fb-photo" mat-card-image [src]="loginService.user.photoUrl" alt="Facebook Photo"> -->
         </div>
+      </div>
 
         <app-accueil *ngIf="accueilIsOn"
             (evClicLogin)="eventHandler($event)"

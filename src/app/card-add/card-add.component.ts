@@ -40,8 +40,10 @@ export class CardAddComponent implements OnInit {
    async uploadFile() {
     if (this.file) {
       const filePath = `${this.basePath}/${this.file.name}`;    // path at which image will be stored in the firebase storage
+      console.log(filePath);
       const snap = await this.afStorage.upload(filePath, this.file);    // upload task
       this.getUrl(snap);
+      debugger;
     } else {alert('Please select an image'); }
   }
 
@@ -92,7 +94,7 @@ export class CardAddComponent implements OnInit {
   }
 
   saveNewCard() {
-    // console.log('on save ajout');
+    // pour les photos ajoute avec lien
     let fileType = this.getTypeFile(this.path);
     debugger;
     this.cardService.addCardToList('custom', this.path, this.title, false, '', '', fileType);
@@ -100,21 +102,28 @@ export class CardAddComponent implements OnInit {
     this.clearNewCard();
   }
 
+  saveNewCard2() {
+    // pour les photos ajoute de l'appareil
+    this.uploadFile();
+  }
+
   clearNewCard() {
+    // pour les photos avec lien
     this.title = '';
     this.path = '';
   }
 
-  saveNewCard2() {
-    this.uploadFile();
-  }
-
   clearNewCard2() {
+    // pour les photos ajoute de l'appareil
     debugger;
     this.title2 = '';
     this.path = '';
     this.file = null;
   }
+
+
+
+
   // uploadImg(path){
   //   debugger;
   //   this.cardService.uploadImage(this.pathImageFileToUpload);
