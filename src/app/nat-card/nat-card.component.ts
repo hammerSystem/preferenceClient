@@ -51,14 +51,12 @@ export class NatCardComponent implements OnInit {
 //   this.saveACard();
 // }
   toggleToCustomList() {
-    debugger;
     this.evToggleList.emit('custom');
   }
 
   addCardToCustomList() {
     // console.log('add cvard to custom list');
     this.cardService.addCardToList('custom', this.path, this.title, this.like, this.comment, this.desc, this.fileType);
-    debugger;
     this.cardService.deleteACard(this.cardType, this.index, false);
   }
 

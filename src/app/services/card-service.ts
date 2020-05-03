@@ -122,10 +122,9 @@ export class CardService {
     const goodList = this.getListFromType(cardType);
     if (goodList == null || goodList.length === 0) {
       console.log('attention liste est vide');
-      debugger;
       return;
     }
-    debugger;
+
     console.log('enregistrement server listCard, type = ')
     console.log(cardType);
     let requeteHttp: any;
@@ -147,8 +146,6 @@ export class CardService {
 
 
   saveListClientToServer() {
-
-    debugger;
 
     console.log('save list client server');
     // check si existe deja on sort
@@ -201,7 +198,6 @@ export class CardService {
 
   getListClientFromServer(): any {
 
-    debugger;
     const urlBdSaveList = 'https://preferenceclient.firebaseio.com/listClient.json';
     this.listAllClient$ = this.httpClient.get<any[]>(urlBdSaveList);
     this.listAllClient$.subscribe((listClient: any[]) => {
@@ -225,7 +221,6 @@ export class CardService {
 
   getListNoNull(list) {
     const listNoNull = [];
-    // debugger;
     for (const i of list) {
       if (i !== null) {
         listNoNull.push(i);
@@ -238,7 +233,6 @@ export class CardService {
 
     // this.listCustom$: Observable<[]> = this.getObservableListCardsFromServer('custom');
 
-    debugger;
     const urlBdSaveList = this.getUrlBdWithUserAndType('custom');
     this.listCustom$ = this.httpClient.get<any[]>(urlBdSaveList);
     this.listCustom$.subscribe((listCard: any[]) => {
@@ -256,7 +250,6 @@ export class CardService {
 
     // this.listCustom$: Observable<[]> = this.getObservableListCardsFromServer('custom');
 
-    // debugger;
     const urlBdSaveList = this.getUrlBdWithUserAndType('owner');
     this.listOwner$ = this.httpClient.get<any[]>(urlBdSaveList);
     this.listOwner$.subscribe((listCard: any[]) => {
@@ -275,14 +268,12 @@ export class CardService {
     if (typeof this.loginService.user.name === 'undefined') {
       return;
     }
-    // debugger;
     const urlBdSaveList = this.getUrlBdWithUserAndType(cardType);
     return this.httpClient.get<any[]>(urlBdSaveList);
   }
 
 
   getListFromType(typeList: string) {
-    // debugger;
     if (typeList === 'owner') {
         return this.listCardOwner;
     // } else if (typeList === 'bathtub') {
@@ -293,7 +284,6 @@ export class CardService {
   }
 
   setListFromType(typeList: string, listCards: any[]) {
-    // debugger;
     if (typeList === 'owner') {
             this.listCardOwner = listCards;
     // } else if (typeList === 'bathtub') {

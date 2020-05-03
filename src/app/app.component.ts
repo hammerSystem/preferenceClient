@@ -21,22 +21,34 @@ export class AppComponent {
     // this.save()
   }
 
-  // @HostListener('window:beforeunload', ['$event'])
-  // SaveOnUnload($event: any) {
-  //   // alert('sauvegarde automatique');
-  //     // if (this.hasUnsavedData()) {
-  //     //     $event.returnValue =true;
-  //     // }
-  //   // debugger;
-  //   if (this.loginService.loggedIn) {
-  //     // console.log('Save list card on server!!!');
-  //     this.cardService.saveListCardToServer('custom');
-  //     if (this.loginService.logFb) {
-  //       this.authService.signOut();
-  //     }
-  //     this.loginService.setUser('', false);
-  //   }
-      // debugger;
-  // }
+  @HostListener('window:pagehide')  // for safarie
+  SaveOnUnloadSafrie($event: any) {
+    console.log('JM SAFARIE onbeforeunload');
+    // $event.returnValue = '';
+    if (this.loginService.loggedIn) {
+
+      if (this.loginService.logFb) {
+       this.authService.signOut();
+       console.log('JM SAFARIE - sign out FB');
+      }
+      this.loginService.setUser('', false);
+   }
+  }
+
+
+  @HostListener('window:beforeunload', ['$event']) // doesn't support on safarie make
+  SaveOnUnload($event: any) {
+    console.log('JM onbeforeunload');
+    // $event.returnValue = '';
+    if (this.loginService.loggedIn) {
+
+      if (this.loginService.logFb) {
+       this.authService.signOut();
+       console.log('JM -sign out FB');
+      }
+      this.loginService.setUser('', false);
+   }
+
+ }
 
 }

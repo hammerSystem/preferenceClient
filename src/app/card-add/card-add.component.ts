@@ -29,7 +29,7 @@ export class CardAddComponent implements OnInit {
   ngOnInit() {
   }
   handleFiles(event) {
-    debugger;
+    // debugger;
     this.file = event.target.files[0];
     // this.uploadFile();
 
@@ -43,7 +43,7 @@ export class CardAddComponent implements OnInit {
       console.log(filePath);
       const snap = await this.afStorage.upload(filePath, this.file);    // upload task
       this.getUrl(snap);
-      debugger;
+      // debugger;
     } else {alert('Please select an image'); }
   }
 
@@ -52,7 +52,7 @@ export class CardAddComponent implements OnInit {
     const url = await snap.ref.getDownloadURL();
     this.url = url;  // store the URL
     // console.log(this.url);
-    debugger;
+    // debugger;
     const fileType = this.getTypeFile(this.url);
     this.cardService.addCardToList('custom', this.url, this.title2, false, '', '', fileType);
   }
@@ -96,7 +96,7 @@ export class CardAddComponent implements OnInit {
   saveNewCard() {
     // pour les photos ajoute avec lien
     let fileType = this.getTypeFile(this.path);
-    debugger;
+    // debugger;
     this.cardService.addCardToList('custom', this.path, this.title, false, '', '', fileType);
 
     this.clearNewCard();
@@ -115,7 +115,7 @@ export class CardAddComponent implements OnInit {
 
   clearNewCard2() {
     // pour les photos ajoute de l'appareil
-    debugger;
+    // debugger;
     this.title2 = '';
     this.path = '';
     this.file = null;

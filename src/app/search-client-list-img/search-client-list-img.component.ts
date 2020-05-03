@@ -18,14 +18,11 @@ export class SearchClientListImgComponent implements OnInit {
   @Output() evChangeMenu: EventEmitter<string> = new EventEmitter();
 
   ngOnInit() {
-    debugger;
     this.listClient = this.cardService.getListClient();
-    debugger;
   }
 
   onClickClient(index) {
-    console.log('click client');
-    debugger;
+    console.log('click client -> set user');
     // const clientNameSelect = this.listClient[index].name;
     // // this.clientSelect = this.loginService.getUserFromName(clientNameSelect);
     // this.loginService.setUser(this.clientSelect, true);
@@ -34,7 +31,6 @@ export class SearchClientListImgComponent implements OnInit {
     this.loginService.setUser(this.clientSelect, true);
 
     this.cardService.getListCustomFromServer();
-    console.log(index);
 
   }
   OnClickSeeListClient() {

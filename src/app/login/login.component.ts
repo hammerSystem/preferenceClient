@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
       (user) => {
       this.user = user;
       this.loggedIn = (user != null);
-      // console.log("user a l'init:");
-      // console.log(this.user);
+      console.log("user a l'init:");
+      console.log(this.user);
       // debugger;
       if (this.user !== null && typeof this.user.name !== 'undefined') {
         this.loginService.setUser(this.user, this.loggedIn);
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         this.evLogin.emit('logOk');
       }
     },
-    err => console.log('erreur!!', err));
+    err => console.log('erreur init FB authentification!!:  ', err));
 
   }
 
@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit {
     }catch (err) {
         alert(err.message);
       }
+    console.log('auth FB termine');
   }
 
   signOut(): void {

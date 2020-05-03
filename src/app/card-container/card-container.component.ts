@@ -63,7 +63,7 @@ export class CardContainerComponent implements OnInit {
   }
 
   saveListCard() {
-    debugger;
+    // debugger;
     console.log('container: call Cardservice save on server. typeCard');
     console.log(this.cardType);
     this.cardService.saveListCardToServer(this.cardType);
