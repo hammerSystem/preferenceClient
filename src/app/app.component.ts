@@ -21,7 +21,7 @@ export class AppComponent {
     // this.save()
   }
 
-  @HostListener('window:pagehide')  // for safarie
+  @HostListener('window:pagehide', ['$event'])  // for safarie
   SaveOnUnloadSafrie($event: any) {
     console.log('JM SAFARIE onbeforeunload');
     // $event.returnValue = '';
