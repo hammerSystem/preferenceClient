@@ -37,8 +37,8 @@ export class LoginComponent implements OnInit {
     //   version: 'v2.0'
     // };
     fb.init({
-      appId: '1034585276923099', // test
-      // appId: '224516148907971', // prod
+      // appId: '1034585276923099', // test
+      appId: '224516148907971', // prod
       xfbml: true,
       version: 'v2.0'
     })
