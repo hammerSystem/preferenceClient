@@ -2,7 +2,7 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 // import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
-import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
+// import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
 
 
 @Injectable({
@@ -18,7 +18,14 @@ export class LoginService {
 
   // @Output() evLogin: EventEmitter<string> = new EventEmitter();
 
-  user: SocialUser = new SocialUser();
+  // user: SocialUser = new SocialUser();
+  user = {
+    name: '',
+    firstName: '',
+    lastName: '',
+    id:0
+  }
+
   loggedIn = false;
   loggedAsAdmin = false;
   logFb = false;
@@ -31,8 +38,9 @@ export class LoginService {
   //   name: ''
   // };
 
-  constructor(private authService: AuthService) {}
-              // private snackBar: MatSnackBar) { }
+  constructor() {}
+  // constructor(private authService: AuthService) {}
+
 
 
   // getUserFromName(userName) {
@@ -47,7 +55,7 @@ export class LoginService {
   }
 
   setUser(user, loggedIn) {
-
+    debugger;
     this.user = user;
     this.loggedIn = loggedIn;
     if (user.firstName === 'admin') {

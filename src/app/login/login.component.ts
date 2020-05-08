@@ -3,7 +3,8 @@ import { LoginService} from '../services/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CardService } from '../services/card-service';
 import { MessageService } from '../services/message.service';
-import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
+// import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
+import { FacebookService, InitParams, LoginResponse, LoginOptions  } from 'ngx-facebook';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +13,9 @@ import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-
 })
 export class LoginComponent implements OnInit {
 
-  user: SocialUser = new SocialUser();
-  loggedIn = false;
+  // private user: SocialUser = new SocialUser();
+  private loggedIn = false;
+  private user;
 
   @Output() evLogin: EventEmitter<string> = new EventEmitter();
 
@@ -22,53 +24,149 @@ export class LoginComponent implements OnInit {
   // logAsAdmin = false;
   @Input() passwordValue: string;
 
-  constructor(private authService: AuthService,
-              public loginService: LoginService,
-              private cardService: CardService,
-              private messageService: MessageService) { }
+  constructor(
+    // private authService: AuthService,
+    private fb: FacebookService,
+    public loginService: LoginService,
+    private cardService: CardService,
+    private messageService: MessageService) {
+    // let initParams: InitParams = {
+    //   appId: '1034585276923099', // test
+    //   // appId: '224516148907971', // prod
+    //   xfbml: true,
+    //   version: 'v2.0'
+    // };
+    fb.init({
+      appId: '1034585276923099', // test
+      // appId: '224516148907971', // prod
+      xfbml: true,
+      version: 'v2.0'
+    })
+  }
 
-  ngOnInit() {
-    // this.loginService.authStateSubscribe();
+  share = 'https://adncuisines.ca/';
 
-    this.authService.authState.subscribe(
-      (user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-      console.log("user a l'init:");
-      console.log(this.user);
-      // debugger;
-      if (this.user !== null && typeof this.user.name !== 'undefined') {
-        this.loginService.setUser(this.user, this.loggedIn);
+
+  loginWithFacebook(): void {
+
+    this.fb.login()
+      .then((response: LoginResponse) => {
+        console.log('Logged in', response)
+        this.getFbProfile();
+        // let user = this.getUserFromRawFbUser(userFbRaw);
+        // this.loginService.setUser(user, true);
+      }
+
+        )
+      .catch((error: any) => console.error(error));
+  }
+
+  // loginWithFacebook() {
+
+  //   const loginOptions: LoginOptions = {
+  //     enable_profile_selector: true,
+  //     return_scopes: true,
+  //     scope: 'public_profile,user_friends,email,pages_show_list'
+  //   };
+
+  //   this.fb.login(loginOptions)
+  //     .then((res: LoginResponse) => {
+  //       console.log('Logged in', res);
+  //     })
+  //     .catch(this.handleError);
+
+  // }
+
+  getFbProfile() {
+    this.fb.api('/me')
+      .then((res: any) => {
+        console.log('Got the users profile', res);
+        // return res;
+        this.user = this.getUserFromRawFbUser(res);
+        this.loginService.setUser(this.user, true);
+        this.loggedIn = true;
         this.loginService.setLogFb(true);
         this.evLogin.emit('logOk');
-      }
-    },
-    err => console.log('erreur init FB authentification!!:  ', err));
 
+      })
+      .catch(this.handleError);
   }
+
+getUserFromRawFbUser(rawFbUser){
+  let idxSpace: number;
+  debugger;
+  idxSpace = rawFbUser.name.indexOf(' ');
+  let firstName = rawFbUser.name.substr(0, idxSpace);
+  let lastName = rawFbUser.name.substr(idxSpace+1);
+  let user = {
+      name: rawFbUser.name,
+      firstName: firstName,
+      lastName: lastName,
+      id: rawFbUser.id
+    }
+    return user;
+  }
+
+
+  private handleError(error) {
+    console.error('Error processing action', error);
+  }
+
+  shareOnFacebook() {
+    let url = 'http://www.facebook.com/sharer.php?u='+ this.share
+        let newwindow=window.open(url,'name','height=500,width=520,top=200,left=300,resizable');
+    if (window.focus) {
+      newwindow.focus()
+    }
+  }
+
+  /* make the API call */
+  // this.fb.api(
+  //   "/{user-id}/",
+  //   function (response) {
+  //     if (response && !response.error) {
+  //       /* handle the result */
+  //       console.log(reponse);
+  //     }
+  //   }
+  // );
+
+  ngOnInit() {}
+  //   // this.authService.signOut(); // maybe test a faire -> si plusieurs authentification sur meme appareil
+  //   this.authService.authState.subscribe(
+  //     (user) => {
+  //     this.user = user;
+  //     this.loggedIn = (user != null);
+  //     if (this.user !== null && typeof this.user.name !== 'undefined') {
+  //       this.loginService.setUser(this.user, this.loggedIn);
+  //       this.loginService.setLogFb(true);
+  //       this.evLogin.emit('logOk');
+  //     }
+  //   },
+  //   err => console.log('erreur init FB authentification!!:  ', err));
+
+  // }
+  // signInWithFB(): void {
+  //   if (this.loginService.loggedAsAdmin) {
+  //     this.onCheckLogOutAsAdmin();
+  //   }
+  //   try {
+  //     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  //   }catch (err) {
+  //       alert(err.message);
+  //     }
+  //   console.log('auth FB termine');
+  // }
 
   onClickToggleToCustomList() {
     this.evLogin.emit('custom');
-  }
-
-  signInWithFB(): void {
-    if (this.loginService.loggedAsAdmin) {
-      this.onCheckLogOutAsAdmin();
-    }
-    // debugger;
-    try {
-      this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-    }catch (err) {
-        alert(err.message);
-      }
-    console.log('auth FB termine');
   }
 
   signOut(): void {
     // debugger;
     this.cardService.saveListCardToServer('custom');
     if (this.loginService.logFb) {
-      this.authService.signOut();
+      // this.authService.signOut();
       this.loginService.setLogFb(false);
     }
     this.loginService.setUser('', false);

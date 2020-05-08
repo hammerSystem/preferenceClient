@@ -232,7 +232,7 @@ export class CardService {
   getListCustomFromServer(): any {
 
     // this.listCustom$: Observable<[]> = this.getObservableListCardsFromServer('custom');
-
+    debugger;
     const urlBdSaveList = this.getUrlBdWithUserAndType('custom');
     this.listCustom$ = this.httpClient.get<any[]>(urlBdSaveList);
     this.listCustom$.subscribe((listCard: any[]) => {

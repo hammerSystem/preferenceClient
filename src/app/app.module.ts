@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
-import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+// import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -60,19 +60,19 @@ import { HttpClientModule } from '@angular/common/http';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import { SearchClientListImgComponent } from './search-client-list-img/search-client-list-img.component';
+import { FacebookModule } from 'ngx-facebook';
 
+// const config = new AuthServiceConfig([
+//   {
+//     id: FacebookLoginProvider.PROVIDER_ID,
+//     // provider: new FacebookLoginProvider('1034585276923099') // test
+//     provider: new FacebookLoginProvider('224516148907971')
+//   }
+// ]);
 
-const config = new AuthServiceConfig([
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    // provider: new FacebookLoginProvider('1034585276923099') // test
-    provider: new FacebookLoginProvider('224516148907971')
-  }
-]);
-
-export function provideConfig() {
-  return config;
-}
+// export function provideConfig() {
+//   return config;
+// }
 
 @NgModule({
   declarations: [
@@ -100,7 +100,8 @@ export function provideConfig() {
     AngularFireStorageModule,
 
     BrowserModule,
-    SocialLoginModule,
+    // SocialLoginModule,
+    FacebookModule.forRoot(),
 
     MatCardModule,
     MatButtonModule,
@@ -151,11 +152,11 @@ export function provideConfig() {
   ],
 
   providers: [
-    CardService,
-    {
-      provide: AuthServiceConfig,
-      useFactory: provideConfig
-    }
+    CardService
+    // {
+    //   provide: AuthServiceConfig,
+    //   useFactory: provideConfig
+    // }
   ],
 
   bootstrap: [AppComponent]

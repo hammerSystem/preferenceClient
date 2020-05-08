@@ -29,20 +29,27 @@
 
 <div class="container">
   <mat-card class="example-card">
+    <button type="button" (click)="shareOnFacebook()"  mat-flat-button color="primary">Partger ADN & Cuisines sur FaceBook </button>
     <mat-card-header>
-      <mat-card-title><h3><span *ngIf="loggedIn===false">Authentifiez-vous!</span> <span *ngIf="loggedIn===true">Bienvenue {{user.firstName}} {{user.lastName}}, </span> </h3></mat-card-title>
+      <mat-card-title>
+        <h2>
+          <span *ngIf="this.loginService.loggedIn===false">Authentifiez-vous!</span>
+          <span *ngIf="this.loginService.loggedIn===true">Bienvenue {{this.loginService.user.firstName}} {{this.loginService.user.lastName}}, </span>
+        </h2>
+      </mat-card-title>
       <mat-card-subtitle>
-        <button type="button" (click)="signInWithFB()" *ngIf="loggedIn===false" mat-flat-button color="primary">Authentifiez vous avec Facebook</button>
-        <button type="button" (click)="signOut()" *ngIf="loggedIn===true" mat-flat-button color="primary">Déconnexion Facebook</button>
+        <button type="button" (click)="loginWithFacebook()" *ngIf="this.loginService.loggedIn===false" mat-flat-button color="primary">Authentifiez vous avec Facebook</button>
+        <!-- <button type="button" (click)="signInWithFB()" *ngIf="loggedIn===false" mat-flat-button color="primary">Authentifiez vous avec Facebook</button> -->
+        <button type="button" (click)="signOut()" *ngIf="this.loginService.loggedIn===true" mat-flat-button color="primary">Déconnexion Facebook</button>
       </mat-card-subtitle>
     </mat-card-header>
   </mat-card>
-  <mat-card class="example-card" *ngIf="loggedIn===true">
-    <mat-card-header>
+  <mat-card class="example-card" *ngIf="this.loginService.loggedIn===true">
+    <!-- <mat-card-header>
       <mat-card-title><h4 class='h4-spacer'>Votre profile Facebook :</h4></mat-card-title>
-      <mat-card-subtitle>Nom complet: {{user.firstName}} {{user.lastName}}</mat-card-subtitle>
-    </mat-card-header>
-    <img class="img-fb-photo" mat-card-image [src]="user.photoUrl" alt="Facebook Photo">
+      <mat-card-subtitle>Nom complet: {{this.loginService.user.firstName}} {{this.loginService.user.lastName}}</mat-card-subtitle>
+    </mat-card-header> -->
+    <!-- <img class="img-fb-photo" mat-card-image [src]="user.photoUrl" alt="Facebook Photo"> -->
     <!-- <mat-card-content>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </mat-card-content> -->
