@@ -1,21 +1,25 @@
-import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef  } from '@angular/core';
 import { LoginService} from '../services/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CardService } from '../services/card-service';
 import { MessageService } from '../services/message.service';
 // import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
-import { FacebookService, InitParams, LoginResponse, LoginOptions  } from 'ngx-facebook';
+// import { FacebookService, InitParams, LoginResponse, LoginOptions  } from 'ngx-facebook';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit {
 
   // private user: SocialUser = new SocialUser();
   private loggedIn = false;
   private user;
+  test
+  appId: '1034585276923099' // test
+  // appId: '224516148907971', // prod
 
   @Output() evLogin: EventEmitter<string> = new EventEmitter();
 
@@ -26,40 +30,77 @@ export class LoginComponent implements OnInit {
 
   constructor(
     // private authService: AuthService,
-    private fb: FacebookService,
+    // private fb: FacebookService,
     public loginService: LoginService,
     private cardService: CardService,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private cdRef: ChangeDetectorRef) {
+
+      // this.loadSDKFacebook(); //MSP metgode
+    }
+
+
     // let initParams: InitParams = {
     //   appId: '1034585276923099', // test
     //   // appId: '224516148907971', // prod
     //   xfbml: true,
     //   version: 'v2.0'
     // };
-    fb.init({
-      // appId: '1034585276923099', // test
-      appId: '224516148907971', // prod
-      xfbml: true,
-      version: 'v2.0'
-    })
-  }
+
+  //   fb.init({
+  //     // appId: '1034585276923099', // test
+  //     appId: '224516148907971', // prod
+  //     xfbml: true,
+  //     version: 'v2.0'
+  //   })
+  // }
 
   share = 'https://adncuisines.ca/';
 
 
   loginWithFacebook(): void {
-
-    this.fb.login()
-      .then((response: LoginResponse) => {
-        console.log('Logged in', response)
-        this.getFbProfile();
-        // let user = this.getUserFromRawFbUser(userFbRaw);
-        // this.loginService.setUser(user, true);
-      }
-
-        )
-      .catch((error: any) => console.error(error));
+    // debugger;
+    (window as any).FB.getLoginStatus((fbResponse) => {
+      this.handleFbGetStatus(fbResponse);
+    })
   }
+
+  //     debugger;
+  //     alert(`votre statut FB est : ${fbResponse.status}`);
+  //     console.log('reponse apres le check statut : ')
+  //     console.log(fbResponse)
+  //     this.subscribeEvents();
+
+  //     if (fbResponse.status === 'connected') {
+  //       // const accessToken = fbResponse.authResponse.accessToken;
+  //       // this.loginFacebook(accessToken);
+
+  //     } else if (fbResponse.status === 'unknown') {
+  //       (window as any).FB.login(function(response) {
+  //         console.log('on est unkown on se connect!');
+  //         console.log('reponse: ');
+  //         console.log(response);
+  //         debugger;
+
+  //         // handle the response
+  //       });
+  //     }
+  //  });
+  // }
+
+
+
+  //   this.fb.login()
+  //     .then((response: LoginResponse) => {
+  //       console.log('Logged in', response)
+  //       this.getFbProfile();
+  //       // let user = this.getUserFromRawFbUser(userFbRaw);
+  //       // this.loginService.setUser(user, true);
+  //     }
+
+  //       )
+  //     .catch((error: any) => console.error(error));
+  // }
 
   // loginWithFacebook() {
 
@@ -78,26 +119,64 @@ export class LoginComponent implements OnInit {
   // }
 
   getFbProfile() {
-    this.fb.api('/me')
-      .then((res: any) => {
-        console.log('Got the users profile', res);
-        // return res;
-        this.user = this.getUserFromRawFbUser(res);
-        this.loginService.setUser(this.user, true);
-        this.loggedIn = true;
-        this.loginService.setLogFb(true);
-        this.evLogin.emit('logOk');
+    // this.test = (window as any).FB.api('/me');
+    // (window as any).FB.api('/me', {fields: 'last_name'}, function(response) {
 
-      })
-      .catch(this.handleError);
+    // (window as any).FB.api('/me', function(response) {
+    (window as any).FB.api('/me', (response) => {
+      this.handleFbGetUser(response);
+  })
+}
+
+  handleFbGetUser(fbUserRes) {
+    // debugger;
+    if (fbUserRes !== 'null' && fbUserRes !== 'undefined'){
+      alert(`FB GetUserINFO: ${fbUserRes.name}`);
+    }
+    else {
+      alert('FB GetUserINFO: la reponse est vide !!');
+    }
+    console.log('la repons eest:');
+    console.log(fbUserRes);
+    this.user = this.getUserFromRawFbUser(fbUserRes);
+    this.loginService.setUser(this.user, true);
+    this.loggedIn = true;
+    this.cdRef.detectChanges();
+    this.loginService.setLogFb(true);
+    this.evLogin.emit('logOk');
+
   }
+
+  handleFbGetStatus(fbStatusResponse) {
+    alert(`En partant votre statut FB est : ${fbStatusResponse.status}`);
+
+    if (fbStatusResponse.status === 'connected') {
+      this.getFbProfile();
+
+    } else {
+    // } else if (fbStatusResponse.status === 'unknown') {
+
+      (window as any).FB.login((response) => {
+        this.handleFbLogin(response);
+        // handle the response
+      });
+    }
+  }
+
+  handleFbLogin(fbLoginResponse) {
+    alert(`apres LOGIN FB votre statut FB est : ${fbLoginResponse.status}`);
+
+    console.log(fbLoginResponse)
+    this.getFbProfile();
+
+  }
+
 
 getUserFromRawFbUser(rawFbUser){
   let idxSpace: number;
-  debugger;
   idxSpace = rawFbUser.name.indexOf(' ');
   let firstName = rawFbUser.name.substr(0, idxSpace);
-  let lastName = rawFbUser.name.substr(idxSpace+1);
+  let lastName = rawFbUser.name.substr(idxSpace + 1);
   let user = {
       name: rawFbUser.name,
       firstName: firstName,
@@ -132,6 +211,88 @@ getUserFromRawFbUser(rawFbUser){
   // );
 
   ngOnInit() {}
+  //   debugger;
+  //   (window as any).fbAsyncInit = function() {
+  //     (window as any).FB.init({
+  //     appId: '1034585276923099', // test
+  //     // appId: '224516148907971', // prod
+  //     autoLogAppEvents : true,
+  //     xfbml            : true,
+  //     version          : 'v7.0'
+  //   });
+  // };
+
+
+  private loadSDKFacebook() {
+
+    // if (document.getElementById('facebook-jssdk')) {
+    //   return;
+    // }
+
+    const urlSDK =
+      'https://connect.facebook.net/fr_CA/sdk.js#xfbml=1&version=v2.9';
+
+    const fjs = document.getElementsByTagName('script')[0];
+    const js = document.createElement('script');
+    js.id = 'facebook-jssdk';
+    js.src = `${urlSDK}&appId=${this.appId}`;
+    js.onload = () => {
+      this.subscribeEvents();
+      // console.log('load');
+    };
+    fjs.parentNode.insertBefore(js, fjs);
+  }
+
+  private subscribeEvents() {
+    (window as any).FB.Event.subscribe('auth.statusChange', rep => {
+      this.statusChangeCallback(rep);
+    });
+  }
+
+
+  statusChangeCallback(fbResponse) {
+    alert(`votre statut FB est : ${fbResponse.status}`);
+
+    if (fbResponse.status === 'connected') {
+      this.getFbProfile();
+
+    } else if (fbResponse.status === 'unknown') {
+      (window as any).FB.login(function(response){
+        console.log('reponse: ');
+        console.log(response);
+
+        // handle the response
+      });
+
+    }
+
+  }
+
+  private loginFacebook(token) {
+    console.log('im log');
+    // this.authService.loginWithToken(token, 'facebook').subscribe(() => {
+    //   this.appRef.tick();
+    //   this.login.emit(true);
+    // });
+  }
+
+//   (function(d, s, id){
+//     debugger;
+//     var js, fjs = d.getElementsByTagName(s)[0];
+//     if (d.getElementById(id)) {return;}
+//     js = d.createElement(s); js.id = id;
+//     js.src = "https://connect.facebook.net/en_US/sdk.js";
+//     fjs.parentNode.insertBefore(js, fjs);
+//   }(document, 'script', 'facebook-jssdk'));
+
+// // async defer src="https://connect.facebook.net/en_US/sdk.js">
+
+// (window as any).FB.getLoginStatus(function(response) {
+//       statusChangeCallback(response);
+//   });
+//   }
+
+
   //   // this.authService.signOut(); // maybe test a faire -> si plusieurs authentification sur meme appareil
   //   this.authService.authState.subscribe(
   //     (user) => {
@@ -163,7 +324,7 @@ getUserFromRawFbUser(rawFbUser){
   }
 
   signOut(): void {
-    // debugger;
+
     this.cardService.saveListCardToServer('custom');
     if (this.loginService.logFb) {
       // this.authService.signOut();
